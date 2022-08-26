@@ -2,6 +2,7 @@
 	import Accordion from '$lib/accordion/Accordion.svelte';
 	import Button from '$lib/button/Button.svelte';
 	import Input from '$lib/form/Input.svelte';
+	import arrow_down from '$lib/assets/svg/icons/arrow-down.svg';
 
 	export let crypto_coin: string;
 </script>

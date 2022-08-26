@@ -19,20 +19,20 @@
 
 <div>
 	<div
-		class={`rounded-md flex flex-row justify-between items-center bg-[#120C18] w-[${
+		class={`rounded-md flex flex-row justify-between bg-primary items-center bg- w-[${
 			toggle_to === 'sm' ? '144px' : '218px'
 		}] min-h-[48px] px-4 py-2`}
 	>
 		{#if show === 'text'}
-			<span class="text-white">{content.text}</span>
+			<span class="text-accent">{content.text}</span>
 		{:else if show === 'icon'}
 			<img class="hover:cursor-pointer" src={prefix_icon ?? filter} alt="filter icon" />
 		{:else}
 			<div class="flex flex-row">
 				<img class="hover:cursor-pointer" src={prefix_icon ?? filter} alt="filter icon" />
 				<div class="pl-2 flex flex-col">
-					<span class="text-white">{content.text}</span>
-					<small class="text-white">{content.meta}</small>
+					<span class="text-primary">{content.text}</span>
+					<small class="text-primary">{content.meta}</small>
 				</div>
 			</div>
 		{/if}
