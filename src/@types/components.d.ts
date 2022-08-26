@@ -1,0 +1,5 @@
+type Size = "xlg" | "lg" | "md" | "sm" | "xs"
+type InputSize = "lg" | "md" | "sm"
+type RoundSize = "full" | "lg" | "md" | "sm"
+type AccordionSize = "md" | "sm"
+type Arrow = "left" | "right" | "up" | "down"
