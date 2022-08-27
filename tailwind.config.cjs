@@ -3,16 +3,16 @@ module.exports = {
   content: ['./src/**/*.{html,js,svelte,ts}'],
   theme: {
     extend: {
-
       textColor: {
         primary: 'var(--text-primary)',
         secondary: 'var(--text-secondary)',
         accent: 'var(--text-accent)',
       },
       backgroundColor: {
-        primary: 'var(--color-primary)',
-        secondary: 'var(--color-secondary)',
-        accent: 'var(--color-accent)',
+        hover: {
+          primary: 'var(--color-secondary)',
+          secondary: 'var(--color-accent)'
+        }
       },
       borderColor: {
         default: 'var(--border-primary)',
@@ -27,7 +27,6 @@ module.exports = {
           primary: 'var(--gradient-primary)',
           secondary: 'var(--gradient-secondary)',
         },
-
       },
     }
   },

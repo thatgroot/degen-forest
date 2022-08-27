@@ -1,13 +1,23 @@
 <script lang="ts">
 	import Accordion from '$lib/accordion/Accordion.svelte';
 	import Input from '$lib/form/Input.svelte';
+	import arrow_up from '$lib/assets/svg/icons/arrow-up.svg';
+
 	export let placeholder: string;
 	export let title: string;
 	export let data: Array<any> = [1, 2];
 </script>
 
 <div class="bg-[#120C18] rounded-md max-w-fit">
-	<Accordion size="md" content={{ text: title, meta: 'meta data goes here' }} arrow="up">
+	<Accordion
+		header={{
+			size: 'md',
+			title,
+			subtitle: '............',
+			postfix: arrow_up,
+			show: 'both'
+		}}
+	>
 		<div class="p-2">
 			<div class="px-2 py-4">
 				<Input {placeholder} size={'lg'} round={'full'} />
