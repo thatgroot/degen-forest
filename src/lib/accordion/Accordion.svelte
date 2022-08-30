@@ -14,7 +14,9 @@
 	};
 </script>
 
-<div>
-	<AccordionHeader {...header} {toggleAccordionHeader} />
-	<AccordionBody {toggle} />
+<div class="bg-primary rounded-lg">
+	<AccordionHeader expanded={toggle} {...header} {toggleAccordionHeader} />
+	<AccordionBody {toggle}>
+		<slot />
+	</AccordionBody>
 </div>

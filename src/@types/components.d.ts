@@ -26,7 +26,7 @@ type AccordionHeaderType = {
  title?: string;
  subtitle?: string;
  prefix?: string;
- postfix: Direction | string;
+ postfix?: Direction | string;
  show: 'icon' | 'text' | 'both';
  sizeable?: boolean;
  size: AccordionSize;

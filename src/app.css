@@ -9,6 +9,10 @@
 	--color-secondary: #15d6ff;
 	--color-accent: #21162b;
 
+	--color-gradient-from: #b217ff;
+	--color-gradient-via: #5b81ff;
+	--color-gradient-to: #469aff;
+
 	--gradient-primary: linear-gradient(
 		90deg,
 		#f355da 0%,
@@ -29,28 +33,23 @@
 	--border-secondary: #15d6ff;
 }
 
-:root {
-	font-family: 'Inter', sans-serif;
-	--color-primary: #120c18;
-	--color-secondary: #15d6ff;
-	--color-accent: #21162b;
+@layer components {
+	.gradient-text {
+		background: var(--gradient-primary);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-clip: text;
+	}
 
-	--gradient-primary: linear-gradient(
-		90deg,
-		#f355da 0%,
-		#c227f5 19.57%,
-		#b217ff 38.81%,
-		#5b81ff 60.71%,
-		#469bff 79.95%,
-		#469aff 100%
-	);
-
-	--gradient-secondary: linear-gradient(270.15deg, #58d5db 4.24%, #58d5db 39.62%, #ff61d3 75.74%);
-
-	--text-primary: #ffffff;
-	--text-secondary: #15d6ff;
-	--text-accent: #9d8aa1;
-
-	--border-primary: #21162b;
-	--border-secondary: #15d6ff;
+	.gradient-primary {
+		background: linear-gradient(
+			90deg,
+			#f355da 0%,
+			#c227f5 19.57%,
+			#b217ff 38.81%,
+			#5b81ff 60.71%,
+			#469bff 79.95%,
+			#469aff 100%
+		);
+	}
 }

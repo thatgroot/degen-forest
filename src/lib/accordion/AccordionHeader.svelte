@@ -12,6 +12,10 @@
 	export let resize_to: AccordionSize = 'sm';
 	export let prefix: string = filter;
 	export let postfix: string = arrow_left;
+	/**
+	 * @expanded :: wherther the body is open or not
+	 */
+	export let expanded: boolean = false;
 
 	let collapsed: boolean = false;
 
@@ -30,9 +34,12 @@
 </script>
 
 <div
-	class={`rounded-md flex flex-row justify-between items-center bg-primary ${sizeable} ${
+	on:click={onToggle}
+	class={`rounded-xl flex flex-row justify-between items-center ${
+		expanded ? 'bg-accent' : 'bg-primary'
+	} ${sizeable} ${
 		!sizeable ? 'w-full' : collapsed ? width[resize_to] : width[size]
-	}  min-h-[48px] px-4 py-2 transition-all ease-in-out delay-300`}
+	}  min-h-[48px] px-2 py-2 transition-all ease-in-out delay-300  hover:cursor-pointer`}
 >
 	<div class="flex flex-row justify-start">
 		{#if show === 'icon' || show === 'both'}
@@ -46,12 +53,7 @@
 		{/if}
 	</div>
 
-	<div
-		class="p-4 hover:cursor-pointer transition-transform ease-linear delay-300 {collapsed
-			? 'rotate-180'
-			: ''}"
-		on:click={onToggle}
-	>
-		<img src={postfix} alt={`arrow ...`} />
+	<div class="mx-2 transition-transform ease-linear delay-100 {collapsed ? 'rotate-180' : ''}">
+		<img class="w-4" src={postfix} alt={`arrow ...`} />
 	</div>
 </div>
