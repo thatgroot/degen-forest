@@ -74,7 +74,7 @@
 
 		<div class="flex flex-col gap-5  border-r-2 border-r-brown pr-6">
 			<span
-				class="flex items-center gap-2 text-primary px-2 py-3 rounded-xl cursor-pointer hover:bg-accent"
+				class="flex items-center gap-2 text-primary px-2 py-3 rounded-xl cursor-pointer hover:bg-secondary"
 			>
 				<span class="w-4 h-4">
 					<img src={dex} alt={'dex app'} />
@@ -98,7 +98,9 @@
 						<div class="flex flex-col text-accent gap-2 py-3 px-1 w-max">
 							{#each childs as child}
 								<!-- content here -->
-								<div class="w-full bg-primary hover:bg-accent px-2 py-1 rounded-md cursor-pointer">
+								<div
+									class="w-full bg-primary hover:bg-secondary px-2 py-1 rounded-md cursor-pointer"
+								>
 									{child}
 								</div>
 							{/each}
@@ -106,7 +108,7 @@
 					</Accordion>
 				{:else}
 					<span
-						class="flex items-center gap-2 text-primary px-2 py-3 rounded-xl cursor-pointer hover:bg-accent"
+						class="flex items-center gap-2 text-primary px-2 py-3 rounded-xl cursor-pointer hover:bg-secondary"
 					>
 						<span class="w-4 h-4">
 							<img src={icon} alt={`${title} app`} />

@@ -36,7 +36,7 @@
 <div
 	on:click={onToggle}
 	class={`rounded-xl flex flex-row justify-between items-center ${
-		expanded ? 'bg-accent' : 'bg-primary'
+		expanded ? 'bg-secondary' : 'bg-primary'
 	} ${sizeable} ${
 		!sizeable ? 'w-full' : collapsed ? width[resize_to] : width[size]
 	}  min-h-[48px] px-2 py-2 transition-all ease-in-out delay-300  hover:cursor-pointer`}

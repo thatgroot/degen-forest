@@ -6,7 +6,9 @@
 	<div
 		class="flex flex-col desktop:flex-row bg-primary rounded-[3rem] desktop:rounded-[6rem] border-4 border-x-brown border-y-brown w-full tablet:w-[50%] desktop:w-full"
 	>
-		<div class="flex flex-col justify-start px-8 desktop:px-14 py-8 desktop:py-28 text-accent">
+		<div
+			class="flex flex-col w-1/2 justify-start px-8 desktop:px-14 py-8 desktop:py-28 text-accent"
+		>
 			<h2 class="gradient-text text-4xl desktop:text-2xl font-bold">
 				A Place for All Your Crypto Needs
 			</h2>
@@ -21,10 +23,10 @@
 				Go to Launchpad
 			</button>
 		</div>
-		<img
-			class="w-full desktop:h-[560px] rounded-tr-0 desktop:rounded-tr-[6rem]  rounded-br-[3rem] desktop:rounded-br-[6rem] rounded-bl-[3rem]  desktop:rounded-bl-none"
-			src={ezu}
-			alt="ezu sister project"
+
+		<div
+			style="background-image: url('{ezu}')"
+			class="bg-center bg-cover bg-no-repeat w-1/2 desktop:h-[560px] rounded-tr-0 desktop:rounded-tr-[6rem]  rounded-br-[3rem] desktop:rounded-br-[6rem] rounded-bl-[3rem]  desktop:rounded-bl-none"
 		/>
 		<!--  -->
 	</div>

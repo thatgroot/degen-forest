@@ -6,8 +6,8 @@
 :root {
 	font-family: 'Inter', sans-serif;
 	--color-primary: #120c18;
-	--color-secondary: #15d6ff;
-	--color-accent: #21162b;
+	--color-secondary: #21162b;
+	--color-accent: #15d6ff;
 
 	--color-gradient-from: #b217ff;
 	--color-gradient-via: #5b81ff;
@@ -29,8 +29,9 @@
 	--text-secondary: #15d6ff;
 	--text-accent: #9d8aa1;
 
-	--border-primary: #21162b;
-	--border-secondary: #15d6ff;
+	--border-primary: #120c18;
+	--border-secondary: #21162b;
+	--border-accent: #15d6ff;
 }
 
 @layer components {
@@ -51,5 +52,14 @@
 			#469bff 79.95%,
 			#469aff 100%
 		);
+	}
+
+	.bg-glass {
+		background: linear-gradient(
+			116.82deg,
+			rgba(217, 217, 217, 0.2) 0%,
+			rgba(217, 217, 217, 0) 100%
+		);
+		backdrop-filter: blur(18px);
 	}
 }

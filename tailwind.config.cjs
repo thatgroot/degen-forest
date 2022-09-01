@@ -32,6 +32,7 @@ module.exports = {
         default: 'var(--border-primary)',
         primary: 'var(--border-primary)',
         secondary: 'var(--border-secondary)',
+        accent: 'var(--border-accent)',
       },
       animation: {
         marquee: 'marquee 25s linear infinite',
