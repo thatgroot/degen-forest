@@ -1,17 +1,25 @@
 <script lang="ts">
 	import info_icon from '$lib/assets/svg/icons/info.svg';
-	export let content: { text: string; meta: string };
-	export let more_info: boolean = false;
+	export let title: string = '';
+	export let subtitle: string = '';
+	export let title_prefix: string = info_icon;
+	export let title_postfix: string = '';
+	export let text_size: 'sm' | 'md' = 'md';
 </script>
 
 <div
-	class={`rounded-md flex flex-row justify-between items-center bg-[#120C18] max-w-fit  min-w-[260px] min-h-[48px] px-4 py-2`}
+	class={`rounded-md flex  gap-4 text-primary items-center justify-between max-w-fit hover:bg-secondary  min-w-full min-h-[48px] px-4 py-2`}
 >
-	<span class="text-[#9D8AA1] mr-4 flex flex-row justify-between">
-		{content.text}
-		{#if more_info}
-			<img class="ml-2" src={info_icon} alt={'learn more'} />
+	<div class={`flex gap-3 ${text_size === 'sm' ? 'text-[0.75rem]' : 'text-xs'}`}>
+		{#if title_prefix}
+			<img src={title_prefix} alt={'learn more'} />
 		{/if}
-	</span>
-	<span class="text-white ml-4">{content.meta}</span>
+		<span>{title}</span>
+		{#if title_postfix}
+			<img src={title_postfix} alt={'learn more'} />
+		{/if}
+	</div>
+	{#if subtitle}
+		<span class="text-white ml-4">{subtitle}</span>
+	{/if}
 </div>

@@ -1,14 +1,207 @@
 <script lang="ts">
 	import wallet from '$lib/assets/svg/icons/wallet.svg';
+	import close from '$lib/assets/svg/icons/close.svg';
+	import TabBar from '$lib/tab/TabBar.svelte';
+	import Tab from '$lib/tab/Tab.svelte';
+	import solana from '$lib/assets/svg/icons/solana.svg';
+	import phantom from '$lib/assets/svg/icons/phantom.svg';
+	import brave from '$lib/assets/svg/icons/brave.svg';
+	import metamask from '$lib/assets/svg/icons/metamask.svg';
+	import walletconnect from '$lib/assets/svg/icons/walletconnect.svg';
+	import coinbase from '$lib/assets/svg/icons/coinbase.svg';
+	import trustwallet from '$lib/assets/svg/icons/trustwallet.svg';
+	import arrow_down from '$lib/assets/svg/icons/arrow-down.svg';
+	import bell from '$lib/assets/svg/icons/bell.svg';
+	import copy from '$lib/assets/svg/icons/copy.svg';
+	import avatar from '$lib/assets/art/avatar.png';
+	// import sell, stack, referesh and poweroff svgs
+	import sell from '$lib/assets/svg/icons/sell.svg';
+	import stack from '$lib/assets/svg/icons/stack.svg';
+	import refresh from '$lib/assets/svg/icons/refresh.svg';
+	import poweroff from '$lib/assets/svg/icons/poweroff.svg';
+
+	import eth from '$lib/assets/svg/icons/eth.svg';
+	import ListItemCol from '$lib/list/ListItemCol.svelte';
+	import ListItem from '$lib/list/ListItem.svelte';
+
+	//  list of all solana supported wallets with their icons in svg format
+	const wallets = [
+		{
+			name: 'Phantom',
+			chain: 'solana',
+			subtitle: 'Detected',
+			badge: 'Recommended',
+			url: 'https://phantom.app/',
+			logo: 'https://phantom.app/img/logo.svg'
+		},
+		{
+			name: 'Solflare',
+			chain: 'solana',
+			url: 'https://solflare.com/',
+			logo: 'https://solflare.com/assets/logo.26659b6d..svg'
+		},
+
+		{
+			name: 'Math Wallet',
+			chain: 'solana',
+			url: 'https://mathwallet.org/',
+			logo: 'https://doc.mathwallet.org/images/logo.svg'
+		},
+		{
+			name: 'Brave',
+			chain: 'solana',
+			url: 'https://brave.com/',
+			logo: brave
+		},
+		{
+			name: 'Metamask',
+			chain: 'ethereum',
+			url: 'https://metamask.io/',
+			logo: metamask
+		},
+		{
+			name: 'WalletConnect',
+			chain: 'ethereum',
+			url: 'https://walletconnect.org/',
+			logo: walletconnect
+		},
+		{
+			name: 'Coinbase Wallet',
+			chain: 'ethereum',
+			url: 'https://wallet.coinbase.com/',
+			logo: coinbase
+		},
+		{
+			name: 'Trust Wallet',
+			chain: 'ethereum',
+			url: 'https://trustwallet.com/',
+			logo: trustwallet
+		}
+	];
+
+	let connected = false;
+	let filtered_wallets = wallets.filter((wallet) => wallet.chain === 'solana');
+	let active_chain = 'solana';
+
+	let toggle: boolean = false;
+	const toggleModal = () => {
+		connected = !connected;
+		toggle = !toggle;
+	};
 </script>
 
-<button
-	class="border-2 border-x-secondary border-y-secondary text-primary flex rounded-md sm:rounded-lg justify-center items-center w-fit"
+{#if !connected}
+	<button on:click|preventDefault={toggleModal} class="btn-accent">
+		<img
+			src={wallet}
+			alt="connect wallet"
+			class="desktop:border-r-2 desktop:border-r-accent  py-2 px-4"
+		/>
+		<span class="px-6 sm:px-2 hidden desktop:block">Connect Wallet</span>
+	</button>
+{/if}
+
+<div
+	id="crypto-modal"
+	tabindex="-1"
+	class={`${
+		!toggle ? 'hidden  -z-[9999]' : ''
+	} bg-glass z-20 transition-all ease-in-out duration-200 overflow-y-auto overflow-x-hidden fixed top-0 bottom-0 left-0 right-0  w-screen h-screen md:inset-0 h-modal md:h-screen justify-center items-center flex`}
+	aria-modal="true"
+	role="dialog"
 >
-	<img
-		src={wallet}
-		alt="connect wallet"
-		class="desktop:border-r-2 desktop:border-r-secondary  py-2 px-4"
-	/>
-	<span class="px-6 sm:px-2 hidden desktop:block">Connect Wallet</span>
-</button>
+	<div class="flex flex-col bg-secondary px-6 py-12 gap-6 h-fit min-w-[420px] relative">
+		<div class="flex justify-end w-full absolute -top-2 -right-2 ">
+			<button
+				on:click|preventDefault={toggleModal}
+				class="w-12 h-12 rounded-full text- bg-accent flex justify-center items-center"
+			>
+				<img class="fill-blue stroke-black" src={close} alt="close now" />
+			</button>
+		</div>
+		<p class="gradient-text text-center">Connect a wallet to continue</p>
+		<TabBar>
+			<Tab
+				title="Solana"
+				icon={solana}
+				active={active_chain === 'solana'}
+				onclick={() => {
+					active_chain = 'solana';
+					filtered_wallets = wallets.filter((wallet) => wallet.chain === 'solana');
+				}}
+			/>
+			<Tab
+				title="Ethereum"
+				active={active_chain === 'ethereum'}
+				icon={eth}
+				onclick={() => {
+					active_chain = 'ethereum';
+					filtered_wallets = wallets.filter((wallet) => wallet.chain === 'ethereum');
+				}}
+			/>
+		</TabBar>
+		<div class="flex flex-col">
+			{#each filtered_wallets as wallet}
+				<ListItemCol
+					title={wallet.name}
+					subtitle={'Detected'}
+					prefix={wallet.logo}
+					badge={wallet.badge ?? ''}
+				/>
+			{/each}
+		</div>
+	</div>
+</div>
+
+<!--   wallet connect ui with wallet address, user avatar and a notification  -->
+{#if connected}
+	<div class="flex items-center gap-x-4 group relative">
+		<div class="flex items-center gap-x-2">
+			<img src={bell} alt="notification" class="w-8 h-8" />
+		</div>
+		<div
+			class="  flex gap-3 items-center px-3 py-1.5 hover:rounded-lg hover:bg-secondary cursor-pointer"
+		>
+			<div class="flex items-start">
+				<img src={avatar} alt="user" class="rounded-full w-8 h-8" />
+			</div>
+
+			<div class="flex items-center gap-6">
+				<p class="text-sm text-primary">0x1234567890</p>
+				<img src={arrow_down} alt="change wallet" />
+			</div>
+
+			<!-- a divider line -->
+
+			<!-- tailwind card ui with listitemcol and other options -->
+			<div
+				class="group-hover:block hidden absolute top-[100%] bg-primary right-0 left-0 px-2 py-2 border-2 border-secondary  rounded-lg shadow-lg"
+			>
+				<div class="flex flex-col justify-start gap-2 w-full">
+					<ListItemCol
+						title="Main Wallet"
+						subtitle="1.04"
+						prefix={solana}
+						postfix={copy}
+						insets="sm"
+					/>
+					<ListItemCol
+						title="Bidding Wallet"
+						subtitle="1.04"
+						prefix={eth}
+						postfix={copy}
+						insets="sm"
+					/>
+
+					<div class="w-full h-[0.0625rem] rounded-full border-[0.0625rem] border-secondary" />
+
+					<!-- listitem for sell stack refresh and poweroff -->
+					<ListItem title="Sell" title_prefix={sell} />
+					<ListItem title="My Items" title_prefix={stack} />
+					<ListItem title="Connect a different wallet" title_prefix={refresh} />
+					<ListItem title="Sign out" title_prefix={poweroff} />
+				</div>
+			</div>
+		</div>
+	</div>
+{/if}

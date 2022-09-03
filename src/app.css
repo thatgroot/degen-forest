@@ -54,6 +54,10 @@
 		);
 	}
 
+	.gradient-secondary {
+		background: linear-gradient(270.15deg, #58d5db 4.24%, #58d5db 39.62%, #ff61d3 75.74%);
+	}
+
 	.bg-glass {
 		background: linear-gradient(
 			116.82deg,
@@ -61,5 +65,15 @@
 			rgba(217, 217, 217, 0) 100%
 		);
 		backdrop-filter: blur(18px);
+	}
+
+	.btn-primary {
+		@apply px-8 py-2 rounded-md text-white text-xl;
+	}
+	.btn-primary:hover {
+		@apply gradient-secondary;
+	}
+	.btn-accent {
+		@apply border-2 border-accent text-primary flex rounded-md justify-center items-center w-fit;
 	}
 }

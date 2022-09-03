@@ -4,12 +4,14 @@
 	export let icon: string = solana;
 	export let title: string = 'Solana';
 	export let active: boolean = false;
+	export let onclick = () => {};
 </script>
 
 <div
-	class={`flex justify-center gap-3 w-fit ${
-		active ? 'border-b-2 border-b-secondary' : ''
-	} px-3 min-w-[7.5rem] hover:cursor-pointer`}
+	on:click={onclick}
+	class={`flex justify-center items-center gap-3 py-1 w-fit border-b-2 border-b-secondary  ${
+		active ? 'border-b-accent' : ''
+	}  px-3 min-w-[7.5rem] hover:cursor-pointer transition-all ease-linear duration-150 hover:border-b-accent`}
 >
 	<img src={icon} class="h-8" alt="solana" />
 	<span class="text-accent">{title}</span>

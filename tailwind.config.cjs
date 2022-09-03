@@ -14,6 +14,19 @@ module.exports = {
       // => @media (min-width: 1280px) { ... }
     },
     extend: {
+      fontSize: {
+        'xxs': '.625rem',
+        xs: '.75rem',
+        sm: '.875rem',
+        base: '1rem',
+        lg: '1.125rem',
+        xl: '1.25rem',
+        '2xl': '1.5rem',
+        '3xl': '1.875rem',
+        '4xl': '2.25rem',
+        '5xl': '3rem',
+        '6xl': '4rem',
+      },
       textColor: {
         primary: 'var(--text-primary)',
         secondary: 'var(--text-secondary)',
@@ -46,8 +59,8 @@ module.exports = {
     },
     colors: {
       black: 'var(--color-primary)',
-      blue: 'var(--color-secondary)',
-      brown: 'var(--color-accent)',
+      blue: 'var(--color-accent)',
+      brown: 'var(--color-secondary)',
       white: '#ffffff',
       transparent: 'transparent',
       pink: 'var(--color-gradient-from)',

@@ -2,7 +2,7 @@
 	import search from '$lib/assets/svg/icons/search.svg';
 </script>
 
-<div class="bg-secondary rounded-full px-4 mx-auto flex  flex-row gap-6">
+<div class="bg-secondary rounded-full px-6 py-2.5 mx-auto flex  flex-row gap-6">
 	<img src={search} alt="search here" />
 	<input
 		placeholder="Search Collections and Creators"

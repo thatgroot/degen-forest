@@ -1,6 +1,5 @@
 <script lang="ts">
 	import Accordion from '$lib/accordion/Accordion.svelte';
-	import logo from '$lib/assets/svg/logo.svg';
 	import arrow_down from '$lib/assets/svg/icons/arrow-down.svg';
 	import dex from '$lib/assets/svg/icons/dex.svg';
 	import marketplace from '$lib/assets/svg/icons/marketplace.svg';
@@ -68,10 +67,8 @@
 	];
 </script>
 
-<div class="max-w-fit">
+<div class="max-w-fit ">
 	<div class="flex flex-col py-6 px-3 gap-6">
-		<img src={logo} alt="degen forest" />
-
 		<div class="flex flex-col gap-5  border-r-2 border-r-brown pr-6">
 			<span
 				class="flex items-center gap-2 text-primary px-2 py-3 rounded-xl cursor-pointer hover:bg-secondary"
@@ -118,13 +115,13 @@
 				{/if}
 			{/each}
 
-			<div class="border-b-2 border-b-brown my-4" />
+			<div class="border-b-2 border-b-secondary my-4" />
 
 			<div class="flex flex-wrap max-w-[20rem] gap-y-2 justify-between text-white">
 				{#each social_media_data as { title, icon }}
 					<!-- content here -->
 					<button
-						class="flex justify-between items-center border-2 border-brown px-2 py-1 min-w-[120px]"
+						class="flex justify-between items-center border-2 border-secondary px-2 py-1 min-w-[120px]"
 					>
 						<span>
 							<img src={icon} alt={`${icon}`} />
