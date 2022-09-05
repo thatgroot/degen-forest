@@ -10,15 +10,13 @@ type Content = {
  meta?: string,
 }
 
-type AccordionHeader = {
 
-}
 
 type Accordion = {
  prefix_icon?: string | null;
  size: AccordionSize | 'md';
  content?: Content;
- show?: 'text' | 'icon' | 'both';
+ show?: 'text' | 'icon' | 'both' | 'slot';
  arrow?: Direction | 'left';
 };
 
@@ -27,7 +25,7 @@ type AccordionHeaderType = {
  subtitle?: string;
  prefix?: string;
  postfix?: Direction | string;
- show: 'icon' | 'text' | 'both';
+ show: 'icon' | 'text' | 'both' | 'slot';
  sizeable?: boolean;
  size: AccordionSize;
  resize_to?: AccordionSize;

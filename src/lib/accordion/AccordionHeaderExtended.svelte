@@ -6,7 +6,7 @@
 
 	export let title: string = '';
 	export let subtitle: string = '';
-	export let show: 'icon' | 'text' | 'both' | 'slot' = 'icon';
+	export let show: 'icon' | 'text' | 'both' = 'icon';
 	export let size: AccordionSize = 'full';
 	export let sizeable: boolean = false;
 	export let resize_to: AccordionSize = 'sm';
@@ -41,25 +41,18 @@
 		!sizeable ? 'w-full' : collapsed ? width[resize_to] : width[size]
 	}  min-h-[48px] px-2 py-2 transition-all ease-in-out delay-300  hover:cursor-pointer`}
 >
-	<div class="flex flex-row justify-start w-full">
-		{#if show === 'slot'}
-			<slot />
-		{:else}
-			<slot />
-			{#if show === 'icon' || show === 'both'}
-				<img class="hover:cursor-pointer" src={prefix} alt="filter icon" />
-			{/if}
-			{#if show === 'text' || show === 'both'}
-				<div class={`${show === 'both' ? 'mx-6' : ''} flex flex-col items-start`}>
-					<span class="text-primary">{title}</span>
-					<small class="text-primary">{subtitle}</small>
-				</div>
-			{/if}
+	<div class="flex flex-row justify-start">
+		{#if show === 'icon' || show === 'both'}
+			<img class="hover:cursor-pointer" src={prefix} alt="filter icon" />
 		{/if}
-		<!-- else content here -->
+		{#if show === 'text' || show === 'both'}
+			<div class={`${show === 'both' ? 'mx-6' : ''} flex flex-col items-start`}>
+				<slot />
+			</div>
+		{/if}
 	</div>
 
 	<div class="mx-2 transition-transform ease-linear delay-100 {collapsed ? 'rotate-180' : ''}">
-		<img class="w-2" src={postfix} alt={`arrow ...`} />
+		<img class="w-4" src={postfix} alt={`arrow ...`} />
 	</div>
 </div>
