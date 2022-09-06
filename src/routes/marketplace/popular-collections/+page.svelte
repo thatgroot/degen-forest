@@ -1,62 +1,90 @@
-<script>
-	import Accordion from '$lib/accordion/Accordion.svelte';
+<script lang="ts">
+	import Dropdown from '$lib/dropdown/Dropdown.svelte';
+	import Input from '$lib/form/Input.svelte';
 	import Search from '$lib/form/search.svelte';
+
+	const toggle = () => {
+		const dropdown = document.querySelector('#nft-filters');
+		dropdown?.classList.toggle('hidden');
+	};
+
+	const toggle_accordion = () => {
+		const dropdown = document.querySelector('#search-accordion');
+		dropdown?.classList.toggle('hidden');
+	};
 </script>
 
-<div class="border-1 border-secondary rounded-sm">
-	<div class="p-1 flex justify-start">
-		<span>Popular Collections</span>
-	</div>
-	<div class="px-2 py-3">
-		<!-- search -->
-		<div class="flex gap-6 w-full">
-			<div class="w-full">
-				<Accordion
-					header={{
-						title: 'Search',
-						show: 'slot',
-						size: 'full'
-					}}
-				>
-					<div slot="header" class="flex grow border-2 border-secondary rounded-lg">
-						<Search rounded="md" bg={'tranparent'} />
-					</div>
-					<div slot="body">body</div>
-				</Accordion>
-			</div>
-			<div class="group flex items-center relative">
-				<button
-					class="flex justify-between border-2 border-secondary px-2 py-1 rounded-sm w-max text-primary items-center gap-2"
-				>
-					<span class="w-full">Last 5 minutes</span>
-					<span>
-						<svg
-							class="fill-white h-4 w-4 transform group-hover:-rotate-180
-											transition duration-150 ease-in-out"
-							xmlns="http://www.w3.org/2000/svg"
-							viewBox="0 0 20 20"
-						>
-							<path
-								d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
-							/>
-						</svg>
-					</span>
-				</button>
-				<ul
-					class="bg-primary border-2 border-secondary rounded-sm text-primary transform scale-0 group-hover:scale-100 absolute
-					transition duration-150 ease-in-out origin-top min-w-32 top-[100%] w-max text-sm"
-				>
-					<li class="rounded-sm  hover:bg-secondary px-2 py-1 cursor-pointer">Last 5 minutes</li>
-					<li class="rounded-sm  hover:bg-secondary px-2 py-1 cursor-pointer">Last 15 minutes</li>
-					<li class="rounded-sm  hover:bg-secondary px-2 py-1 cursor-pointer">Last 1 hour</li>
-					<li class="rounded-sm  hover:bg-secondary px-2 py-1 cursor-pointer">Last 6 hours</li>
-					<li class="rounded-sm  hover:bg-secondary px-2 py-1 cursor-pointer">Last 24 hours</li>
-					<li class="rounded-sm  hover:bg-secondary px-2 py-1 cursor-pointer">Last 7 days</li>
-					<li class="rounded-sm  hover:bg-secondary px-2 py-1 cursor-pointer">Last 30 days</li>
-				</ul>
+<div class="flex items-start gap-6">
+	<div class="bg-transparent rounded-lg grow relative">
+		<div
+			on:click={toggle_accordion}
+			class="rounded-lg border-2 border-secondary flex flex-row justify-between items-center bg-transparent false w-full  h-full transition-all ease-in-out delay-300  hover:cursor-pointer"
+		>
+			<Search />
+			<div class="mx-2 transition-transform ease-linear delay-100 rotate-180">
+				<img class="w-4" src="/src/lib/assets/svg/icons/arrow-down.svg" alt="arrow ..." />
 			</div>
 		</div>
+		<div
+			class="absolute px-4 h-auto top-[120%] right-0 left-0 transition-all ease-in-out duration-150 hidden bg-secondary rounded-md"
+			id="search-accordion"
+		>
+			<div class="flex gap-6 text-accent py-3 px-1 w-max">
+				<!--  -->
+				<Dropdown
+					id="filter_select_type"
+					border="primary"
+					items={['Me Floor Price', 'Collection name', 'Volume']}
+				/>
+				<Dropdown
+					id="filter_select_comparator"
+					border="primary"
+					items={[
+						'greater than',
+						'greater than',
+						'less than',
+						'greater than or equal to',
+						'less than or equal to'
+					]}
+				/>
 
-		<!-- collections list -->
+				<Input size="md" placeholder="price" round="md" border="primary" />
+			</div>
+		</div>
 	</div>
+
+	<!-- drop down -->
+	<Dropdown
+		id="filter_select_duration"
+		border="secondary"
+		items={[
+			'Last 5 minutes',
+			'Last 30 minutes',
+			'Last 1 hour',
+			'Last 6 hours',
+			'Last 12 hours',
+			'Last 24 hours',
+			'Last 7 days',
+			'Last 30 days'
+		]}
+	/>
 </div>
+
+<table class="table-auto ">
+	<thead class="px-2 py-4 border-2 border-secondary text-primary text-base">
+		<th>Collection</th>
+		<th>Volume</th>
+		<th>Total</th>
+		<th>24h Volume</th>
+		<th>24h % Volume </th>
+		<th>Sales</th>
+		<th>Floor Price</th>
+		<th>Owners </th>
+		<th>Total Supply</th>
+	</thead>
+	<tbody>
+		<tr>
+			<td>a</td>
+		</tr>
+	</tbody>
+</table>
