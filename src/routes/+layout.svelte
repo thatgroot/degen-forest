@@ -16,7 +16,7 @@
 		<div class="flex justify-between px-3 py-3">
 			<img src={logo} alt="degen forest" />
 			<div>
-				<Search />
+				<Search bg="secondary" />
 			</div>
 			<ConnectWallet />
 		</div>

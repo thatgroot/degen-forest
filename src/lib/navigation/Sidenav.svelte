@@ -19,50 +19,104 @@
 
 	const side_nav_items: {
 		title: string;
+		href?: string;
 		icon: string;
-		childs: string[];
+		childs: { title: string; href: string }[];
 	}[] = [
 		{
 			title: 'Marketplace',
 			icon: marketplace,
-			childs: ['Popular Collections', 'Auction', 'Drops Calendar']
+			childs: [
+				{
+					title: 'Popular Collections',
+					href: '/marketplace/popular-collections'
+				},
+				{
+					title: 'Drop calendar',
+					href: '/marketplace/drop-calendar'
+				},
+				{
+					title: 'Auctions',
+					href: '/marketplace/auctions'
+				}
+			]
 		},
-		{ title: 'Insights', icon: insights, childs: ['Stats', 'My Watchlist'] },
-		{ title: 'Launchpad', icon: launchpad, childs: ['Apply for Launchpad', 'Launches', 'About'] },
-		{ title: 'Airdrops', icon: airdrop, childs: [] },
-		{ title: 'NFT Staking', icon: staking, childs: [] },
-		{ title: 'News', icon: news, childs: [] },
-		{ title: 'Intro To NFT', icon: guide_book, childs: [] },
-		{ title: 'Support', icon: support, childs: [] }
+		{
+			title: 'Insights',
+			icon: insights,
+			childs: [
+				{
+					title: 'Stats',
+					href: '/insights/stats'
+				},
+				{
+					title: 'My Watchlist',
+					href: '/insights/my-watchlist'
+				}
+			]
+		},
+		{
+			title: 'Launchpad',
+			icon: launchpad,
+			href: '/launchpad',
+			childs: [
+				// 'Apply for Launchpad', 'Launches', 'About'	//
+				{
+					title: 'Apply for Launchpad',
+					href: '/launchpad/apply'
+				},
+				{
+					title: 'Launches',
+					href: '/launchpad/launches'
+				},
+				{
+					title: 'About',
+					href: '/launchpad/about'
+				}
+			]
+		},
+		{ title: 'Airdrops', href: '/airdrops', icon: airdrop, childs: [] },
+		{ title: 'NFT Staking', href: '/staking', icon: staking, childs: [] },
+
+		{ title: 'News', href: '/news', icon: news, childs: [] },
+		{ title: 'Intro To NFT', href: '/intro-to-nft', icon: guide_book, childs: [] },
+		{ title: 'Support', href: '/support', icon: support, childs: [] }
 	];
 
 	const social_media_data: {
 		title: string;
 		icon: string;
+		href: string;
 	}[] = [
 		{
 			title: 'iOS App',
-			icon: ios
+			icon: ios,
+			href: 'https://apps.apple.com/us/app/collectible-world/id1562570008'
 		},
 		{
 			title: 'Discord',
-			icon: discord
+			icon: discord,
+			href: 'https://discord.gg/collectibleworld'
 		},
 		{
 			title: 'TikTok',
-			icon: tiktok
+			icon: tiktok,
+			href: 'https://www.tiktok.com/@collectibleworld'
 		},
 		{
 			title: 'YouTube',
-			icon: youtube
+			icon: youtube,
+			href: 'https://www.youtube.com/channel/UCZ5Z5YQZQZ5Z5YQZQZ5Z5YQ'
 		},
 		{
 			title: 'Twitter',
-			icon: twitter
+			icon: twitter,
+			href: 'https://twitter.com/collectiblew'
 		},
 		{
 			title: 'Instagram',
-			icon: instagram
+			icon: instagram,
+			href: 'https://www.instagram.com/collectibleworld/'
 		}
 	];
 </script>
@@ -79,7 +133,7 @@
 				<span>Dex</span>
 			</span>
 
-			{#each side_nav_items as { title, icon, childs }}
+			{#each side_nav_items as { title, icon, childs, href }}
 				<!-- content here -->
 				{#if childs.length > 0}
 					<!-- content here -->
@@ -91,15 +145,17 @@
 							postfix: arrow_down,
 							prefix: icon
 						}}
+						{href}
 					>
 						<div class="flex flex-col text-accent gap-2 py-3 px-1 w-max">
-							{#each childs as child}
+							{#each childs as { title, href }}
 								<!-- content here -->
-								<div
+								<a
+									{href}
 									class="w-full bg-primary hover:bg-secondary px-2 py-1 rounded-md cursor-pointer"
 								>
-									{child}
-								</div>
+									{title}
+								</a>
 							{/each}
 						</div>
 					</Accordion>

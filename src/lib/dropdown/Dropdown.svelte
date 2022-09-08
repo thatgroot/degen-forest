@@ -13,7 +13,7 @@
 <div class="relative">
 	<button
 		on:click={toggle}
-		class={`text-primary bg-transparent border-2 border-${border}  font-medium rounded-${rounded} text-sm px-4 py-2.5 text-center inline-flex items-center`}
+		class={`text-primary bg-transparent border-2 border-${border}  font-medium rounded-${rounded} text-sm px-4 py-1 text-center inline-flex items-center`}
 		type="button"
 		>{items[0]}<svg
 			class="ml-2 w-4 h-4"

@@ -7,7 +7,7 @@
 	font-family: 'Inter', sans-serif;
 	--color-primary: #120c18;
 	--color-secondary: #21162b;
-	--color-accent: #15d6ff;
+	--color-accent: #e93a88;
 
 	--color-gradient-from: #b217ff;
 	--color-gradient-via: #5b81ff;
@@ -26,12 +26,12 @@
 	--gradient-secondary: linear-gradient(270.15deg, #58d5db 4.24%, #58d5db 39.62%, #ff61d3 75.74%);
 
 	--text-primary: #ffffff;
-	--text-secondary: #15d6ff;
+	--text-secondary: #e93a88;
 	--text-accent: #9d8aa1;
 
 	--border-primary: #120c18;
 	--border-secondary: #21162b;
-	--border-accent: #15d6ff;
+	--border-accent: #e93a88;
 }
 
 @layer components {

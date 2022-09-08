@@ -12,6 +12,9 @@ module.exports = {
 
       'desktop': '1280px',
       // => @media (min-width: 1280px) { ... }
+      'large': '1536px',
+      // => @media (min-width: 1536px) { ... }
+
     },
     extend: {
       fontSize: {

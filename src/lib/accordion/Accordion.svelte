@@ -4,6 +4,7 @@
 
 	// external props
 	export let header: AccordionHeaderType;
+	export let href: string = '#!';
 
 	// internal state
 	let toggle: boolean = false;
@@ -14,11 +15,11 @@
 	};
 </script>
 
-<div class="bg-primary  rounded-lg">
+<a class="bg-primary rounded-lg" {href}>
 	<AccordionHeader expanded={toggle} {...header} {toggleAccordionHeader}>
 		<slot name="header" />
 	</AccordionHeader>
 	<AccordionBody {toggle}>
-		<slot name="body" />
+		<slot />
 	</AccordionBody>
-</div>
+</a>
