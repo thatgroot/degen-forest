@@ -2,6 +2,11 @@
 	import Dropdown from '$lib/dropdown/Dropdown.svelte';
 	import Input from '$lib/form/Input.svelte';
 	import Search from '$lib/form/search.svelte';
+	import Tab from '$lib/tab/Tab.svelte';
+	import TabBar from '$lib/tab/TabBar.svelte';
+	// stack svg
+	import stack from '$lib/assets/svg/icons/stack.svg';
+	import heart_line from '$lib/assets/svg/icons/heart-line.svg';
 
 	const toggle = () => {
 		const dropdown = document.querySelector('#nft-filters');
@@ -180,11 +185,157 @@
 			total_supply: '10K'
 		}
 	];
+
+	const marketplaces = [
+		{
+			name: 'OpenSea',
+			volume_total: '1.1B',
+			volume_24h: '1.1B',
+			volume_24h_percent: '100.00%',
+			sales: '1.1M',
+			floor_price: '1.00',
+			owners: '1.1M',
+			total_supply: '1.1M',
+			active_wallets: '1.1M'
+		},
+		{
+			name: 'Rarible',
+			volume_total: '1.1B',
+			volume_24h: '1.1B',
+			volume_24h_percent: '100.00%',
+			sales: '1.1M',
+			floor_price: '1.00',
+			owners: '1.1M',
+			total_supply: '1.1M',
+			active_wallets: '1.1M'
+		},
+		{
+			name: 'Foundation',
+			volume_total: '1.1B',
+			volume_24h: '1.1B',
+			volume_24h_percent: '100.00%',
+			sales: '1.1M',
+			floor_price: '1.00',
+			owners: '1.1M',
+			total_supply: '1.1M',
+			active_wallets: '1.1M'
+		},
+		{
+			name: 'SuperRare',
+			volume_total: '1.1B',
+			volume_24h: '1.1B',
+			volume_24h_percent: '100.00%',
+			sales: '1.1M',
+			floor_price: '1.00',
+			owners: '1.1M',
+			total_supply: '1.1M',
+			active_wallets: '1.1M'
+		},
+		{
+			name: 'KnownOrigin',
+			volume_total: '1.1B',
+			volume_24h: '1.1B',
+			volume_24h_percent: '100.00%',
+			sales: '1.1M',
+			floor_price: '1.00',
+			owners: '1.1M',
+			total_supply: '1.1M',
+			active_wallets: '1.1M'
+		},
+		{
+			name: 'Nifty Gateway',
+			volume_total: '1.1B',
+			volume_24h: '1.1B',
+			volume_24h_percent: '100.00%',
+			sales: '',
+			floor_price: '1.00',
+			owners: '1.1M',
+			total_supply: '1.1M',
+			active_wallets: '1.1M'
+		},
+		{
+			name: 'MakersPlace',
+			volume_total: '1.1B',
+			volume_24h: '1.1B',
+			volume_24h_percent: '100.00%',
+			sales: '1.1M',
+			floor_price: '1.00',
+			owners: '1.1M',
+			total_supply: '1.1M',
+			active_wallets: '1.1M'
+		},
+		{
+			name: 'Zora',
+			volume_total: '1.1B',
+			volume_24h: '1.1B',
+			volume_24h_percent: '100.00%',
+			sales: '1.1M',
+			floor_price: '1.00',
+			owners: '1.1M',
+			total_supply: '1.1M',
+			active_wallets: '1.1M'
+		},
+		{
+			name: 'NiftyInk',
+			volume_total: '1.1B',
+			volume_24h: '1.1B',
+			volume_24h_percent: '100.00%',
+			sales: '1.1M',
+			floor_price: '1.00',
+			owners: '1.1M',
+			total_supply: '1.1M',
+			active_wallets: '1.1M'
+		},
+		{
+			name: 'NiftyBlocks',
+			volume_total: '1.1B',
+			volume_24h: '1.1B',
+			volume_24h_percent: '100.00%',
+			sales: '1.1M',
+			floor_price: '1.00',
+			owners: '1.1M',
+			total_supply: '1.1M',
+			active_wallets: '1.1M'
+		},
+		{
+			name: 'NiftyX',
+			volume_total: '1.1B',
+			volume_24h: '1.1B',
+			volume_24h_percent: '100.00%',
+			sales: '1.1M',
+			floor_price: '1.00',
+			owners: '1.1M',
+			total_supply: '1.1M',
+			active_wallets: '1.1M'
+		}
+	];
+	let active = 'popular';
 </script>
 
 <svelte:head>
 	<title>Popular Collections</title>
 </svelte:head>
+
+<div class="flex px-4 py-2">
+	<TabBar>
+		<Tab
+			onclick={() => {
+				active = 'popular';
+			}}
+			icon={stack}
+			title="Popular"
+			active={active === 'popular'}
+		/>
+		<Tab
+			onclick={() => {
+				active = 'marketplace';
+			}}
+			icon={heart_line}
+			active={active === 'marketplace'}
+			title="Marketplace"
+		/>
+	</TabBar>
+</div>
 <div class="flex items-start gap-6">
 	<div class="bg-transparent rounded-lg grow relative">
 		<div
@@ -242,41 +393,66 @@
 </div>
 
 <div class="overflow-x-auto relative my-4 px-2 rounded-lg  border-2 border-secondary">
-	<table class="w-full text-primary">
-		<thead class="text-xs border-b-2 border-secondary">
-			<tr class="text-primary">
-				<th class="py-3 px-6 text-start">Collection </th>
-				<th class="py-3 px-6 text-start">Volume Total</th>
-				<th class="py-3 px-6 text-start">24h Volume</th>
-				<th class="py-3 px-6 text-start">24h % Volume </th>
-				<th class="py-3 px-6 text-start">Sales</th>
-				<th class="py-3 px-6 text-start">Floor Price</th>
-				<th class="py-3 px-6 text-start">Owners </th>
-				<th class="py-3 px-6 text-start">Total Supply</th>
-			</tr>
-		</thead>
-
-		<tbody>
-			{#each collections as { image, name, volume_total, volume_24h, volume_24h_percent, sales, floor_price, owners, total_supply }, i (i)}
-				<tr class="text-start  border-b-2 border-secondary">
-					<td class="py-4 px-6  text-start">
-						<img
-							class="h-12 rounded-full"
-							src={image ??
-								'https://img-cdn.magiceden.dev/rs:fill:32:32:0:0/plain/https://dl.airtable.com/.attachmentThumbnails/7bf792aeb747bc42679d845ed24fe6fe/fce75af7'}
-							alt="..."
-						/>
-					</td>
-					<td class="py-4 px-6 font-medium text-start">{i} {name}</td>
-					<td class="py-4 px-6  text-start">{volume_total}</td>
-					<td class="py-4 px-6  text-start">{volume_24h}</td>
-					<td class="py-4 px-6  text-start">{volume_24h_percent}</td>
-					<td class="py-4 px-6  text-start">{sales}</td>
-					<td class="py-4 px-6  text-start">{floor_price}</td>
-					<td class="py-4 px-6  text-start">{owners}</td>
-					<td class="py-4 px-6  text-start">{total_supply}</td>
+	{#if active === 'marketplace'}
+		<table class="w-full text-primary">
+			<thead class="text-xs border-b-2 border-secondary">
+				<tr class="text-primary">
+					<th class="py-3 px-6 text-start"># </th>
+					<th class="py-3 px-6 text-start">Marketplace</th>
+					<th class="py-3 px-6 text-start">Volume <span>7d</span></th>
+					<th class="py-3 px-6 text-start">Transactions <span>7d</span></th>
+					<th class="py-3 px-6 text-start">Active Wallets <span>7d</span></th>
 				</tr>
-			{/each}
-		</tbody>
-	</table>
+			</thead>
+			<tbody>
+				{#each marketplaces as { name, volume_total, active_wallets, sales }, i (i)}
+					<tr class={` ${i % 2 == 0 ? '' : 'bg-secondary r'} ounded-sm`}>
+						<td class="py-4 px-6  text-start">{i}</td>
+						<td class="py-4 px-6  text-start"> {name} </td>
+						<td class="py-4 px-6  text-start">{volume_total}</td>
+						<td class="py-4 px-6  text-start">{sales}</td>
+						<td class="py-4 px-6  text-start">{active_wallets}</td>
+					</tr>
+				{/each}
+			</tbody>
+		</table>
+	{:else}
+		<table class="w-full text-primary">
+			<thead class="text-xs border-b-2 border-secondary">
+				<tr class="text-primary">
+					<th class="py-3 px-6 text-start">Collection </th>
+					<th class="py-3 px-6 text-start">Volume Total</th>
+					<th class="py-3 px-6 text-start">24h Volume</th>
+					<th class="py-3 px-6 text-start">24h % Volume </th>
+					<th class="py-3 px-6 text-start">Sales</th>
+					<th class="py-3 px-6 text-start">Floor Price</th>
+					<th class="py-3 px-6 text-start">Owners </th>
+					<th class="py-3 px-6 text-start">Total Supply</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				{#each collections as { image, name, volume_total, volume_24h, volume_24h_percent, sales, floor_price, owners, total_supply }, i (i)}
+					<tr class="text-start  border-b-2 border-secondary">
+						<td class="py-4 px-6  text-start">
+							<img
+								class="h-12 rounded-full"
+								src={image ??
+									'https://img-cdn.magiceden.dev/rs:fill:32:32:0:0/plain/https://dl.airtable.com/.attachmentThumbnails/7bf792aeb747bc42679d845ed24fe6fe/fce75af7'}
+								alt="..."
+							/>
+						</td>
+						<td class="py-4 px-6 font-medium text-start">{i} {name}</td>
+						<td class="py-4 px-6  text-start">{volume_total}</td>
+						<td class="py-4 px-6  text-start">{volume_24h}</td>
+						<td class="py-4 px-6  text-start">{volume_24h_percent}</td>
+						<td class="py-4 px-6  text-start">{sales}</td>
+						<td class="py-4 px-6  text-start">{floor_price}</td>
+						<td class="py-4 px-6  text-start">{owners}</td>
+						<td class="py-4 px-6  text-start">{total_supply}</td>
+					</tr>
+				{/each}
+			</tbody>
+		</table>
+	{/if}
 </div>

@@ -51,7 +51,7 @@
 				},
 				{
 					title: 'My Watchlist',
-					href: '/insights/my-watchlist'
+					href: '/insights/watchlist'
 				}
 			]
 		},
