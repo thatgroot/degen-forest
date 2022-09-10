@@ -50,7 +50,7 @@
 				<img class="hover:cursor-pointer" src={prefix} alt="filter icon" />
 			{/if}
 			{#if show === 'text' || show === 'both'}
-				<div class={`${show === 'both' ? 'mx-6' : ''} flex flex-col items-start`}>
+				<div class={`${show === 'both' ? 'mx-2' : ''} flex flex-col items-start`}>
 					<span class="text-primary">{title}</span>
 					<small class="text-primary">{subtitle}</small>
 				</div>

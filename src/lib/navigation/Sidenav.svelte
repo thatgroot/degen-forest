@@ -121,9 +121,9 @@
 	];
 </script>
 
-<div class="max-w-fit ">
-	<div class="flex flex-col py-6 px-3 gap-6">
-		<div class="flex flex-col gap-2  border-r-2 border-r-brown pr-6">
+<div class="max-w-fit">
+	<div class="flex flex-col py-6 px-2 gap-6">
+		<div class="flex flex-col gap-2  border-r-2 border-r-brown pr-2">
 			<span
 				class="flex items-center gap-2 text-primary px-2 py-3 rounded-xl cursor-pointer hover:bg-secondary"
 			>
