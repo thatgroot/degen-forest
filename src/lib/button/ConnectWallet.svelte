@@ -17,7 +17,7 @@
 	// import sell, stack, referesh and poweroff svgs
 	import sell from '$lib/assets/svg/icons/sell.svg';
 	import stack from '$lib/assets/svg/icons/stack.svg';
-	import refresh from '$lib/assets/svg/icons/refresh.svg';
+	import refresh from '$lib/assets/svg/icons/refresh-active.svg';
 	import poweroff from '$lib/assets/svg/icons/poweroff.svg';
 
 	import eth from '$lib/assets/svg/icons/eth.svg';

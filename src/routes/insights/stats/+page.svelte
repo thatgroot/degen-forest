@@ -406,7 +406,7 @@
 			</thead>
 			<tbody>
 				{#each marketplaces as { name, volume_total, active_wallets, sales }, i (i)}
-					<tr class={` ${i % 2 == 0 ? '' : 'bg-secondary r'} ounded-sm`}>
+					<tr class={` ${i % 2 == 0 ? '' : 'bg-secondary r'} rounded-sm`}>
 						<td class="py-4 px-6  text-start">{i}</td>
 						<td class="py-4 px-6  text-start"> {name} </td>
 						<td class="py-4 px-6  text-start">{volume_total}</td>

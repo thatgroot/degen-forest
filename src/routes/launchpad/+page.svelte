@@ -202,7 +202,7 @@
 					<div class="px-4 pt-3 pb-3">
 						<h5 class="mb-2 text-sm font-bold text-primary" title="The Lost Kiki">The Lost Kiki</h5>
 						<div
-							class="text-xs uppercase text-secondary flex  items-center justify-center gap-1"
+							class="text-xs uppercase text-accent flex  items-center justify-center gap-1"
 							title="Live"
 						>
 							Live
@@ -243,9 +243,7 @@
 								<h5 class="mb-2 text-sm font-bold text-primary" title={name}>
 									{name}
 								</h5>
-								<div
-									class="text-xs uppercase text-secondary flex  items-center justify-center gap-1"
-								>
+								<div class="text-xs uppercase text-accent flex  items-center justify-center gap-1">
 									{time_left}
 								</div>
 							</div>

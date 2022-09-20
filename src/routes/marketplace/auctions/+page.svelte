@@ -5,12 +5,12 @@
 <div class="flex flex-col">
 	<div class="px-3 pt-8">
 		<div
-			class="border border-purple-3 p-8 rounded-2xl flex justify-around flex-col tablet:flex-row gap-4"
+			class="border border-secondary p-8 rounded-2xl overflow-hidden flex justify-around flex-col tablet:flex-row gap-4"
 		>
 			<div class="flex text-primary flex-col w-full max-w-lg py-8 xl:self-center">
-				<h1 class="font-extrabold text-5xl">The Lost Kiki</h1>
+				<h1 class="font-extrabold text-5xl gradient-text">The Lost Kiki</h1>
 				<div class="text-sm mt-1 text-accent">
-					CREATED BY <span class="text-accent">Kikiverse</span>
+					CREATED BY <span class="text-primary">Kikiverse</span>
 				</div>
 				<span class="my-2 text-sm  max-h-fit text-accent"
 					><p class="text-light-gray-500 mb-3 text-[16] leading-6]">
@@ -59,7 +59,7 @@
 				class="rounded-2xl overflow-hidden desktop:h-[700px] desktop:w-[700px] tablet:h-400px tablet:w-400px"
 			>
 				<!-- svelte-ignore a11y-media-has-caption -->
-				<video playsinline loop class="max-w-full ">
+				<video playsinline loop class="max-h-full rounded-2xl">
 					<source
 						src="https://bafybeifi7p6xtgnpie3kxs4qv4kr5mzhzlr3ymjjqhzq7gulg374t6n6si.ipfs.nftstorage.link/thelostkiki.mp4?ext=mp4"
 					/></video
@@ -88,7 +88,7 @@
 								The Lost Kiki
 							</h5>
 							<div
-								class="text-xs text-secondary flex  items-center justify-center gap-1"
+								class="text-xs text-accent flex  items-center justify-center gap-1"
 								title="Kikiverse"
 							>
 								Kikiverse<svg
@@ -98,7 +98,7 @@
 									fill="none"
 									viewBox="0 0 12 12"
 									><path
-										fill="#E42575"
+										fill="#15D6FF"
 										fill-rule="evenodd"
 										d="M5.655.33a.5.5 0 01.69 0l.492.469a.5.5 0 00.514.109l.64-.229a.5.5 0 01.63.28l.26.63a.5.5 0 00.424.308l.678.052a.5.5 0 01.462.513l-.02.68a.5.5 0 00.263.454l.599.323a.5.5 0 01.213.657l-.294.613a.5.5 0 00.054.522l.416.539a.5.5 0 01-.072.686l-.519.44a.5.5 0 00-.162.5l.16.66a.5.5 0 01-.345.598l-.652.192a.5.5 0 00-.351.39l-.123.669a.5.5 0 01-.558.406l-.674-.09a.5.5 0 00-.48.213l-.383.561a.5.5 0 01-.676.144l-.579-.357a.5.5 0 00-.524 0l-.58.357a.5.5 0 01-.675-.144l-.383-.561a.5.5 0 00-.48-.214l-.674.09a.5.5 0 01-.558-.405l-.123-.67a.5.5 0 00-.35-.39l-.653-.19a.5.5 0 01-.346-.598l.16-.662a.5.5 0 00-.161-.499l-.519-.44a.5.5 0 01-.072-.686l.416-.54a.5.5 0 00.055-.52L.5 4.575a.5.5 0 01.213-.657l.6-.323a.5.5 0 00.261-.454l-.02-.68a.5.5 0 01.463-.513l.678-.052a.5.5 0 00.424-.308l.26-.63a.5.5 0 01.63-.28l.64.229a.5.5 0 00.514-.11L5.655.33z"
 									/><g clip-path="url(#clip0_1538_39894)"
@@ -153,7 +153,7 @@
 									The Lost Kiki
 								</h5>
 								<div
-									class="text-xs text-secondary flex  items-center justify-center gap-1"
+									class="text-xs text-accent flex  items-center justify-center gap-1"
 									title="Kikiverse"
 								>
 									Kikiverse<svg
@@ -163,7 +163,7 @@
 										fill="none"
 										viewBox="0 0 12 12"
 										><path
-											fill="#E42575"
+											fill="#15D6FF"
 											fill-rule="evenodd"
 											d="M5.655.33a.5.5 0 01.69 0l.492.469a.5.5 0 00.514.109l.64-.229a.5.5 0 01.63.28l.26.63a.5.5 0 00.424.308l.678.052a.5.5 0 01.462.513l-.02.68a.5.5 0 00.263.454l.599.323a.5.5 0 01.213.657l-.294.613a.5.5 0 00.054.522l.416.539a.5.5 0 01-.072.686l-.519.44a.5.5 0 00-.162.5l.16.66a.5.5 0 01-.345.598l-.652.192a.5.5 0 00-.351.39l-.123.669a.5.5 0 01-.558.406l-.674-.09a.5.5 0 00-.48.213l-.383.561a.5.5 0 01-.676.144l-.579-.357a.5.5 0 00-.524 0l-.58.357a.5.5 0 01-.675-.144l-.383-.561a.5.5 0 00-.48-.214l-.674.09a.5.5 0 01-.558-.405l-.123-.67a.5.5 0 00-.35-.39l-.653-.19a.5.5 0 01-.346-.598l.16-.662a.5.5 0 00-.161-.499l-.519-.44a.5.5 0 01-.072-.686l.416-.54a.5.5 0 00.055-.52L.5 4.575a.5.5 0 01.213-.657l.6-.323a.5.5 0 00.261-.454l-.02-.68a.5.5 0 01.463-.513l.678-.052a.5.5 0 00.424-.308l.26-.63a.5.5 0 01.63-.28l.64.229a.5.5 0 00.514-.11L5.655.33z"
 										/><g clip-path="url(#clip0_1538_39894)"

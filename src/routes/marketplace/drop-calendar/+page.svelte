@@ -204,7 +204,7 @@
 											stroke-width="0"
 											viewBox="0 0 512 512"
 											xmlns="http://www.w3.org/2000/svg"
-											stroke="#e42575"
+											stroke="#15D6FF"
 											fill="#4D3D5C"
 											width="1rem"
 											height="1rem"

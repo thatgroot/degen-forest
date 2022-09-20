@@ -2,6 +2,7 @@
 	import Dropdown from '$lib/dropdown/Dropdown.svelte';
 	import Input from '$lib/form/Input.svelte';
 	import Search from '$lib/form/search.svelte';
+	import solana from '$lib/assets/svg/icons/solana.svg';
 
 	const toggle = () => {
 		const dropdown = document.querySelector('#nft-filters');
@@ -146,7 +147,7 @@
 				<th class="py-3 px-6 text-start">Floor</th>
 				<th class="py-3 px-6 text-start">Volume</th>
 				<th class="py-3 px-6 text-start">Volume%</th>
-				<th class="py-3 px-6 text-start">Floor$</th>
+				<th class="py-3 px-6 text-start">Floor</th>
 				<th class="py-3 px-6 text-start">Avg Price %</th>
 			</tr>
 		</thead>
@@ -160,7 +161,10 @@
 						</div>
 					</td>
 					<td class="py-3 px-6 text-start">{floor_price}</td>
-					<td class="py-3 px-6 text-start">{volume}</td>
+					<td class="py-3 px-6 text-start flex gap-2 ">
+						<img src={solana} alt="" class="w-4 h-4" />
+						<span>{volume}</span>
+					</td>
 					<td class="py-3 px-6 text-start">{volume_precents}</td>
 					<td class="py-3 px-6 text-start">{floor_precents}</td>
 					<td class="py-3 px-6 text-start">{avg_price_percents}</td>

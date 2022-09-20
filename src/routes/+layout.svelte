@@ -25,7 +25,7 @@
 		<div class="flex flex-col tablet:flex-row">
 			<!-- sidebar -->
 			<Sidenav />
-			<div class="w-full tablet:px-16 py-8">
+			<div class="w-full px-12 py-6">
 				<slot />
 			</div>
 		</div>

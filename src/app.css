@@ -7,7 +7,8 @@
 	font-family: 'Inter', sans-serif;
 	--color-primary: #120c18;
 	--color-secondary: #21162b;
-	--color-accent: #e93a88;
+	--color-secondary-light: #291d31;
+	--color-accent: #15d6ff;
 
 	--color-gradient-from: #b217ff;
 	--color-gradient-via: #5b81ff;
@@ -26,15 +27,22 @@
 	--gradient-secondary: linear-gradient(270.15deg, #58d5db 4.24%, #58d5db 39.62%, #ff61d3 75.74%);
 
 	--text-primary: #ffffff;
-	--text-secondary: #e93a88;
-	--text-accent: #9d8aa1;
+	--text-secondary: #9d8aa1;
+	--text-accent: #15d6ff;
+	--text-success: #00d1b2;
+	--text-warning: #ffdd57;
+	--text-danger: #ff2000;
+	--text-info: #209cee;
 
 	--border-primary: #120c18;
 	--border-secondary: #21162b;
-	--border-accent: #e93a88;
+	--border-secondary-light: #291d31;
+	--border-accent: #15d6ff;
 }
 
 @layer components {
+	/* Hide scrollbar for Chrome, Safari and Opera */
+
 	.gradient-text {
 		background: var(--gradient-primary);
 		-webkit-background-clip: text;
@@ -75,5 +83,13 @@
 	}
 	.btn-accent {
 		@apply border-2 border-accent text-primary flex rounded-md justify-center items-center w-fit;
+	}
+
+	.btn-secondary {
+		@apply border-2 border-secondary text-primary flex rounded-md justify-center items-center w-fit;
+	}
+
+	.btn-secondary:hover {
+		@apply bg-accent border-accent border-2;
 	}
 }

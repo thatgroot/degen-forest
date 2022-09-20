@@ -34,20 +34,39 @@ module.exports = {
         primary: 'var(--text-primary)',
         secondary: 'var(--text-secondary)',
         accent: 'var(--text-accent)',
+        success: 'var(--text-success)',
+        warning: 'var(--text-warning)',
+        danger: 'var(--text-danger)',
+        info: 'var(--text-info)',
       },
       backgroundColor: {
         primary: 'var(--color-primary)',
         secondary: 'var(--color-secondary)',
+        'secondary-light': 'var(--color-secondary-light)',
         accent: 'var(--color-accent)',
         hover: {
           primary: 'var(--color-secondary)',
           secondary: 'var(--color-accent)'
         }
       },
+      borderRadius: {
+        lg: '0.5rem',
+        xl: '1rem',
+        '2xl': '1.5rem',
+        '3xl': '2rem',
+        '4xl': '2.5rem',
+        '5xl': '3rem',
+        '6xl': '3.5rem',
+        '7xl': '4rem',
+        '8xl': '4.5rem',
+        '9xl': '5rem',
+        '10xl': '5.5rem',
+      },
       borderColor: {
         default: 'var(--border-primary)',
         primary: 'var(--border-primary)',
         secondary: 'var(--border-secondary)',
+        'secondary-light': 'var(--border-secondary-light)',
         accent: 'var(--border-accent)',
       },
       animation: {
@@ -62,7 +81,6 @@ module.exports = {
     },
     colors: {
       black: 'var(--color-primary)',
-      blue: 'var(--color-accent)',
       brown: 'var(--color-secondary)',
       white: '#ffffff',
       transparent: 'transparent',
@@ -76,5 +94,7 @@ module.exports = {
       chocolate: 'var(--text-accent)'
     },
   },
-  plugins: []
+  plugins: [
+
+  ]
 };

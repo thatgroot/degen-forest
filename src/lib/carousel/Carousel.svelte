@@ -7,7 +7,7 @@
 		class="flex flex-col desktop:flex-row bg-primary rounded-[3rem] desktop:rounded-[6rem] border-4 border-x-brown border-y-brown w-full tablet:w-[50%] desktop:w-full"
 	>
 		<div
-			class="flex flex-col w-1/2 justify-start px-8 desktop:px-14 py-8 desktop:py-28 text-accent"
+			class="flex flex-col w-1/2 justify-start px-8 desktop:px-14 py-8 desktop:py-28 text-secondary"
 		>
 			<h2 class="gradient-text text-4xl desktop:text-2xl font-bold">
 				A Place for All Your Crypto Needs

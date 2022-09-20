@@ -124,14 +124,15 @@
 <div class="max-w-fit">
 	<div class="flex flex-col py-6 px-2 gap-6">
 		<div class="flex flex-col gap-2  border-r-2 border-r-brown pr-2">
-			<span
+			<a
+				href="/dex"
 				class="flex items-center gap-2 text-primary px-2 py-3 rounded-xl cursor-pointer hover:bg-secondary"
 			>
 				<span class="w-4 h-4">
 					<img src={dex} alt={'dex app'} />
 				</span>
 				<span>Dex</span>
-			</span>
+			</a>
 
 			{#each side_nav_items as { title, icon, childs, href }}
 				<!-- content here -->
@@ -147,7 +148,7 @@
 						}}
 						{href}
 					>
-						<div class="flex flex-col text-accent gap-2 py-3 px-1 w-max">
+						<div class="flex flex-col text-secondary gap-2 py-3 px-1 w-max">
 							{#each childs as { title, href }}
 								<!-- content here -->
 								<a
@@ -176,13 +177,9 @@
 			<div class="flex flex-wrap max-w-[20rem] gap-y-2 justify-between text-white">
 				{#each social_media_data as { title, icon }}
 					<!-- content here -->
-					<button
-						class="flex justify-between items-center border-2 border-secondary px-2 py-1 min-w-[120px]"
-					>
-						<span>
-							<img src={icon} alt={`${icon}`} />
-						</span>
-						{title}
+					<button class="flex gap-2 items-center border-2 border-secondary px-2 py-1 min-w-[120px]">
+						<img src={icon} class="h-4 w-4" alt={`${icon}`} />
+						<span>{title}</span>
 					</button>
 				{/each}
 			</div>
