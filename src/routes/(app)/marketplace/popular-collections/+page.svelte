@@ -196,14 +196,21 @@
 			{#each collections as { image, name, volume_total, volume_24h, volume_24h_percent, sales, floor_price, owners, total_supply }, i (i)}
 				<tr class="text-start  border-b-2 border-secondary">
 					<td class="py-4 px-6  text-start">
-						<img
-							class="h-12 rounded-full"
-							src={image ??
-								'https://img-cdn.magiceden.dev/rs:fill:32:32:0:0/plain/https://dl.airtable.com/.attachmentThumbnails/7bf792aeb747bc42679d845ed24fe6fe/fce75af7'}
-							alt="..."
-						/>
+						<a href="/marketplace/collection">
+							<img
+								class="h-12 rounded-full"
+								src={image ??
+									'https://img-cdn.magiceden.dev/rs:fill:32:32:0:0/plain/https://dl.airtable.com/.attachmentThumbnails/7bf792aeb747bc42679d845ed24fe6fe/fce75af7'}
+								alt="..."
+							/></a
+						>
 					</td>
-					<td class="py-4 px-6 font-medium text-start">{i} {name}</td>
+					<td class="py-4 px-6 font-medium text-start">
+						<a href="/marketplace/collection">
+							{i}
+							{name}
+						</a>
+					</td>
 					<td class="py-4 px-6  text-start">{volume_total}</td>
 					<td class="py-4 px-6  text-start">{volume_24h}</td>
 					<td class="py-4 px-6  text-start">{volume_24h_percent}</td>

@@ -28,9 +28,9 @@
 	import Popup from '$lib/popups/Popup.svelte';
 </script>
 
-<div class="flex flex-col items-center  w-2/3 mx-auto gap-4 mt-12">
-	<div class="flex justify-between gap-6">
-		<div class="flex flex-col  w-1/2  gap-4">
+<div class="flex flex-col items-center  laptop:w-2/3 mx-auto gap-4 mt-12">
+	<div class="flex flex-col laptop:flex-row justify-between gap-6">
+		<div class="flex flex-col  laptop:w-1/2  gap-4">
 			<img
 				draggable="false"
 				loading="lazy"
@@ -55,7 +55,7 @@
 			</div>
 			<!-- graph -->
 		</div>
-		<div class="flex flex-col gap-6 w-1/2">
+		<div class="flex flex-col gap-6 laptop:w-1/2">
 			<div class="flex justify-between h-fit px-4 items-end">
 				<div class="mt-5 mt-lg-0">
 					<div class="flex text-primary">
@@ -190,48 +190,52 @@
 		<!-- activities -->
 
 		<div class="border border-secondary rounded-lg p-2">
-			<AccordionSlot border="transparent">
-				<div slot="header" class="flex text-primary gap-2">
-					<img src={heart_line} alt="..." />
-					<span> Activities </span>
-				</div>
-				<div slot="body" class="text-primary text-sm bg-transparent my-2 p-2 rounded-sm">
-					<table class="t border-b-2 border-secondary w-full">
-						<thead class="text-xs">
-							<tr class="text-accent py-2">
-								<th class="text-left">Image</th>
-								<th class="text-left">Name</th>
-								<th class="text-left">Transaction ID</th>
-								<th class="text-left">Transaction Type</th>
-								<th class="text-left">Time</th>
-								<th class="text-left">Total Amount</th>
-								<th class="text-left">Buyer</th>
-								<th class="text-left">Seller</th>
-							</tr>
-						</thead>
-						<tbody>
-							{#each [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] as item}
-								<tr class="text-start  border-b-2 border-secondary">
-									<td class="text-start">
-										<img
-											class="w-10"
-											src={'https://img-cdn.magiceden.dev/rs:fill:400:400:0:0/plain/https://arweave.net/d-N5n-1m64rGw2GQ_1WW1xZB5UN2FmT28Tq2a4kizP0'}
-											alt="..."
-										/>
-									</td>
-									<td class="py-4 text-start"> Ukiyan #568 </td>
-									<td class="py-4 text-start"> 562nh ... 4hq </td>
-									<td class="py-4 text-start"> Listing (ME v2) </td>
-									<td class="py-4 text-start"> 2 minutes ago </td>
-									<td class="py-4 text-start"> 10.95 SOL </td>
-									<td />
-									<td> BAp2s ... dDC </td>
+			<div
+				class="hidden tablet:block overflow-x-auto  rounded-lg  border-2 border-secondary max-w-[100vw]"
+			>
+				<AccordionSlot border="transparent">
+					<div slot="header" class="flex text-primary gap-2">
+						<img src={heart_line} alt="..." />
+						<span> Activities </span>
+					</div>
+					<div slot="body">
+						<table class="w-full text-primary">
+							<thead class="text-xs border-b-2 border-secondary">
+								<tr class="text-primary">
+									<th class="py-3 px-6 text-start">Image</th>
+									<th class="py-3 px-6 text-start">Name</th>
+									<th class="py-3 px-6 text-start">Transaction ID</th>
+									<th class="py-3 px-6 text-start">Transaction Type</th>
+									<th class="py-3 px-6 text-start">Time</th>
+									<th class="py-3 px-6 text-start">Total Amount</th>
+									<th class="py-3 px-6 text-start">Buyer</th>
+									<th class="py-3 px-6 text-start">Seller</th>
 								</tr>
-							{/each}
-						</tbody>
-					</table>
-				</div>
-			</AccordionSlot>
+							</thead>
+							<tbody>
+								{#each [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] as item}
+									<tr class="text-start  border-b-2 border-secondary">
+										<td class="py-4 px-6  text-start">
+											<img
+												class="w-10"
+												src={'https://img-cdn.magiceden.dev/rs:fill:400:400:0:0/plain/https://arweave.net/d-N5n-1m64rGw2GQ_1WW1xZB5UN2FmT28Tq2a4kizP0'}
+												alt="..."
+											/>
+										</td>
+										<td class="py-4 text-start"> Ukiyan #568 </td>
+										<td class="py-4 text-start"> 562nh ... 4hq </td>
+										<td class="py-4 text-start"> Listing (ME v2) </td>
+										<td class="py-4 text-start"> 2 minutes ago </td>
+										<td class="py-4 text-start"> 10.95 SOL </td>
+										<td />
+										<td> BAp2s ... dDC </td>
+									</tr>
+								{/each}
+							</tbody>
+						</table>
+					</div>
+				</AccordionSlot>
+			</div>
 		</div>
 
 		<!-- more info -->
@@ -243,7 +247,7 @@
 				</div>
 				<div slot="body" class="text-primary text-sm bg-transparent my-2 p-2 rounded-sm">
 					<!--  -->
-					<div class="grid grid-cols-3 gap-3">
+					<div class="grid grid-cols-1 tablet:grid-cols-2 laptop:grid-cols-3 gap-3">
 						{#each [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] as item}
 							<NftCard />
 						{/each}

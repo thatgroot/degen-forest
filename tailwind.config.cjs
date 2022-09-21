@@ -5,16 +5,9 @@ module.exports = {
   theme: {
     screens: {
       'tablet': '768px',
-      // => @media (min-width: 640px) { ... }
-
-      'laptop': '1024px',
-      // => @media (min-width: 1024px) { ... }
-
-      'desktop': '1280px',
-      // => @media (min-width: 1280px) { ... }
-      'large': '1536px',
-      // => @media (min-width: 1536px) { ... }
-
+      'laptop': '1280px',
+      'desktop': '1440px',
+      'large': '2560',
     },
     extend: {
       fontSize: {

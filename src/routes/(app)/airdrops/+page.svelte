@@ -15,10 +15,10 @@
 </script>
 
 <div class="flex flex-col items-start tablet:flex-row justify-around gap-12 ">
-	<div class="flex flex-col gap-9  w-2/4">
+	<div class="flex flex-col gap-9  tablet:w-2/4">
 		<div class="flex flex-col gap-5">
 			<h2 class="gradient-text text-4xl font-bold">Airdrop Tokens</h2>
-			<p class="text-base font-medium text-secondary-light leading-8 pr-16">
+			<p class="text-base font-medium text-secondary-light leading-8 tablet:pr-16">
 				Drop Collections, Eth or tokens to multiple addresses.
 			</p>
 		</div>
@@ -41,10 +41,10 @@
 				You have following tokens In your wallet <span class="text-danger">*</span>
 			</span>
 
-			<div class="flex  gap-7">
+			<div class="grid grid-cols-1 tablet:grid-cols-3 gap-7">
 				{#each [dai, usdc, weth] as icon}
 					<div
-						class="flex flex-col gap-3 pt-12 px-2 pb-4 text-primary justify-center items-center relative bg-secondary rounded-2xl w-[8rem]"
+						class="flex flex-col gap-3 pt-12 px-2 pb-4 text-primary justify-center items-center relative bg-secondary rounded-2xl"
 					>
 						<div class="flex  absolute -top-4 left-0 right-0 justify-center">
 							<img src={icon} alt="" class="max-w-[3rem] w-full rounded-full" />

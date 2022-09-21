@@ -49,7 +49,7 @@
 	};
 </script>
 
-<div class="grid grid-cols-4 gap-5 text-primary">
+<div class="grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-4 gap-5 text-primary">
 	<!--  -->
 
 	{#each nfts as { title, time, nft, staked }, i (i)}
