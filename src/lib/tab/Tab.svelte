@@ -14,7 +14,7 @@
 	}  px-3 min-w-[7.5rem] hover:cursor-pointer transition-all ease-linear duration-150 hover:border-b-accent`}
 >
 	<img src={icon} class={`${icon ? 'block h-8' : 'hidden'} `} alt="solana" />
-	<span class="text-accent">{title}</span>
+	<span class="text-secondary-light">{title}</span>
 	<!-- tailwind dot absolute top right -->
 	<div
 		class={`absolute top-0 right-0 w-2 h-2 rounded-full bg-accent ${active ? 'block' : 'hidden'} `}

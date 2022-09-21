@@ -16,6 +16,8 @@
 	import youtube from '$lib/assets/svg/icons/youtube.svg';
 	import twitter from '$lib/assets/svg/icons/twitter.svg';
 	import instagram from '$lib/assets/svg/icons/instagram.svg';
+	import fries_menu from '$lib/assets/svg/icons/fries-menu.svg';
+	import close from '$lib/assets/svg/icons/close.svg';
 
 	const side_nav_items: {
 		title: string;
@@ -23,6 +25,12 @@
 		icon: string;
 		childs: { title: string; href: string }[];
 	}[] = [
+		{
+			title: 'Dex',
+			href: '/dex',
+			icon: dex,
+			childs: []
+		},
 		{
 			title: 'Marketplace',
 			icon: marketplace,
@@ -68,10 +76,6 @@
 				{
 					title: 'Launches',
 					href: '/launchpad/launches'
-				},
-				{
-					title: 'About',
-					href: '/launchpad/about'
 				}
 			]
 		},
@@ -119,56 +123,53 @@
 			href: 'https://www.instagram.com/collectibleworld/'
 		}
 	];
+	let toggle: 'fixed' | 'hidden' = 'hidden';
+	let toggle_icon: string = fries_menu;
 </script>
 
-<div class="max-w-fit">
+<div
+	class="w-full {toggle}  tablet:block left-0 right-0 top-0 bottom-0 z-[9999] bg-primary tablet:max-w-fit transition-all duration-700"
+>
 	<div class="flex flex-col py-6 px-2 gap-6">
 		<div class="flex flex-col gap-2  border-r-2 border-r-brown pr-2">
-			<a
-				href="/dex"
-				class="flex items-center gap-2 text-primary px-2 py-3 rounded-xl cursor-pointer hover:bg-secondary"
-			>
-				<span class="w-4 h-4">
-					<img src={dex} alt={'dex app'} />
-				</span>
-				<span>Dex</span>
-			</a>
-
 			{#each side_nav_items as { title, icon, childs, href }}
 				<!-- content here -->
 				{#if childs.length > 0}
 					<!-- content here -->
-					<Accordion
-						header={{
-							title,
-							show: 'both',
-							size: 'full',
-							postfix: arrow_down,
-							prefix: icon
-						}}
-						{href}
-					>
-						<div class="flex flex-col text-secondary gap-2 py-3 px-1 w-max">
-							{#each childs as { title, href }}
-								<!-- content here -->
-								<a
-									{href}
-									class="w-full bg-primary hover:bg-secondary px-2 py-1 rounded-md cursor-pointer"
-								>
-									{title}
-								</a>
-							{/each}
-						</div>
-					</Accordion>
+					<div>
+						<Accordion
+							header={{
+								title,
+								show: 'both',
+								size: 'full',
+								postfix: arrow_down,
+								prefix: icon
+							}}
+							{href}
+						>
+							<div class="flex flex-col text-secondary-light gap-2 py-3 px-1 w-max">
+								{#each childs as { title, href }}
+									<!-- content here -->
+									<a
+										{href}
+										class="w-full bg-primary hover:bg-secondary px-2 py-1 rounded-md cursor-pointer"
+									>
+										{title}
+									</a>
+								{/each}
+							</div>
+						</Accordion>
+					</div>
 				{:else}
-					<span
-						class="flex items-center gap-2 text-primary px-2 py-3 rounded-xl cursor-pointer hover:bg-secondary"
+					<a
+						{href}
+						class="flex items-center gap-2 text-primary px-2 py-3 rounded-xl cursor-pointer"
 					>
 						<span class="w-4 h-4">
 							<img src={icon} alt={`${title} app`} />
 						</span>
 						<span>{title}</span>
-					</span>
+					</a>
 				{/if}
 			{/each}
 
@@ -186,4 +187,16 @@
 		</div>
 	</div>
 	<!--  -->
+</div>
+
+<div class="fixed bottom-6 right-2 tablet:hidden  z-[999999]">
+	<button
+		class="flex items-center justify-center w-12 h-12 rounded-full bg-secondary"
+		on:click={() => {
+			toggle = toggle === 'hidden' ? 'fixed' : 'hidden';
+			toggle_icon = toggle_icon === fries_menu ? close : fries_menu;
+		}}
+	>
+		<img src={toggle_icon} alt="menu" class="w-6 h-6" />
+	</button>
 </div>

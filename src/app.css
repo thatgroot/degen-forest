@@ -27,7 +27,8 @@
 	--gradient-secondary: linear-gradient(270.15deg, #58d5db 4.24%, #58d5db 39.62%, #ff61d3 75.74%);
 
 	--text-primary: #ffffff;
-	--text-secondary: #9d8aa1;
+	--text-secondary: #21162b;
+	--text-secondary-light: #9d8aa1;
 	--text-accent: #15d6ff;
 	--text-success: #00d1b2;
 	--text-warning: #ffdd57;
@@ -64,6 +65,9 @@
 
 	.gradient-secondary {
 		background: linear-gradient(270.15deg, #58d5db 4.24%, #58d5db 39.62%, #ff61d3 75.74%);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-clip: text;
 	}
 
 	.bg-glass {
@@ -86,10 +90,11 @@
 	}
 
 	.btn-secondary {
-		@apply border-2 border-secondary text-primary flex rounded-md justify-center items-center w-fit;
+		@apply bg-secondary text-primary flex rounded-md justify-center items-center w-fit;
 	}
 
 	.btn-secondary:hover {
-		@apply bg-accent border-accent border-2;
+		@apply border-primary   transition-opacity duration-1000 ease-in-out;
+		background: var(--gradient-primary);
 	}
 }

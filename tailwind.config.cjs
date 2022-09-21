@@ -33,6 +33,7 @@ module.exports = {
       textColor: {
         primary: 'var(--text-primary)',
         secondary: 'var(--text-secondary)',
+        'secondary-light': 'var(--text-secondary-light)',
         accent: 'var(--text-accent)',
         success: 'var(--text-success)',
         warning: 'var(--text-warning)',
@@ -68,6 +69,7 @@ module.exports = {
         secondary: 'var(--border-secondary)',
         'secondary-light': 'var(--border-secondary-light)',
         accent: 'var(--border-accent)',
+        transparent: 'transparent',
       },
       animation: {
         marquee: 'marquee 25s linear infinite',

@@ -2,7 +2,8 @@
 	import arrow_down from '$lib/assets/svg/icons/arrow-down.svg';
 	export let onclick: any = () => {};
 	export let id: string;
-	export let border: 'primary' | 'secondary' | 'tranparent' = 'tranparent';
+	export let border: 'primary' | 'secondary' | 'none' = 'secondary';
+	export let bg: 'primary' | 'secondary' | 'tranparent' = 'tranparent';
 	export let rounded: 'full' | 'sm' | 'md' | 'lg' = 'md';
 	export let postfix: string = arrow_down;
 	export let show: 'title' | 'icon' | 'both' = 'both';
@@ -16,7 +17,9 @@
 <div class="relative h-full w-full">
 	<button
 		on:click={toggle}
-		class={`text-primary bg-transparent h-full w-full border-2 border-${border}  font-medium rounded-${rounded} text-sm px-4 py-2 text-center flex items-center justify-between`}
+		class="text-primary bg-{bg} h-full w-full {border === 'none'
+			? ''
+			: 'border-2'} border-{border}  font-medium rounded-{rounded} text-md px-4 py-2 text-center flex items-center justify-between gap-2"
 		type="button"
 	>
 		{#if show === 'both' || show === 'title'}

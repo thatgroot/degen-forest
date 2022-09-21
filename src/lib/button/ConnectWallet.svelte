@@ -1,6 +1,4 @@
 <script lang="ts">
-	import wallet from '$lib/assets/svg/icons/wallet.svg';
-	import close from '$lib/assets/svg/icons/close.svg';
 	import TabBar from '$lib/tab/TabBar.svelte';
 	import Tab from '$lib/tab/Tab.svelte';
 	import solana from '$lib/assets/svg/icons/solana.svg';
@@ -23,6 +21,7 @@
 	import eth from '$lib/assets/svg/icons/eth.svg';
 	import ListItemCol from '$lib/list/ListItemCol.svelte';
 	import ListItem from '$lib/list/ListItem.svelte';
+	import Popup from '$lib/popups/Popup.svelte';
 
 	//  list of all solana supported wallets with their icons in svg format
 	const wallets = [
@@ -79,46 +78,16 @@
 		}
 	];
 
-	let connected = false;
 	let filtered_wallets = wallets.filter((wallet) => wallet.chain === 'solana');
 	let active_chain = 'solana';
 
-	let toggle: boolean = false;
-	const toggleModal = () => {
-		connected = !connected;
-		toggle = !toggle;
-	};
+	export let toggle = false;
+	export let connected = false;
+	export let onClosed = () => {};
 </script>
 
-{#if !connected}
-	<button on:click|preventDefault={toggleModal} class="btn-accent">
-		<img
-			src={wallet}
-			alt="connect wallet"
-			class="desktop:border-r-2 desktop:border-r-accent  py-2 px-4"
-		/>
-		<span class="px-6 sm:px-2 hidden desktop:block">Connect Wallet</span>
-	</button>
-{/if}
-
-<div
-	id="crypto-modal"
-	tabindex="-1"
-	class={`${
-		!toggle ? 'hidden  -z-[9999]' : ''
-	} bg-glass z-20 transition-all ease-in-out duration-200 overflow-y-auto overflow-x-hidden fixed top-0 bottom-0 left-0 right-0  w-screen h-screen md:inset-0 h-modal md:h-screen justify-center items-center flex`}
-	aria-modal="true"
-	role="dialog"
->
+<Popup {toggle} {onClosed}>
 	<div class="flex flex-col bg-secondary px-6 py-12 gap-6 h-fit min-w-[420px] relative">
-		<div class="flex justify-end w-full absolute -top-2 -right-2 ">
-			<button
-				on:click|preventDefault={toggleModal}
-				class="w-12 h-12 rounded-full text- bg-accent flex justify-center items-center"
-			>
-				<img class="fill-blue stroke-black" src={close} alt="close now" />
-			</button>
-		</div>
 		<p class="gradient-text text-center">Connect a wallet to continue</p>
 		<TabBar>
 			<Tab
@@ -151,7 +120,7 @@
 			{/each}
 		</div>
 	</div>
-</div>
+</Popup>
 
 <!--   wallet connect ui with wallet address, user avatar and a notification  -->
 {#if connected}
@@ -160,47 +129,41 @@
 			<img src={bell} alt="notification" class="w-8 h-8" />
 		</div>
 		<div
-			class="  flex gap-3 items-center px-3 py-1.5 hover:rounded-lg hover:bg-secondary cursor-pointer"
+			class="flex gap-3 items-center px-3 py-1.5 hover:rounded-lg hover:bg-secondary cursor-pointer"
 		>
-			<div class="flex items-start">
-				<img src={avatar} alt="user" class="rounded-full w-8 h-8" />
-			</div>
+			<img src={avatar} alt="user" class="rounded-full w-8 h-8" />
 
 			<div class="flex items-center gap-6">
 				<p class="text-sm text-primary">0x1234567890</p>
 				<img src={arrow_down} alt="change wallet" />
 			</div>
+		</div>
+		<div
+			class="group-hover:block hidden absolute top-[100%] bg-primary right-0 left-0 px-2 py-2 border-2 border-secondary  rounded-lg shadow-lg"
+		>
+			<div class="flex flex-col justify-start gap-2 w-full">
+				<ListItemCol
+					title="Main Wallet"
+					subtitle="1.04"
+					prefix={solana}
+					postfix={copy}
+					insets="sm"
+				/>
+				<ListItemCol
+					title="Bidding Wallet"
+					subtitle="1.04"
+					prefix={eth}
+					postfix={copy}
+					insets="sm"
+				/>
 
-			<!-- a divider line -->
+				<div class="w-full h-[0.0625rem] rounded-full border-[0.0625rem] border-secondary" />
 
-			<!-- tailwind card ui with listitemcol and other options -->
-			<div
-				class="group-hover:block hidden absolute top-[100%] bg-primary right-0 left-0 px-2 py-2 border-2 border-secondary  rounded-lg shadow-lg"
-			>
-				<div class="flex flex-col justify-start gap-2 w-full">
-					<ListItemCol
-						title="Main Wallet"
-						subtitle="1.04"
-						prefix={solana}
-						postfix={copy}
-						insets="sm"
-					/>
-					<ListItemCol
-						title="Bidding Wallet"
-						subtitle="1.04"
-						prefix={eth}
-						postfix={copy}
-						insets="sm"
-					/>
-
-					<div class="w-full h-[0.0625rem] rounded-full border-[0.0625rem] border-secondary" />
-
-					<!-- listitem for sell stack refresh and poweroff -->
-					<ListItem title="Sell" title_prefix={sell} />
-					<ListItem title="My Items" title_prefix={stack} />
-					<ListItem title="Connect a different wallet" title_prefix={refresh} />
-					<ListItem title="Sign out" title_prefix={poweroff} />
-				</div>
+				<!-- listitem for sell stack refresh and poweroff -->
+				<ListItem title="Sell" title_prefix={sell} />
+				<ListItem title="My Items" title_prefix={stack} />
+				<ListItem title="Connect a different wallet" title_prefix={refresh} />
+				<ListItem title="Sign out" title_prefix={poweroff} />
 			</div>
 		</div>
 	</div>

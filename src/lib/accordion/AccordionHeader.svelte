@@ -7,10 +7,13 @@
 	export let title: string = '';
 	export let subtitle: string = '';
 	export let show: 'icon' | 'text' | 'both' | 'slot' = 'icon';
+	export let rounded: 'sm' | 'md' | 'lg' | 'full' | 'none' = 'none';
+	export let bg: 'primary' | 'secondary' | 'accent' | 'transparent' = 'transparent';
+	export let active_bg: 'primary' | 'secondary' | 'accent' | 'transparent' = 'transparent';
 	export let size: AccordionSize = 'full';
 	export let sizeable: boolean = false;
 	export let resize_to: AccordionSize = 'sm';
-	export let prefix: string = filter;
+	export let prefix: string = '';
 	export let postfix: string = arrow_left;
 	/**
 	 * @expanded :: wherther the body is open or not
@@ -35,11 +38,15 @@
 
 <div
 	on:click={onToggle}
-	class={`rounded-xl flex flex-row justify-between items-center ${
-		expanded ? 'bg-secondary' : 'bg-primary'
-	} ${sizeable} ${
-		!sizeable ? 'w-full' : collapsed ? width[resize_to] : width[size]
-	}  min-h-[48px] px-2 py-2 transition-all ease-in-out delay-300  hover:cursor-pointer`}
+	class="rounded-{rounded} flex flex-row justify-between items-center {expanded
+		? 'bg-' + active_bg
+		: 'bg-' + bg} {sizeable} {!sizeable
+		? 'w-full'
+		: collapsed
+		? width[resize_to]
+		: width[
+				size
+		  ]}  min-h-[48px] px-2 py-2 transition-all ease-in-out delay-300  hover:cursor-pointer"
 >
 	<div class="flex flex-row justify-start w-full">
 		{#if show === 'slot'}
@@ -60,6 +67,6 @@
 	</div>
 
 	<div class="mx-2 transition-transform ease-linear delay-100 {collapsed ? 'rotate-180' : ''}">
-		<img class="w-2" src={postfix} alt={`arrow ...`} />
+		<img class="w-4" src={postfix} alt={`arrow ...`} />
 	</div>
 </div>

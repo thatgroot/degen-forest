@@ -14,7 +14,7 @@
 	<img class={`${prefix ? 'block w-4 h-4' : 'hidden'}`} src={prefix} alt={'field icon'} />
 	<input
 		{type}
-		class={`px-2 py-1 placeholder:text-secondary text-primary bg-transparent outline-none focus:outline-none rounded-${round} ${input_sizes[size]}`}
+		class={`px-2 py-1 placeholder:text-secondary-light text-primary bg-transparent outline-none focus:outline-none rounded-${round} ${input_sizes[size]}`}
 		{placeholder}
 	/>
 </div>

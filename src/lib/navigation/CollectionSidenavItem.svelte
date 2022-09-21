@@ -1,27 +1,15 @@
 <script lang="ts">
+	import AccordionHeader from '$lib/accordion/AccordionHeader.svelte';
 	import AccordionSlot from '$lib/accordion/AccordionSlot.svelte';
 	import Input from '$lib/form/Input.svelte';
+	import arrow_down from '$lib/assets/svg/icons/arrow-down.svg';
 
 	export let title: string = '';
 </script>
 
 <AccordionSlot active_bg="transparent">
-	<div slot="header" class="w-full text-primary">
-		<div class="flex justify-between p-2 cursor-pointer text-sm hover:bg-secondary">
-			<div class="text-primary">{title}</div>
-			<svg
-				stroke="currentColor"
-				fill="none"
-				stroke-width="2"
-				viewBox="0 0 24 24"
-				stroke-linecap="round"
-				stroke-linejoin="round"
-				color="#f5f3f7"
-				height="24"
-				width="24"
-				xmlns="http://www.w3.org/2000/svg"
-			/>
-		</div>
+	<div slot="header" class="w-full">
+		<AccordionHeader {title} postfix={arrow_down} show="text" toggleAccordionHeader={() => {}} />
 	</div>
 	<div slot="body" class="text-primary flex flex-col gap-3 py-4">
 		<div class="flex flex-col justify-between gap-3">
