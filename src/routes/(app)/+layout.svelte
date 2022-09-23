@@ -27,14 +27,14 @@
 					on:click|preventDefault={() => {
 						toggle = !toggle;
 					}}
-					class="flex btn-primary desktop:btn-accent px-2"
+					class="flex btn-primary desktop:btn-accent p-0 px-2"
 				>
 					<img
 						src={wallet}
 						alt="connect wallet"
-						class="desktop:border-r-2 desktop:border-r-accent desktop:px-3 desktop:py-2 block"
+						class="desktop:border-r-2 desktop:border-r-accent block px-2"
 					/>
-					<span class="px-6 sm:px-2 hidden desktop:block">Connect Wallet</span>
+					<span class="text-sm px-6 sm:px-2 hidden desktop:block">Connect Wallet</span>
 				</button>
 			</div>
 		</div>
