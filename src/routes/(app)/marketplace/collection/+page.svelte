@@ -30,117 +30,114 @@
 <div class="w-full py-0 sm:mt-0">
 	<div class="flex flex-col">
 		<div class="flex flex-col items-center laptop:flex-row last:items-start gap-12">
-			<div class="w-full laptop:w-fit flex  w-full rounded-full overflow-auto">
+			<div class="w-full laptop:w-fit flex rounded-full overflow-auto">
 				<img
 					draggable="false"
 					loading="lazy"
-					class="object-center object-cover  rounded-full  max-w-xs overflow-auto mx-auto"
+					class="object-center object-cover max-w-[8rem]  rounded-full    overflow-auto mx-auto"
 					src="https://img-cdn.magiceden.dev/rs:fill:400:400:0:0/plain/https://creator-hub-prod.s3.us-east-2.amazonaws.com/ukiyo_pfp_1663178207810.jpeg"
 					alt="avatar"
 				/>
 			</div>
-			<div class="flex flex-col flex-wrap desktop:flex-row justify-between gap-12">
-				<div class="">
-					<div class="grid grid-cols-2 laptop:grid-cols-[350px,350px] gap-3">
-						<div
-							class=" truncate p-2 space-x-2 rounded-[4px] flex items-center justify-between flex-col bg-secondary tablet:flex-row"
-						>
-							<div class="flex justify-center items-center space-x-2">
-								<span class="text-xs text-secondary-light whitespace-nowrap" title="FLOOR"
-									>FLOOR</span
-								>
-							</div>
-							<div class="flex space-x-2 items-center max-w-full">
-								<div
-									class="cursor-help max-w-full truncate"
-									data-tooltipped=""
-									aria-describedby="tippy-tooltip-387"
-									data-original-title="5.39 ◎"
-								>
-									<span class="text-primary text-14px truncate" title="5.39 ◎">5.39 ◎</span>
-								</div>
+			<div class="flex flex-col desktop:flex-row justify-between gap-12">
+				<div class="grid grid-cols-2 laptop:grid-cols-2 tablet:w-1/2 gap-3">
+					<div
+						class=" truncate p-2 space-x-2 rounded-[4px] flex items-center justify-between flex-col bg-secondary tablet:flex-row"
+					>
+						<div class="flex justify-center items-center space-x-2">
+							<span class="text-xs text-secondary-light whitespace-nowrap" title="FLOOR">FLOOR</span
+							>
+						</div>
+						<div class="flex space-x-2 items-center max-w-full">
+							<div
+								class="cursor-help max-w-full truncate"
+								data-tooltipped=""
+								aria-describedby="tippy-tooltip-387"
+								data-original-title="5.39 ◎"
+							>
+								<span class="text-primary text-14px truncate" title="5.39 ◎">5.39 ◎</span>
 							</div>
 						</div>
-						<div
-							class=" truncate p-2 space-x-2 rounded-[4px] flex items-center justify-between flex-col bg-secondary tablet:flex-row"
-						>
-							<div class="flex justify-center items-center space-x-2">
-								<span class="text-xs text-secondary-light whitespace-nowrap" title="LISTED"
-									>LISTED</span
-								>
-							</div>
-							<div class="flex space-x-2 items-center max-w-full">
-								<div class="cursor-help max-w-full truncate">
-									<span class="text-primary text-14px truncate" title="1,494">1,494</span>
-								</div>
+					</div>
+					<div
+						class=" truncate p-2 space-x-2 rounded-[4px] flex items-center justify-between flex-col bg-secondary tablet:flex-row"
+					>
+						<div class="flex justify-center items-center space-x-2">
+							<span class="text-xs text-secondary-light whitespace-nowrap" title="LISTED"
+								>LISTED</span
+							>
+						</div>
+						<div class="flex space-x-2 items-center max-w-full">
+							<div class="cursor-help max-w-full truncate">
+								<span class="text-primary text-14px truncate" title="1,494">1,494</span>
 							</div>
 						</div>
-						<div
-							class=" truncate p-2 space-x-2 rounded-[4px] flex items-center justify-between flex-col bg-secondary tablet:flex-row"
-						>
-							<div class="flex justify-center items-center space-x-2">
-								<span class="text-xs text-secondary-light whitespace-nowrap" title="TOTAL VOL"
-									>TOTAL VOL
-								</span>
-							</div>
-							<div class="flex space-x-2 items-center max-w-full">
-								<div class="cursor-help max-w-full truncate">
-									<span class="text-primary text-14px truncate" title="31.7K ◎">31.7K ◎</span>
-								</div>
+					</div>
+					<div
+						class=" truncate p-2 space-x-2 rounded-[4px] flex items-center justify-between flex-col bg-secondary tablet:flex-row"
+					>
+						<div class="flex justify-center items-center space-x-2">
+							<span class="text-xs text-secondary-light whitespace-nowrap" title="TOTAL VOL"
+								>TOTAL VOL
+							</span>
+						</div>
+						<div class="flex space-x-2 items-center max-w-full">
+							<div class="cursor-help max-w-full truncate">
+								<span class="text-primary text-14px truncate" title="31.7K ◎">31.7K ◎</span>
 							</div>
 						</div>
-						<div
-							class=" truncate p-2 space-x-2 rounded-[4px] flex items-center justify-between flex-col bg-secondary tablet:flex-row"
-						>
-							<div class="flex justify-center items-center space-x-2">
-								<span class="text-xs text-secondary-light whitespace-nowrap" title="AVG. SALE (24h)"
-									>AVG. SALE (24h)</span
-								>
-							</div>
-							<div class="flex space-x-2 items-center max-w-full">
-								<div class="cursor-help max-w-full truncate">
-									<span class="text-primary text-14px truncate" title="5.66 ◎">5.66 ◎</span>
-								</div>
+					</div>
+					<div
+						class=" truncate p-2 space-x-2 rounded-[4px] flex items-center justify-between flex-col bg-secondary tablet:flex-row"
+					>
+						<div class="flex justify-center items-center space-x-2">
+							<span class="text-xs text-secondary-light whitespace-nowrap" title="AVG. SALE (24h)"
+								>AVG. SALE (24h)</span
+							>
+						</div>
+						<div class="flex space-x-2 items-center max-w-full">
+							<div class="cursor-help max-w-full truncate">
+								<span class="text-primary text-14px truncate" title="5.66 ◎">5.66 ◎</span>
 							</div>
 						</div>
-						<div
-							class=" truncate p-2 space-x-2 rounded-[4px] flex items-center justify-between flex-col bg-secondary tablet:flex-row"
-						>
-							<div class="flex justify-center items-center space-x-2">
-								<span class="text-xs text-secondary-light whitespace-nowrap" title="OWNERS">
-									OWNERS
-								</span>
-							</div>
-							<div class="flex space-x-2 items-center max-w-full">
-								<div>
-									<span class="text-primary text-14px truncate" title="---">---</span>
-								</div>
+					</div>
+					<div
+						class=" truncate p-2 space-x-2 rounded-[4px] flex items-center justify-between flex-col bg-secondary tablet:flex-row"
+					>
+						<div class="flex justify-center items-center space-x-2">
+							<span class="text-xs text-secondary-light whitespace-nowrap" title="OWNERS">
+								OWNERS
+							</span>
+						</div>
+						<div class="flex space-x-2 items-center max-w-full">
+							<div>
+								<span class="text-primary text-14px truncate" title="---">---</span>
 							</div>
 						</div>
-						<div
-							class=" truncate p-2 space-x-2 rounded-[4px] flex items-center justify-between flex-col bg-secondary tablet:flex-row"
-						>
-							<div class="flex justify-center items-center space-x-2">
-								<span class="text-xs text-secondary-light whitespace-nowrap" title="TOTAL SUPPLY">
-									TOTAL SUPPLY
-								</span>
-								<div>
-									<img src={info} class="w-4 h-4" alt="more info" />
-								</div>
+					</div>
+					<div
+						class=" truncate p-2 space-x-2 rounded-[4px] flex items-center justify-between flex-col bg-secondary tablet:flex-row"
+					>
+						<div class="flex justify-center items-center space-x-2">
+							<span class="text-xs text-secondary-light whitespace-nowrap" title="TOTAL SUPPLY">
+								TOTAL SUPPLY
+							</span>
+							<div>
+								<img src={info} class="w-4 h-4" alt="more info" />
 							</div>
-							<div class="flex space-x-2 items-center max-w-full">
-								<div
-									class="cursor-help max-w-full truncate"
-									data-tooltipped=""
-									aria-describedby="tippy-tooltip-393"
-								>
-									<span class="text-primary text-14px truncate" title="---">---</span>
-								</div>
+						</div>
+						<div class="flex space-x-2 items-center max-w-full">
+							<div
+								class="cursor-help max-w-full truncate"
+								data-tooltipped=""
+								aria-describedby="tippy-tooltip-393"
+							>
+								<span class="text-primary text-14px truncate" title="---">---</span>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="flex flex-col desktop:max-w-[500px]">
+				<div class="flex flex-col desktop:max-w-[500px] tablet:w-1/2">
 					<div class="flex flex-wrap gap-3 items-center justify-center text-primary">
 						<div>
 							<a href="https://www.discord.gg/EJltoquvN5" target="_blank" rel="noreferrer">

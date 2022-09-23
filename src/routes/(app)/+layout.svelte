@@ -17,7 +17,8 @@
 		<!-- topbar -->
 		<Topbar />
 		<div class="flex flex-col gap-6 desktop:flex-row justify-between px-3 py-3">
-			<img src={logo} alt="degen forest" />
+			<img src={logo} alt="degen forest" class="max-w-[15rem]" />
+
 			<div class="flex flex-row gap-3 justify-between">
 				<div class="flex items-center">
 					<Search bg="secondary" />

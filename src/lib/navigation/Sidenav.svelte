@@ -128,7 +128,7 @@
 </script>
 
 <div
-	class="w-full {toggle}  tablet:block left-0 right-0 top-0 bottom-0 z-[9999] tablet:z-10 bg-primary tablet:max-w-fit transition-all duration-700"
+	class="w-full {toggle}  laptop:block left-0 right-0 top-0 bottom-0 z-[9999] bg-primary tablet:max-w-min transition-all duration-700"
 >
 	<div class="flex flex-col py-6 px-2 gap-6">
 		<div class="flex flex-col gap-2  border-r-2 border-r-brown pr-2">
@@ -189,7 +189,7 @@
 	<!--  -->
 </div>
 
-<div class="fixed bottom-6 right-2 tablet:hidden  z-[999999]">
+<div class="fixed bottom-6 right-2 laptop:hidden  z-[999999]">
 	<button
 		class="flex items-center justify-center w-12 h-12 rounded-full bg-secondary"
 		on:click={() => {

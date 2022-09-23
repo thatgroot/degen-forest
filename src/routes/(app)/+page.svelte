@@ -23,7 +23,7 @@
 	>
 		<!-- popular collections -->
 		<div class="flex flex-col gap-6">
-			<div class="flex justify-between">
+			<div class="flex flex-col laptop:flex-row justify-between">
 				<div class="flex justify-between items-center text-primary gap-4">
 					<h3 class="mb-0 font-bold text-[28px] leading-9 ">Popular Collections</h3>
 
@@ -49,7 +49,7 @@
 					See All
 				</a>
 			</div>
-			<div class="grid grid-cols-4 gap-4">
+			<div class="grid grid-cols-1 tablet:grid-cols-2 large:grid-cols-4 gap-4">
 				{#each [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11] as item}
 					<NftItem number={item} icon={solana} nft_img={ezu} />
 				{/each}
@@ -75,7 +75,7 @@
 					See All
 				</a>
 			</div>
-			<div class="grid grid-cols-4 gap-4">
+			<div class="grid grid-cols-1 tablet:grid-cols-3 desktop:grid-cols-4 large:grid-cols-6 gap-4">
 				{#each [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11] as num}
 					<NftCardMinimal>
 						<div class="flex flex-col gap-3">
@@ -105,7 +105,7 @@
 				</a>
 			</div>
 
-			<div class="grid grid-cols-4 gap-4">
+			<div class="grid grid-cols-1 tablet:grid-cols-3 desktop:grid-cols-4 large:grid-cols-6 gap-4">
 				{#each [1, 2, 3, 4] as item}
 					<NftCardMinimal>
 						<div class="flex gap-8 font-light text-xs">
@@ -135,9 +135,8 @@
 					See All
 				</a>
 			</div>
-
-			<div class="grid grid-cols-4 gap-4">
-				{#each [1, 2, 3, 4] as item}
+			<div class="grid grid-cols-1 tablet:grid-cols-3 desktop:grid-cols-4 large:grid-cols-6 gap-4">
+				{#each [1, 2, 3, 4, 5, 6] as item}
 					<NftCardMinimal>
 						<div class="flex gap-8 font-light text-xs">
 							<span class="bg-secondary text-primary rounded-full px-3 py-1"

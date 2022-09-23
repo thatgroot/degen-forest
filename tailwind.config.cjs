@@ -7,7 +7,7 @@ module.exports = {
       'tablet': '768px',
       'laptop': '1280px',
       'desktop': '1440px',
-      'large': '2560',
+      'large': '2560px',
     },
     extend: {
       fontSize: {
