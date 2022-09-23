@@ -5,7 +5,6 @@
 	import blind from '$lib/assets/art/blind.png';
 	import fat from '$lib/assets/art/fat.png';
 	import Popup from '$lib/popups/Popup.svelte';
-	import { router } from '../about/+page';
 
 	// svelte get current route slug
 

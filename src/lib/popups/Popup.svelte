@@ -25,8 +25,8 @@
 	id="crypto-modal"
 	tabindex="-1"
 	class={`${
-		!toggle ? 'hidden  -z-[9999]' : ''
-	} bg-glass z-20 transition-all ease-in-out duration-200 overflow-y-auto overflow-x-hidden fixed top-0 bottom-0 left-0 right-0  w-full tablet:w-screen h-screen  justify-center items-center flex`}
+		!toggle ? 'hidden  -z-[99999]' : ''
+	} bg-glass z-[99999] transition-all ease-in-out duration-200 overflow-y-auto overflow-x-hidden fixed top-0 bottom-0 left-0 right-0  w-full tablet:w-screen h-screen  justify-center items-center flex`}
 	aria-modal="true"
 	role="dialog"
 >
