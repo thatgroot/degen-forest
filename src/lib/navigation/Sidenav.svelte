@@ -152,7 +152,7 @@
 									<!-- content here -->
 									<a
 										{href}
-										class="w-full bg-primary hover:bg-secondary px-2 py-1 rounded-md cursor-pointer"
+										class="w-full tablet:bg-primary hover:bg-secondary text-sm px-2 py-1 rounded-md cursor-pointer"
 									>
 										{title}
 									</a>
@@ -173,12 +173,14 @@
 				{/if}
 			{/each}
 
-			<div class="border-b-2 border-b-secondary my-4" />
+			<div class="border-b-0 tablet:border-b-2 border-b-secondary my-4" />
 
-			<div class="flex flex-wrap max-w-[20rem] gap-y-2 justify-between text-white">
+			<div class="grid grid-cols-2 gap-y-2 text-primary">
 				{#each social_media_data as { title, icon }}
 					<!-- content here -->
-					<button class="flex gap-2 items-center border-2 border-secondary px-2 py-1 min-w-[120px]">
+					<button
+						class="flex gap-2 items-center tablet:border-2 border-secondary px-2 py-1 text-xs"
+					>
 						<img src={icon} class="h-4 w-4" alt={`${icon}`} />
 						<span>{title}</span>
 					</button>

@@ -26,11 +26,11 @@
 				{#each data as item}
 					<div class="flex flex-col justify-between items-center rounded-sm p-4 border-2 my-2">
 						<!-- list item -->
-						<div class="flex flex-row justify-between text-white w-full">
+						<div class="flex flex-row justify-between text-primary w-full">
 							<span>DeGod</span>
 							<span>29/1000</span>
 						</div>
-						<div class="flex flex-row justify-between text-white w-full">
+						<div class="flex flex-row justify-between text-primary w-full">
 							<span>279.0 ◎ floor</span>
 							<span>0.29%</span>
 						</div>

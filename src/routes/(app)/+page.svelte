@@ -58,24 +58,32 @@
 
 		<!-- launchpad drops -->
 		<div class="flex flex-col gap-6">
-			<div class="flex justify-between">
-				<div class="flex justify-between items-center text-primary gap-4">
+			<div class="flex flex-col gap-3 tablet:flex-row justify-between">
+				<div class="flex flex-col tablet:flex-row justify-between items-center text-primary gap-4">
 					<h3 class="mb-0 font-bold text-[28px] leading-9 ">Launchpad drops</h3>
 
-					<div class="flex rounded-full border-2 border-secondary text-sm">
-						<button class="rounded-full px-6 py-2 btn-secondary"> Next 7 days </button>
-						<button class="rounded-full px-4 py-2 btn-secondary"> Comming soon</button>
-						<button class="rounded-full px-4 py-2 btn-secondary"> Live </button>
+					<div
+						class="flex flex-row flex-wrap gap-3 tablet:flex-nowrap tablet:rounded-full tablet:border-2 border-secondary text-sm"
+					>
+						<button class="rounded-full px-6 py-2 btn-secondary w-full tablet:w-max">
+							Next 7 days
+						</button>
+						<button class="rounded-full px-4 py-2 btn-secondary  w-full tablet:w-max">
+							Comming soon</button
+						>
+						<button class="rounded-full px-4 py-2 btn-secondary  w-full tablet:w-max">
+							Live
+						</button>
 					</div>
 				</div>
 				<a
-					class="flex justify-center items-center rounded-md border-2 border-secondary px-4 text-primary"
+					class="flex justify-center items-center rounded-md border-2 border-secondary px-6 py-2  text-primary"
 					href="/popular-collections"
 				>
 					See All
 				</a>
 			</div>
-			<div class="grid grid-cols-1 tablet:grid-cols-3 desktop:grid-cols-4 large:grid-cols-6 gap-4">
+			<div class="grid grid-cols-1  tablet:grid-cols-3 desktop:grid-cols-4 large:grid-cols-6 gap-4">
 				{#each [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11] as num}
 					<NftCardMinimal>
 						<div class="flex flex-col gap-3">

@@ -14,8 +14,8 @@
 	let active: 'address' | 'holders' = 'address';
 </script>
 
-<div class="flex flex-col items-start tablet:flex-row justify-around gap-12 ">
-	<div class="flex flex-col gap-9  tablet:w-2/4">
+<div class="flex flex-col items-start justify-center tablet:flex-row  laptop:gap-12 ">
+	<div class="flex flex-col gap-9  laptop:w-2/4">
 		<div class="flex flex-col gap-5">
 			<h2 class="gradient-text text-4xl font-bold">Airdrop Tokens</h2>
 			<p class="text-base font-medium text-secondary-light leading-8 tablet:pr-16">
@@ -73,10 +73,10 @@
 			<span class="text-secondary-light font-light">
 				enter one address and amount from your collection to drop supports any format.
 			</span>
-			<div class="flex gap-8">
+			<div class="grid grid-cols-1 tablet:grid-cols-2 laptop:grid-cols-3 gap-3 w-full mx-auto">
 				{#each [{ icon: fat, lable: 'DegenGods', creator: 'Eliot', verified: false }, { icon: blind, lable: 'Blind Boxes', verified: true, creator: 'Eliot' }, { icon: ape, lable: 'Ape Gods', creator: 'Eliot', verified: false }] as { icon, lable, verified, creator }, i (i)}
 					<div
-						class="flex flex-col gap-2 pt-32 px-2 pb-4 text-secondary-light justify-center items-center relative bg-secondary rounded-2xl w-[13rem]"
+						class="flex flex-col gap-2 pt-32 px-2 pb-4 text-secondary-light justify-center items-center relative bg-secondary rounded-2xl w-full"
 					>
 						<div class="flex  absolute -top-4 left-0 right-0 justify-center">
 							<img src={icon} alt="" class="max-w-[9rem] w-full rounded-full" />

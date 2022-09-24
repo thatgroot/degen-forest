@@ -20,6 +20,6 @@
 		{/if}
 	</div>
 	{#if subtitle}
-		<span class="text-white ml-4">{subtitle}</span>
+		<span class="text-primary ml-4">{subtitle}</span>
 	{/if}
 </div>

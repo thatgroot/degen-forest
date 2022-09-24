@@ -147,7 +147,7 @@
 
 <div class="flex flex-col gap-6">
 	<button class="btn-accent py-2 px-3"> Featured Launch </button>
-	<div class="flex flex-col tablet:flex-row justify-around gap-12 ">
+	<div class="flex flex-col laptop:flex-row justify-around gap-12 ">
 		<div class="flex-1 flex flex-col gap-6">
 			<h2 class="gradient-text text-4xl font-bold">Rugged Revenants Gen</h2>
 			<p class="text-base text-accent leading-8 tablet:pr-16">
@@ -187,39 +187,36 @@
 			/>
 		</TabBar>
 	</div>
-	<div class="mt-4 grid gap-3 gird-cols-1 tablet:grid-cols-3 desktop:grid-cols-4 large:grid-cols-4">
+
+	<div class="grid gap-3 gird-cols-1 tablet:grid-cols-2 desktop:grid-cols-4 large:grid-cols-4 my-6">
 		<div class="p-0 text-center rounded-2xl overflow-hidden border-2 border-secondary">
 			<a href="/auction/the_lost_kiki_"
 				><div class="rounded-2xl">
-					<!-- svelte-ignore a11y-media-has-caption -->
-					<video playsinline loop class="max-w-full "
-						><source
-							src="https://bafybeifi7p6xtgnpie3kxs4qv4kr5mzhzlr3ymjjqhzq7gulg374t6n6si.ipfs.nftstorage.link/thelostkiki.mp4?ext=mp4"
-						/></video
-					>
+					<img
+						src="https://img-cdn.magiceden.dev/rs:fill:400:400:0:0/plain/https://bafkreiapq6oq6bnfi6kvwg4fzzo7objbd64kxhnz6totbrmxitcije7zg4.ipfs.dweb.link/"
+						class="max-w-full "
+						alt="..."
+					/>
 				</div>
-				<div class="p-0  col-12 text-primary">
+				<div class="p-0 col-12 text-primary">
 					<div class="px-4 pt-3 pb-3">
-						<h5 class="mb-2 text-sm font-bold text-primary" title="The Lost Kiki">The Lost Kiki</h5>
-						<div
-							class="text-xs uppercase text-accent flex  items-center justify-center gap-1"
-							title="Live"
-						>
-							Live
+						<h5 class="mb-2 text-sm font-bold text-primary">The Lost Kiki</h5>
+						<div class="text-xs uppercase text-accent flex items-center justify-center gap-1">
+							1d 2h 30m
 						</div>
 					</div>
 					<div class="flex justify-between rounded-md px-2 py-2 bg-transparent m-2">
 						<div
-							class="flex  justify-between gap-3 text-left border-2 border-secondary px-4 py-2 rounded-md"
+							class="flex justify-between gap-3 text-left border-2 border-secondary px-4 py-2 rounded-md"
 						>
 							<span class="uppercase text-xs">items</span>
 							<span class="text-xs font-bold flex items-center">1000</span>
 						</div>
 						<div
-							class="flex  justify-between gap-3 text-left border-2 border-secondary px-4 py-2 rounded-md"
+							class="flex justify-between gap-3 text-left border-2 border-secondary px-4 py-2 rounded-md"
 						>
 							<span class="uppercase text-xs">price</span>
-							<span class="text-xs font-bold flex items-center">1.00 SOL</span>
+							<span class="text-xs font-bold flex items-center">0.1 SOL</span>
 						</div>
 					</div>
 				</div>
@@ -230,13 +227,13 @@
 	<div class="flex flex-col gap-4">
 		<h1 class="mt-8  text-start text-primary text-3xl font-bold">Upcoming</h1>
 
-		<div class="grid gap-3 gird-cols-1 tablet:grid-cols-3 desktop:grid-cols-4 large:grid-cols-4">
+		<div class="grid gap-3 gird-cols-1 tablet:grid-cols-2 desktop:grid-cols-4 large:grid-cols-4">
 			{#each nfts as { name, image, items, price, time_left }}
 				<div class="p-0 text-center rounded-2xl overflow-hidden border-2 border-secondary">
-					<a href="/auction/the_lost_kiki_"
-						><div class="rounded-2xl">
+					<a href="/auction/the_lost_kiki_">
+						<div class="rounded-2xl">
 							<!-- svelte-ignore a11y-media-has-caption -->
-							<img src={image} class="max-w-full " alt="..." />
+							<img src={image} class="max-w-full w-full" alt="..." />
 						</div>
 						<div class="p-0  col-12 text-primary">
 							<div class="px-4 pt-3 pb-3">

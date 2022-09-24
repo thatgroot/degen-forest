@@ -20,7 +20,7 @@
 				</p>
 			</div>
 			<button
-				class="gradient-primary max-w-[16rem] min-h-[3rem] px-6 py-4 rounded-lg text-white text-xl"
+				class="gradient-primary max-w-[16rem] min-h-[3rem] px-6 py-4 rounded-lg text-primary text-xl"
 			>
 				Go to Launchpad
 			</button>

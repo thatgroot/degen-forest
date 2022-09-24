@@ -80,7 +80,7 @@
 	}
 
 	.btn-primary {
-		@apply px-8 py-2 rounded-md text-white text-xl;
+		@apply px-8 py-2 rounded-md text-primary text-xl;
 	}
 	.btn-primary:hover {
 		@apply gradient-secondary;

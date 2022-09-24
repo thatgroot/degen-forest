@@ -3,7 +3,7 @@
 </script>
 
 <div class="flex flex-col">
-	<div class="px-3 pt-8">
+	<div class="tablet:px-3 tablet:pt-8">
 		<div
 			class="border border-purple-3 p-8 rounded-2xl flex justify-around flex-col tablet:flex-row gap-4"
 		>

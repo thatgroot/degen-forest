@@ -25,7 +25,7 @@
 		<div class="flex gap-2">
 			<img src={tag} alt="tag" />
 			<div class="cursor-help">
-				<span class="text-white price">15 SOL</span><span style="color: rgb(0, 209, 129);">
+				<span class="text-primary price">15 SOL</span><span style="color: rgb(0, 209, 129);">
 					▲
 				</span>
 			</div>
@@ -40,7 +40,7 @@
 						<div class="grid grid-cols-[20px,1fr,22px] text-sm items-center gap-x-2.5 px-3 py-2">
 							<img class="w-4 h-4" src={solana} alt="..." />
 							<div class="flex flex-col items-start">
-								<span class="text-white-2 text-sm">Pay in solana</span>
+								<span class="text-primary-2 text-sm">Pay in solana</span>
 								<span class="flex items-center text-xxs gap-x-1">
 									<span class="text-light-gray-500">Pay with connected wallet</span>
 									<b>•</b>
@@ -57,7 +57,7 @@
 						>
 							<img class="w-4 h-4" src={currency === 'sol' ? solana : eth} alt="..." />
 							<div class="flex flex-col">
-								<span class="text-white-2 text-sm">Pay in {currency}</span>
+								<span class="text-primary-2 text-sm">Pay in {currency}</span>
 								<span class="flex items-center text-xxs gap-x-1">
 									<span class="text-light-gray-500">Pay with connected wallet</span>
 									<b>•</b>

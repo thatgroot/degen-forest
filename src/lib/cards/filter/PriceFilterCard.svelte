@@ -21,7 +21,7 @@
 			<div>{crypto_coin}</div>
 			<div class="flex flex-row justify-between items-center w-fit">
 				<Input placeholder={'MIN'} size={'sm'} round={'lg'} />
-				<span class="text-white p-2">to</span>
+				<span class="text-primary p-2">to</span>
 				<Input placeholder={'MAX'} size={'sm'} round={'lg'} />
 			</div>
 			<Button>Apply</Button>
