@@ -6,7 +6,7 @@
 	export let bg: 'primary' | 'secondary' | 'accent' | 'transparent' = 'primary';
 </script>
 
-<div class="flex flex-col rounded-lg border-2 border-secondary bg-{bg}  overflow-hidden w-fit">
+<div class="flex flex-col rounded-lg border-2 border-secondary bg-{bg}  overflow-hidden w-full">
 	<!-- header -->
 	<div class="w-full cursor-pointer group relative group">
 		<img

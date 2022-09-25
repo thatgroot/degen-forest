@@ -29,7 +29,7 @@
 
 <div class="w-full py-0 sm:mt-0">
 	<div class="flex flex-col">
-		<div class="flex flex-col items-center laptop:flex-row last:items-start gap-12">
+		<div class="flex flex-col items-center laptop:flex-row justify-evenly last:items-start gap-12">
 			<div class="w-full laptop:w-fit flex rounded-full overflow-auto">
 				<img
 					draggable="false"
@@ -270,7 +270,7 @@
 				</div>
 			</AccordionSlot>
 		</div>
-		<div>
+		<div class="w-full">
 			<div
 				class="flex flex-col flex-wrap desktop:flex-row default:flex-nowrap laptop:justify-between items-center px-4 max-w-full pt-0"
 			>
@@ -440,7 +440,9 @@
 					</span>
 					<span class="text-xs text-secondary-light hidden md:block">refreshed 18s ago</span>
 				</div>
-				<Search placeholder={'Search'} bg={'secondary'} />
+				<div class="w-fit">
+					<Search placeholder={'Search'} bg={'secondary'} />
+				</div>
 				<div class="items-center gap-2 flex !duration-[0ms]">
 					<button
 						type="button"
@@ -463,7 +465,9 @@
 				</div>
 			</div>
 
-			<div class="grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-4 gap-4 px-6">
+			<div
+				class="grid grid-cols-1 tablet:grid-cols-2 laptop:grid-cols-3 desktop:grid-cols-4 large:grid-cols-5  gap-4 px-6"
+			>
 				{#each [1, 2, 3, 4, 5] as item}
 					<NftCard bg="primary" />
 				{/each}

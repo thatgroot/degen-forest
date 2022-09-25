@@ -1,5 +1,5 @@
 <div
-	class="mx-auto flex flex-col relative max-w-[18rem] tablet:max-w-[14rem] desktop:max-w-[15rem] large:max-w-[20rem] rounded-xl transition-all ease-in-out hover:scale-90 w-max cursor-pointer border-2 border-secondary  pb-7 gap-3"
+	class="mx-auto flex flex-col relative  w-full rounded-xl transition-all ease-in-out hover:scale-90   cursor-pointer border-2 border-secondary  pb-7 gap-3"
 >
 	<img
 		draggable="false"
