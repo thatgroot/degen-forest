@@ -25,7 +25,7 @@
 		<div class="flex flex-col gap-6">
 			<div class="flex flex-col laptop:flex-row justify-between">
 				<div class="flex justify-between items-center text-primary gap-4">
-					<h3 class="mb-0 font-bold text-[28px] leading-9 ">Popular Collections</h3>
+					<h3 class="mb-0 font-bold text-[28px] leading-9 text-gradient">Popular Collections</h3>
 
 					<div class="flex">
 						<Dropdown
@@ -51,7 +51,13 @@
 			</div>
 			<div class="grid grid-cols-1 tablet:grid-cols-2 large:grid-cols-4 gap-4">
 				{#each [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11] as item}
-					<NftItem number={item} icon={solana} nft_img={ezu} />
+					<NftItem
+						number={item}
+						growth={item % 4 === 0 ? 'up' : 'down'}
+						growth_value={item % 7 === 0 ? 0 : randomNumber(20, 350)}
+						icon={solana}
+						nft_img={ezu}
+					/>
 				{/each}
 			</div>
 		</div>
@@ -63,17 +69,26 @@
 					<h3 class="mb-0 font-bold text-[28px] leading-9 ">Launchpad drops</h3>
 
 					<div
-						class="flex flex-row flex-wrap gap-3 tablet:flex-nowrap tablet:rounded-full tablet:border-2 border-secondary text-sm"
+						class="flex flex-row flex-wrap  gap-3  tablet:flex-nowrap tablet:rounded-full tablet:border-2 border-secondary text-sm"
 					>
-						<button class="rounded-full px-6 py-2 btn-secondary w-full tablet:w-max">
+						<button
+							class="rounded-full px-6 py-2 gradient-primary btn-secondary w-full tablet:w-max"
+						>
 							Next 7 days
 						</button>
-						<button class="rounded-full px-4 py-2 btn-secondary  w-full tablet:w-max">
-							Comming soon</button
-						>
-						<button class="rounded-full px-4 py-2 btn-secondary  w-full tablet:w-max">
-							Live
-						</button>
+
+						<div class="relative group">
+							<button class="rounded-full px-4 py-2  w-full tablet:w-max"> Comming soon</button>
+							<div
+								class="-z-10 w-32 absolute -left-24 top-0 bottom-0  rounded-full px-6 py-2 group-hover:gradient-primary transition-all duration-1000  group-hover:translate-x-12 group-hover:-left-12"
+							/>
+						</div>
+						<div class="relative group">
+							<button class="rounded-full px-4 py-2  w-full tablet:w-max">Live</button>
+							<div
+								class="-z-10 w-32 absolute -left-24 top-0 bottom-0  rounded-full px-6 py-2 group-hover:gradient-primary transition-all duration-1000  group-hover:translate-x-12 group-hover:-left-12 group-hover:w-14"
+							/>
+						</div>
 					</div>
 				</div>
 				<a
@@ -84,7 +99,7 @@
 				</a>
 			</div>
 			<div class="grid grid-cols-1  tablet:grid-cols-3 desktop:grid-cols-4 large:grid-cols-6 gap-4">
-				{#each [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11] as num}
+				{#each [1, 2, 3, 4] as num}
 					<NftCardMinimal>
 						<div class="flex flex-col gap-3">
 							{#if num % 4 === 0}
@@ -117,7 +132,7 @@
 				{#each [1, 2, 3, 4] as item}
 					<NftCardMinimal>
 						<div class="flex gap-8 font-light text-xs">
-							<span class="bg-secondary text-primary rounded-full px-3 py-1 flex gap-2.5">
+							<span class="bg-secondary text-accent rounded-full px-3 py-1 flex gap-2.5">
 								<img src={heart} alt="favorite" class="w-4 h-4" />
 								<span>8435</span>
 							</span>
@@ -144,7 +159,7 @@
 				</a>
 			</div>
 			<div class="grid grid-cols-1 tablet:grid-cols-3 desktop:grid-cols-4 large:grid-cols-6 gap-4">
-				{#each [1, 2, 3, 4, 5, 6] as item}
+				{#each [1, 2, 3, 4] as item}
 					<NftCardMinimal>
 						<div class="flex gap-8 font-light text-xs">
 							<span class="bg-secondary text-primary rounded-full px-3 py-1"

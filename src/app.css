@@ -14,17 +14,16 @@
 	--color-gradient-via: #5b81ff;
 	--color-gradient-to: #469aff;
 
-	--gradient-primary: linear-gradient(
-		90deg,
-		#f355da 0%,
-		#c227f5 19.57%,
-		#b217ff 38.81%,
-		#5b81ff 60.71%,
-		#469bff 79.95%,
-		#469aff 100%
-	);
+	--gradient-primary: linear-gradient(240.15deg, #58d5db 4.24%, #58d5db 39.62%, #ff61d3 75.74%);
 
-	--gradient-secondary: linear-gradient(270.15deg, #58d5db 4.24%, #58d5db 39.62%, #ff61d3 75.74%);
+	--gradient-secondary: linear-gradient(
+		90deg,
+		#ff61d3 0%,
+		#d538ec 26.56%,
+		#b318ff 49.22%,
+		#05d2ff 74.22%,
+		#10deff 97.66%
+	);
 
 	--text-primary: #ffffff;
 	--text-secondary: #21162b;
@@ -44,7 +43,7 @@
 @layer components {
 	/* Hide scrollbar for Chrome, Safari and Opera */
 
-	.gradient-text {
+	.text-gradient {
 		background: var(--gradient-primary);
 		-webkit-background-clip: text;
 		-webkit-text-fill-color: transparent;

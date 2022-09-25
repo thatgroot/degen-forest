@@ -16,7 +16,7 @@
 		class="flex flex-col w-full desktop:w-1/2 justify-start px-8 desktop:px-14 py-8 desktop:py-28 text-secondary-light gap-6"
 	>
 		<div class="flex flex-col gap-2.5">
-			<h2 class="gradient-text text-[2.5rem] py-2 leading-10 font-bold">{title}</h2>
+			<h2 class="text-gradient text-[2.5rem] py-2 leading-10 font-bold">{title}</h2>
 			<p class="px-1 font-normal text-sm my-2">{description}</p>
 		</div>
 		<button

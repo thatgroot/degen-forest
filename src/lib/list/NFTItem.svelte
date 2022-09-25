@@ -5,6 +5,8 @@
 	export let nft_img: string = ezu;
 	export let number: number;
 	export let bg: 'primary' | 'secondary' | 'tranparent' = 'tranparent';
+	export let growth: 'up' | 'down' | 'none' = 'up';
+	export let growth_value: number = 0;
 </script>
 
 <a
@@ -28,7 +30,13 @@
 		</div>
 		<div class="truncate group flex flex-col justify-between">
 			<div class="flex flex-col gap-1 justify-between text-xs ">
-				<span class="text-success">+250.72%</span>
+				{#if growth_value === 0}
+					<span class="text-secondary-light">--</span>
+				{:else}
+					<span class="text-{growth === 'up' ? 'success' : 'warning'}">
+						{growth === 'up' ? '+' : '-'}{growth_value}%</span
+					>
+				{/if}
 				<div class="flex gap-3">
 					<img src={icon} alt={icon} class="w-4 h-4" />
 					<span class="truncate">12.9K</span>

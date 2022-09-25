@@ -15,6 +15,8 @@
 	export let resize_to: AccordionSize = 'sm';
 	export let prefix: string = '';
 	export let postfix: string = arrow_left;
+	export let border: 'primary' | 'secondary' | 'accent' | 'none' = 'none';
+
 	/**
 	 * @expanded :: wherther the body is open or not
 	 */
@@ -38,7 +40,9 @@
 
 <div
 	on:click={onToggle}
-	class="rounded-{rounded} flex flex-row justify-between items-center {expanded
+	class="rounded-{rounded} {border === 'none'
+		? ''
+		: 'border-2'} border-{border} flex flex-row justify-between items-center {expanded
 		? 'bg-' + active_bg
 		: 'bg-' + bg} {sizeable} {!sizeable
 		? 'w-full'
@@ -58,7 +62,7 @@
 			{/if}
 			{#if show === 'text' || show === 'both'}
 				<div class={`${show === 'both' ? 'mx-2' : ''} flex flex-col items-start`}>
-					<span class="text-primary">{title}</span>
+					<span class="text-primary min-w-max">{title}</span>
 					<small class="text-primary">{subtitle}</small>
 				</div>
 			{/if}

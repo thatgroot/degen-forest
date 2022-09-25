@@ -8,7 +8,7 @@
 			class="border border-secondary p-3 tablet:p-8 rounded-2xl overflow-hidden flex justify-around flex-col tablet:flex-row gap-4"
 		>
 			<div class="flex text-primary flex-col w-full max-w-lg tablet:py-8 xl:self-center">
-				<h1 class="font-extrabold text-5xl gradient-text">The Lost Kiki</h1>
+				<h1 class="font-extrabold text-5xl text-gradient">The Lost Kiki</h1>
 				<div class="text-sm mt-1 text-accent">
 					CREATED BY <span class="text-primary">Kikiverse</span>
 				</div>

@@ -28,9 +28,9 @@
 	import Popup from '$lib/popups/Popup.svelte';
 </script>
 
-<div class="flex flex-col items-center  laptop:w-2/3 mx-auto gap-4 mt-12">
-	<div class="flex flex-col laptop:flex-row justify-between gap-6">
-		<div class="flex flex-col  laptop:w-1/2  gap-4">
+<div class="flex flex-col items-center  mx-auto gap-4 mt-12 w-full">
+	<div class="flex flex-col laptop:flex-row gap-6 w-full">
+		<div class="flex flex-col w-2/3  gap-4">
 			<img
 				draggable="false"
 				loading="lazy"
@@ -55,7 +55,7 @@
 			</div>
 			<!-- graph -->
 		</div>
-		<div class="flex flex-col gap-6 laptop:w-1/2">
+		<div class="flex flex-col gap-6 w-full">
 			<div class="flex justify-between h-fit px-4 items-end">
 				<div class="mt-5 mt-lg-0">
 					<div class="flex text-primary">

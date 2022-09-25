@@ -7,9 +7,11 @@
 	import Popup from '$lib/popups/Popup.svelte';
 	import Calendar from '../calendar/Calendar.svelte';
 	import DropdownSlot from '$lib/dropdown/DropdownSlot.svelte';
+	import ConnectWallet from '$lib/button/ConnectWallet.svelte';
 
 	export let currency: string = solana;
 	let toggle: boolean = false;
+	let connect_wallet: boolean = false;
 	const open_offer_popup = () => {
 		toggle = !toggle;
 	};
@@ -34,19 +36,17 @@
 	<!-- payment area -->
 	<div class="flex flex-col">
 		<div class="w-full flex flex-col gap-2">
-			<DropdownSlot id="currency_selection" border="primary" rounded="md">
-				<div slot="active" class="w-full">
-					<div>
-						<div class="grid grid-cols-[20px,1fr,22px] text-sm items-center gap-x-2.5 px-3 py-2">
-							<img class="w-4 h-4" src={solana} alt="..." />
-							<div class="flex flex-col items-start">
-								<span class="text-primary-2 text-sm">Pay in solana</span>
-								<span class="flex items-center text-xxs gap-x-1">
-									<span class="text-light-gray-500">Pay with connected wallet</span>
-									<b>•</b>
-									<span class="text-pink-primary font-bold">Fastest</span>
-								</span>
-							</div>
+			<DropdownSlot bg="primary" id="currency_selection" border="primary" rounded="md">
+				<div slot="active" class="w-full ">
+					<div class="grid grid-cols-[20px,1fr,22px] text-sm items-center gap-x-2.5 px-3 py-2">
+						<img class="w-4 h-4" src={solana} alt="..." />
+						<div class="flex flex-col items-start">
+							<span class="text-primary-2 text-sm">Pay in solana</span>
+							<span class="flex items-center text-xxs gap-x-1">
+								<span class="text-light-gray-500">Pay with connected wallet</span>
+								<b>•</b>
+								<span class="text-pink-primary font-bold">Fastest</span>
+							</span>
 						</div>
 					</div>
 				</div>
@@ -70,11 +70,29 @@
 			</DropdownSlot>
 
 			<div class="flex justify-between gap-2">
-				<button class="flex items-center btn-accent px-6 py-3 w-full">
-					<img src={currency} class="h-4" alt="..." />
-					<span>Buy with SOL</span>
+				<button
+					on:click|preventDefault={() => {
+						connect_wallet = !connect_wallet;
+					}}
+					class="btn-accent hover:bg-accent px-6 py-3 w-full"
+				>
+					<span>Buy now</span>
 				</button>
-				<Popup {toggle} bg="primary" rounded="lg">
+
+				<ConnectWallet
+					toggle={connect_wallet}
+					onClosed={() => {
+						connect_wallet = false;
+					}}
+				/>
+				<Popup
+					{toggle}
+					bg="primary"
+					rounded="lg"
+					onClosed={() => {
+						toggle = false;
+					}}
+				>
 					<div class="flex flex-col max-w-md gap-2">
 						<span class="text-accent ">
 							When you make an offer, the funds are kept in your bidding wallet to allow you to make
@@ -159,7 +177,7 @@
 				</Popup>
 				<button
 					type="button"
-					class="btn-accent px-6 py-3 w-full"
+					class="btn-accent hover:bg-accent px-6 py-3 w-full"
 					on:click={() => {
 						toggle = !toggle;
 					}}>Make an offer</button

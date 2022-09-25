@@ -39,19 +39,22 @@
 	<div class="p-2">
 		<div class="flex flex-col gap-3">
 			<div class="flex flex-col gap-1 text-primary">
-				<span> Bounty Hunter #7337 </span>
-				<span class="text-accent">Simpl3r</span>
+				<span>Degod #3456</span>
+				<span class="text-xxs text-accent">DeGods</span>
 			</div>
 
 			<div class="flex justify-between">
 				<div class="flex items-center gap-3">
-					<img src={solana} alt="..." />
-					<span>8</span>
+					<img src={solana} alt="..." class="h-3.5" />
+					<span class="text-primary">8</span>
 				</div>
 
-				<div>
-					<button class="btn-accent px-2 py-1 text-xs hover:bg-accent">Details</button>
-				</div>
+				<a
+					href="/marketplace/item-details"
+					class="btn-accent border-2 border-secondary rounded-sm px-2 py-1 text-xs text-accent"
+				>
+					Details
+				</a>
 			</div>
 		</div>
 	</div>

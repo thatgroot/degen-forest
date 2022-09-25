@@ -149,7 +149,7 @@
 	<button class="btn-accent py-2 px-3"> Featured Launch </button>
 	<div class="flex flex-col laptop:flex-row justify-around gap-12 ">
 		<div class="flex-1 flex flex-col gap-6">
-			<h2 class="gradient-text text-4xl font-bold">Rugged Revenants Gen</h2>
+			<h2 class="text-gradient text-4xl font-bold">Rugged Revenants Gen</h2>
 			<p class="text-base text-accent leading-8 tablet:pr-16">
 				The first ever Web 3 Reforestation Competition - Project Galaxy vs. Magic Eden vs. Vera!
 				Three epic projects competing to see who can activate the most community members to grow a

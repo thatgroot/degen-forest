@@ -88,7 +88,7 @@
 
 <Popup {toggle} {onClosed}>
 	<div class="flex flex-col bg-secondary px-6 py-12 gap-6 h-fit min-w-[420px] relative">
-		<p class="gradient-text text-center">Connect a wallet to continue</p>
+		<p class="text-gradient text-center">Connect a wallet to continue</p>
 		<TabBar>
 			<Tab
 				title="Solana"

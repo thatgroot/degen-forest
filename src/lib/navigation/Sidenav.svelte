@@ -130,7 +130,7 @@
 <div
 	class="w-full {toggle}  laptop:block left-0 right-0 top-0 bottom-0 z-[9999] bg-primary tablet:max-w-min transition-all duration-700"
 >
-	<div class="flex flex-col py-6 px-2 gap-6">
+	<div class="flex flex-col py-6 gap-6">
 		<div class="flex flex-col gap-2  border-r-2 border-r-brown pr-2">
 			{#each side_nav_items as { title, icon, childs, href }}
 				<!-- content here -->

@@ -11,7 +11,7 @@
 	<div slot="header" class="w-full">
 		<AccordionHeader {title} postfix={arrow_down} show="text" toggleAccordionHeader={() => {}} />
 	</div>
-	<div slot="body" class="text-primary flex flex-col gap-3 py-4">
+	<div slot="body" class="text-primary flex flex-col gap-3 py-4 px-2">
 		<div class="flex flex-col justify-between gap-3">
 			<Input border="secondary" placeholder="Search" round="md" size="lg" />
 			{#each [{ bg: 'Tan', value: 399, outOf: 6499, floor: '5.96' }, { bg: 'Blue', value: 399, outOf: 6499, floor: '5.96' }, { bg: 'Green', value: 399, outOf: 6499, floor: '5.96' }] as { bg, value, outOf, floor }}

@@ -18,7 +18,9 @@
 				show: 'both',
 				size: 'full',
 				prefix: search,
-				postfix: arrow_down
+				postfix: arrow_down,
+				border: 'secondary',
+				rounded: 'sm'
 			}}
 		>
 			<div class="flex flex-col tablet:flex-row w-full gap-3 px-6 py-8 bg-secondary ">

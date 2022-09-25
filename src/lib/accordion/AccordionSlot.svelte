@@ -26,7 +26,7 @@
 		<slot name="header" />
 	</div>
 	<!--<Body>-->
-	<div class={collapsed ? 'h-auto' : 'h-0 w-0 overflow-hidden relative'}>
+	<div class={!collapsed ? 'h-auto' : 'h-0 w-0 overflow-hidden relative'}>
 		<slot name="body" />
 	</div>
 </div>

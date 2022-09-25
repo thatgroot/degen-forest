@@ -17,7 +17,7 @@
 <div class="flex flex-col items-start justify-center tablet:flex-row  laptop:gap-12 ">
 	<div class="flex flex-col gap-9  laptop:w-2/4">
 		<div class="flex flex-col gap-5">
-			<h2 class="gradient-text text-4xl font-bold">Airdrop Tokens</h2>
+			<h2 class="text-gradient text-4xl font-bold">Airdrop Tokens</h2>
 			<p class="text-base font-medium text-secondary-light leading-8 tablet:pr-16">
 				Drop Collections, Eth or tokens to multiple addresses.
 			</p>

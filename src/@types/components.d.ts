@@ -26,6 +26,8 @@ type AccordionHeaderType = {
  prefix?: string;
  postfix?: Direction | string;
  show: 'icon' | 'text' | 'both' | 'slot';
+ border?: 'primary' | 'secondary' | 'accent' | 'none' = 'none';
+ rounded?: 'sm' | 'md' | 'lg' | 'full' | 'none' = 'none';
  sizeable?: boolean;
  size: AccordionSize;
  resize_to?: AccordionSize;
