@@ -1,6 +1,8 @@
 <script lang="ts">
 	import solana from '$lib/assets/svg/icons/solana.svg';
 	import ezu from '$lib/assets/art/ezu.png';
+
+	export let title: string = '';
 	export let icon: string = solana;
 	export let nft_img: string = ezu;
 	export let number: number;
@@ -17,10 +19,10 @@
 	<div class="max-w-fit w-fit">
 		<img draggable="false" loading="lazy" alt="..." class="rounded-full w-12 h-12" src={nft_img} />
 	</div>
-	<div class="flex flex-row justify-between gap-2 overflow-hidden ">
+	<div class="flex flex-row justify-between gap-2 overflow-hidden  text-secondary-light">
 		<div class="flex flex-col justify-between">
-			<h3 class="font-bold white-2 truncate">Simpl3r: Bounty Hunters</h3>
-			<div class="flex items-center text-secondary-light font-light space-x-1">
+			<h3 class="font-bold white-2 truncate text-primary">{title}</h3>
+			<div class="flex items-center text-secondary-light font-light  text-sm">
 				<span>Floor</span>
 				<img src={icon} alt="solana" class="w-3 h-3" />
 				<div class="max-w-[60px] truncate">
@@ -28,16 +30,16 @@
 				</div>
 			</div>
 		</div>
-		<div class="truncate group flex flex-col justify-between">
-			<div class="flex flex-col gap-1 justify-between text-xs ">
+		<div class="truncate group flex flex-col justify-between  text-sm">
+			<div class="flex flex-col gap-1 justify-between  ">
 				{#if growth_value === 0}
-					<span class="text-secondary-light">--</span>
+					<span class="">--</span>
 				{:else}
 					<span class="text-{growth === 'up' ? 'success' : 'warning'}">
 						{growth === 'up' ? '+' : '-'}{growth_value}%</span
 					>
 				{/if}
-				<div class="flex gap-3">
+				<div class="flex gap-3 ">
 					<img src={icon} alt={icon} class="w-4 h-4" />
 					<span class="truncate">12.9K</span>
 				</div>

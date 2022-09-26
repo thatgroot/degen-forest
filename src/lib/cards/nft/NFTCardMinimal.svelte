@@ -1,17 +1,19 @@
+<script lang="ts">
+	import fire from '$lib/assets/art/fire.png';
+	export let title: string = '';
+	export let user: string = '';
+	export let nft: string = fire;
+</script>
+
 <div
 	class="mx-auto flex flex-col relative  w-full rounded-xl transition-all ease-in-out hover:scale-90   cursor-pointer border-2 border-secondary  pb-7 gap-3"
 >
-	<img
-		draggable="false"
-		class="rounded-xl"
-		loading="lazy"
-		alt="..."
-		src="https://img-cdn.magiceden.dev/rs:fill:252:189:0:0/plain/https://v5.airtableusercontent.com/v1/7/7/1662595200000/rpsJNeGg_StEM3wzAem2vA/t3_EGqU42d-Mpg1EEaDF-ILa1N5hGLLFpmMPa5sxoKEU0TJtKgBFGSb1Ssnazbs-dalYHveMxKl2XKjjgrnqVw/9wvAZIQsY34hkwLjlMe51I9DBEuDzQ3qJxT58gv_LIQ"
-	/>
+	<img draggable="false" class="rounded-xl w-full" loading="lazy" alt="..." src={nft} />
+
 	<div class="w-full text-sm whitespace-nowrap flex flex-col items-center rounded-b-xl gap-2">
 		<div class="flex flex-col gap-1 items-center">
-			<span class="text-primary">Laidback Lions Gen 2</span>
-			<span class="text-accent flex items-center space-x-2 text-xs"> @laidbake</span>
+			<span class="text-primary">{title}</span>
+			<span class="text-accent flex items-center space-x-2 text-xs">{user}</span>
 		</div>
 		<div>
 			<slot />

@@ -8,7 +8,9 @@ module.exports = {
       'laptop-sm': '1024px',
       'laptop': '1280px',
       'desktop': '1440px',
+      'x-desktop': '1920px',
       'large': '2560px',
+      'x-large': '3840px',
     },
     extend: {
       fontSize: {

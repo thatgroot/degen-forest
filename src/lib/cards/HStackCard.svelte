@@ -28,6 +28,6 @@
 	</div>
 	<div
 		style="background-image: url('{image}')"
-		class="bg-center bg-cover bg-no-repeat desktop:w-1/2  desktop:h-[560px] rounded-tr-0 desktop:rounded-tr-[6rem]  rounded-br-[3rem] desktop:rounded-br-[6rem] rounded-bl-[3rem]  desktop:rounded-bl-none"
+		class="bg-center bg-cover bg-no-repeat w-full h-[320px] desktop:w-1/2  desktop:h-[560px] rounded-tr-0 desktop:rounded-tr-[6rem]  rounded-br-[3rem] desktop:rounded-br-[6rem] rounded-bl-[3rem]  desktop:rounded-bl-none"
 	/>
 </div>
