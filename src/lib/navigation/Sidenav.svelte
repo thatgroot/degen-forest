@@ -3,7 +3,7 @@
 	import arrow_down from '$lib/assets/svg/icons/arrow-down.svg';
 	import dex from '$lib/assets/svg/icons/dex.svg';
 	import marketplace from '$lib/assets/svg/icons/marketplace.svg';
-	import insights from '$lib/assets/svg/icons/insights.svg';
+	import analytics from '$lib/assets/svg/icons/analytics.svg';
 	import launchpad from '$lib/assets/svg/icons/launchpad.svg';
 	import airdrop from '$lib/assets/svg/icons/airdrop.svg';
 	import staking from '$lib/assets/svg/icons/staking.svg';
@@ -50,16 +50,16 @@
 			]
 		},
 		{
-			title: 'Insights',
-			icon: insights,
+			title: 'Analytics',
+			icon: analytics,
 			childs: [
 				{
-					title: 'Stats',
-					href: '/insights/stats'
+					title: 'NFT Analytics',
+					href: '/analytics/nft'
 				},
 				{
-					title: 'My Watchlist',
-					href: '/insights/watchlist'
+					title: 'Defi Analytics',
+					href: '/analytics/defi'
 				}
 			]
 		},
