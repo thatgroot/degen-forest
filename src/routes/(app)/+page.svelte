@@ -55,7 +55,7 @@
 				</a>
 			</div>
 			<div
-				class="grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-3 x-desktop:grid-cols-4  large:grid-cols-6 x-large:grid-cols-4 gap-4"
+				class="grid grid-cols-1 tablet:grid-cols-2  desktop:grid-cols-4  large:grid-cols-6 x-large:grid-cols-4 gap-4"
 			>
 				{#each ['Vandals', 'Degods', 'Dummies', 'Weeping', 'Froots', 'Degenerate', 'Rakkudos', 'Mischievous', 'Monquiat', 'Shadowy', 'Okay Bears', 'Infected Mob'] as item, i (i)}
 					<NftItem
@@ -107,7 +107,7 @@
 				</a>
 			</div>
 			<div
-				class="grid grid-cols-1  tablet:grid-cols-3 desktop:grid-cols-3 x-desktop:grid-cols-4 large:grid-cols-6 x-large:grid-cols-8 gap-4"
+				class="grid grid-cols-1  tablet:grid-cols-3  desktop:grid-cols-4 large:grid-cols-6 x-large:grid-cols-8 gap-4"
 			>
 				{#each ['Blocksmit Labs', 'Part of Me', 'Save Bear'] as title, i (i)}
 					<NftCardMinimal {title} user="@{title.replaceAll(' ', '').toLocaleLowerCase()}">
@@ -139,7 +139,7 @@
 			</div>
 
 			<div
-				class="grid grid-cols-1 tablet:grid-cols-3 desktop:grid-cols-3 x-desktop:grid-cols-4 large:grid-cols-6 x-large:grid-cols-8 gap-4"
+				class="grid grid-cols-1 tablet:grid-cols-3  desktop:grid-cols-4 large:grid-cols-6 x-large:grid-cols-8 gap-4"
 			>
 				{#each [{ title: 'Infinite Drive Car', nft: car }, { title: 'NFT Leguez', nft: fire }, { title: 'MechaFightClub', nft: ape }] as { title, nft }}
 					<NftCardMinimal {nft} {title} user={title.replaceAll(' ', '').toLocaleLowerCase()}>
@@ -171,7 +171,7 @@
 				</a>
 			</div>
 			<div
-				class="grid grid-cols-1 tablet:grid-cols-3 desktop:grid-cols-3 x-desktop:grid-cols-4 large:grid-cols-6 x-large:grid-cols-8 gap-4"
+				class="grid grid-cols-1 tablet:grid-cols-3 desktop:grid-cols-4 large:grid-cols-6 x-large:grid-cols-8 gap-4"
 			>
 				{#each [{ title: 'Dragon Boms', nft: degods }, { title: 'MechaFight Club', nft: cup }, { title: 'Monkez Planet', nft: mp }] as { title, nft }}
 					<NftCardMinimal {title} {nft} user={title.replaceAll(' ', '').toLocaleLowerCase()}>
