@@ -10,6 +10,9 @@
 	import marketplace_volume_sales from '$lib/assets/svg/graphics/marketplace-volumes-sales.svg';
 	import price_history from '$lib/assets/svg/graphics/price-history.svg';
 	import unique_owners from '$lib/assets/svg/graphics/unique-owners.svg';
+	import twitter from '$lib/assets/svg/icons/twitter.svg';
+	import info from '$lib/assets/svg/icons/info.svg';
+	import Dropdown from '$lib/dropdown/Dropdown.svelte';
 
 	const toggle = () => {
 		const dropdown = document.querySelector('#nft-filters');
@@ -450,33 +453,39 @@
 			</tbody>
 		</table>
 	{:else if active === 'ecosystem-analysis'}
-		<div class="grid grid-cols-1  laptop-sm:grid-cols-2 gap-4">
-			<div class="flex flex-col gap-3 text-primary w-full">
-				<span class="text-lg"> Marketplace Volume </span>
-				<div class="flex w-full">
-					<div>
-						<img src={marketplace_volume} alt="marketplace_volume" class="w-fit" />
-					</div>
-					<div class="flex flex-col w-fit">
-						{#each [{ name: 'ME_V2', volume: 24.09, label: 'Total' }, { name: 'CandyMachi...', volume: 1.09, label: 'Total' }, { name: 'Metaplex A...', volume: 295.771, label: 'Total' }, { name: 'SolanArt', volume: 69.78, label: 'Total' }, { name: 'Other', volume: 40.833, label: 'Total' }] as { name, volume, label }}
-							<div
-								class="flex flex-col justify-center gap-1 p-2 rounded-lg bg-secondary my-2 text-xs items-center"
-							>
-								<span>{name}</span>
-								<span class="text-success">{volume}</span>
-								<span class="text-secondary-light">{label}</span>
+		<div class="grid grid-cols-1  laptop-sm:grid-cols-2 gap-4 p-2">
+			{#each [{ title: 'Marketplace Volume', graph: marketplace_volume }, { title: 'Marketplace Volume (Sales)', graph: marketplace_volume_sales }, { title: 'Daily NFT Mints', graph: daily_nft_mints }, { title: 'Unique Owners ( > 1NFT)', graph: unique_owners }, { title: 'Cumulative Unique Owners', graph: cumulative_unique_owners }, { title: 'Daily Mean Price(SOL)', graph: daily_mean_price }, { title: 'Daily Median Price(SOL)', graph: daily_median_price }, { title: 'Price History', graph: price_history }] as { title, graph }, i (i)}
+				<div class="flex flex-col gap-3 text-primary w-full">
+					<div class="flex justify-between">
+						<span class="text-lg">{title}</span>
+						<div class="flex gap-3 items-center">
+							<img src={info} alt="info" class="w-5 h-5" />
+							<div class="p-2 rounded-lg bg-secondary-light cursor-pointer">
+								<img src={twitter} alt="twitter" class="w-6 h-6" />
 							</div>
-						{/each}
+							<div class="text-xs">
+								<Dropdown id="volume_{i}" border="secondary" items={['1D', '1W', '1M', 'ALL']} />
+							</div>
+						</div>
+					</div>
+					<div class="flex gap-x-6 w-full bg-secondary rounded-xl">
+						<div class="p-4 h-full flex w-full justify-center items-center">
+							<img src={graph} alt={title} class="w-fit" />
+						</div>
+						<div class="flex flex-col w-fit bg-secondary-light">
+							{#each [{ name: 'ME_V2', volume: 24.09, label: 'Total' }, { name: 'CandyMachi...', volume: 1.09, label: 'Total' }, { name: 'Metaplex A...', volume: 295.771, label: 'Total' }, { name: 'SolanArt', volume: 69.78, label: 'Total' }, { name: 'Other', volume: 40.833, label: 'Total' }] as { name, volume, label }}
+								<div
+									class="flex flex-col justify-center gap-1 p-2 rounded-lg  my-2 text-xs items-center"
+								>
+									<span>{name}</span>
+									<span class="text-success">{volume}</span>
+									<span class="text-secondary-light">{label}</span>
+								</div>
+							{/each}
+						</div>
 					</div>
 				</div>
-			</div>
-			<img src={marketplace_volume_sales} alt="marketplace_volume_sales" />
-			<img src={daily_nft_mints} alt="daily_nft_mints" />
-			<img src={unique_owners} alt="unique_owners" />
-			<img src={cumulative_unique_owners} alt="cumulative_unique_owners" />
-			<img src={daily_mean_price} alt="daily_mean_price" />
-			<img src={daily_median_price} alt="daily_median_price" />
-			<img src={price_history} alt="price_history" />
+			{/each}
 		</div>
 	{:else}
 		<table class="w-full text-primary text-xs">
