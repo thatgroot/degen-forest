@@ -41,6 +41,8 @@ module.exports = {
         secondary: 'var(--color-secondary)',
         'secondary-light': 'var(--color-secondary-light)',
         accent: 'var(--color-accent)',
+        danger: 'var(--color-danger)',
+        success: 'var(--color-success)',
         hover: {
           primary: 'var(--color-secondary)',
           secondary: 'var(--color-accent)'

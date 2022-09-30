@@ -9,6 +9,8 @@
 	--color-secondary: #21162b;
 	--color-secondary-light: #291d31;
 	--color-accent: #15d6ff;
+	--color-danger: #c64f4f;
+	--color-success: #4fc64f;
 
 	--color-gradient-from: #b217ff;
 	--color-gradient-via: #5b81ff;
@@ -29,9 +31,9 @@
 	--text-secondary: #21162b;
 	--text-secondary-light: #9d8aa1;
 	--text-accent: #15d6ff;
-	--text-success: #00d1b2;
+	--text-success: #4fc64f;
 	--text-warning: #ffdd57;
-	--text-danger: #ff2000;
+	--text-danger: #c64f4f;
 	--text-info: #209cee;
 
 	--border-primary: #120c18;
