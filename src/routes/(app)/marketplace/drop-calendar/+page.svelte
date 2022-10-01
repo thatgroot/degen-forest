@@ -237,10 +237,8 @@
 			</div>
 			<Input border="secondary" type="number" placeholder="Go to page" />
 		</div>
-		<div class="flex gap-2 w-full tablet:w-max">
-			<button class="bg-secondary rounded-full px-4 py-1 text-xs text-primary max-h-fit w-full">
-				1-10 of 100
-			</button>
+		<div class="flex gap-2 min-w-max text-sm items-center text-primary">
+			<span class="w-full">1-10 of 100</span>
 			<Dropdown id="project_to_show" border="secondary" items={['10', '25', '50', '100']} />
 		</div>
 	</div>

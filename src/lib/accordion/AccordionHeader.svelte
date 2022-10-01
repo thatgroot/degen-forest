@@ -62,7 +62,7 @@
 			{/if}
 			{#if show === 'text' || show === 'both'}
 				<div class={`${show === 'both' ? 'mx-2' : ''} flex flex-col items-start`}>
-					<span class="text-primary min-w-max">{title}</span>
+					<span class="text-primary min-w-max text-sm">{title}</span>
 					<small class="text-primary">{subtitle}</small>
 				</div>
 			{/if}

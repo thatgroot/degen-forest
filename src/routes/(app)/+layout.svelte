@@ -46,7 +46,7 @@
 		/>
 
 		<!-- body -->
-		<div class="flex flex-col tablet:flex-row">
+		<div class="flex flex-col tablet:flex-row relative">
 			<!-- sidebar -->
 			<Sidenav />
 			<div
