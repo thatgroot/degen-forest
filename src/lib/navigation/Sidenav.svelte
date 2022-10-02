@@ -18,6 +18,7 @@
 	import instagram from '$lib/assets/svg/icons/instagram.svg';
 	import fries_menu from '$lib/assets/svg/icons/fries-menu.svg';
 	import close from '$lib/assets/svg/icons/close.svg';
+	import arrow_left from '$lib/assets/svg/icons/arrow-left.svg';
 
 	const side_nav_items: {
 		title: string;
@@ -124,62 +125,82 @@
 		}
 	];
 	let toggle: 'fixed' | 'hidden' = 'hidden';
+	let desktop_toggle: 'block' | 'hidden' = 'block';
 	let toggle_icon: string = fries_menu;
 </script>
 
 <div
-	class="w-full {toggle}  laptop:block left-0 right-0 top-0 bottom-0 z-[9999] bg-primary tablet:max-w-min transition-all duration-700"
+	class="w-full {toggle}  relative laptop:block   left-0 right-0 top-0 bottom-0 z-[9999] bg-primary tablet:max-w-min transition-all duration-300  {desktop_toggle ===
+	'block'
+		? 'border-r-2 border-r-brown '
+		: 'absolute w-fit h-fit'}"
 >
-	<div class="flex flex-col py-6 gap-6">
-		<div class="flex flex-col gap-2  border-r-2 border-r-brown pr-2">
-			{#each side_nav_items as { title, icon, childs, href }}
-				<!-- content here -->
-				{#if childs.length > 0}
+	<button
+		class="flex justify-end px-2 pt-4 {desktop_toggle === 'hidden' ? 'w-max' : 'w-full'}"
+		on:click={() => {
+			desktop_toggle = desktop_toggle === 'hidden' ? 'block' : 'hidden';
+		}}
+	>
+		<img
+			src={arrow_left}
+			alt="collapse"
+			class="w-6 h-4 transition-all duration-500 ease-in-out {desktop_toggle === 'hidden'
+				? 'rotate-180'
+				: ''}"
+		/>
+	</button>
+	<div class="flex flex-col py-6 gap-6 sticky top-0 laptop:{desktop_toggle}">
+		<div class="flex flex-col  gap-2 ">
+			<div class="flex flex-col gap-2 px-3">
+				{#each side_nav_items as { title, icon, childs, href }}
 					<!-- content here -->
-					<div>
-						<Accordion
-							header={{
-								title,
-								show: 'both',
-								size: 'full',
-								postfix: arrow_down,
-								prefix: icon
-							}}
+					{#if childs.length > 0}
+						<!-- content here -->
+						<div>
+							<Accordion
+								header={{
+									title,
+									show: 'both',
+									size: 'full',
+									postfix: arrow_down,
+									prefix: icon
+								}}
+								{href}
+							>
+								<div class="flex flex-col text-secondary-light gap-2 py-3 px-1 w-full">
+									{#each childs as { title, href }}
+										<!-- content here -->
+										<a
+											{href}
+											class="w-full tablet:bg-primary hover:bg-secondary text-xs px-2 py-1 rounded-md cursor-pointer"
+										>
+											{title}
+										</a>
+									{/each}
+								</div>
+							</Accordion>
+						</div>
+					{:else}
+						<a
 							{href}
+							class="flex items-center gap-2 text-primary text-sm px-2 py-3 rounded-xl cursor-pointer"
 						>
-							<div class="flex flex-col text-secondary-light gap-2 py-3 px-1 w-max">
-								{#each childs as { title, href }}
-									<!-- content here -->
-									<a
-										{href}
-										class="w-full tablet:bg-primary hover:bg-secondary text-sm px-2 py-1 rounded-md cursor-pointer"
-									>
-										{title}
-									</a>
-								{/each}
-							</div>
-						</Accordion>
-					</div>
-				{:else}
-					<a
-						{href}
-						class="flex items-center gap-2 text-primary px-2 py-3 rounded-xl cursor-pointer"
-					>
-						<span class="w-4 h-4">
-							<img src={icon} alt={`${title} app`} />
-						</span>
-						<span>{title}</span>
-					</a>
-				{/if}
-			{/each}
+							<span class="w-4 h-4">
+								<img src={icon} alt={`${title} app`} />
+							</span>
+							<span>{title}</span>
+						</a>
+					{/if}
+				{/each}
+			</div>
 
-			<div class="border-b-0 tablet:border-b-2 border-b-secondary my-4" />
-
-			<div class="grid grid-cols-2 gap-y-2 text-primary">
+			<div
+				class="grid grid-cols-2 gap-2 text-primary border-t-0 tablet:border-t-2 border-t-secondary  w-max px-3 py-6"
+			>
 				{#each social_media_data as { title, icon }}
 					<!-- content here -->
 					<button
-						class="flex gap-2 items-center tablet:border-2 border-secondary px-2 py-1 text-xs"
+						class="flex gap-2 items-center tablet:border-2 border-secondary px-2 py-1 text-xs transition-colors duration-300 hover:bg-secondary"
 					>
 						<img src={icon} class="h-4 w-4" alt={`${icon}`} />
 						<span>{title}</span>

@@ -7,6 +7,7 @@
 
 	import TabBar from '$lib/tab/TabBar.svelte';
 	import Tab from '$lib/tab/Tab.svelte';
+	import Input from '$lib/form/Input.svelte';
 	let active = 'live';
 	const nfts = [
 		{
