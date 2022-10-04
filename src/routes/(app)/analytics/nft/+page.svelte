@@ -311,7 +311,7 @@
 	const checkForNegativeSign = (value: string | number) => {
 		return value.toString().includes('-') ? true : false;
 	};
-	let active = 'ecosystem-analysis';
+	let active = 'top';
 </script>
 
 <svelte:head>
@@ -319,7 +319,7 @@
 </svelte:head>
 <div class="flex flex-col gap-6">
 	<div class="flex flex-col justify-start gap-3">
-		<h1 class="text-primary text-2xl">Solana NFTs</h1>
+		<h1 class="text-primary text-2xl">All NFTs</h1>
 
 		<div class="grid grid-cols-1 tablet:grid-cols-2 laptop-sm:grid-cols-3 laptop:grid-cols-4 gap-3">
 			{#each ['Smart Money Inflow', 'Top Social Buying', 'Top Movers', 'Smart Money Outflow'] as nft}
@@ -367,7 +367,7 @@
 		<div class="flex px-4 py-2">
 			<TabBar>
 				<Tab
-					title="Top Solana NFT Projects"
+					title="Top NFT Projects"
 					onclick={() => {
 						active = 'top';
 					}}

@@ -51,15 +51,15 @@
 			]
 		},
 		{
-			title: 'Analytics',
+			title: 'Insights',
 			icon: analytics,
 			childs: [
 				{
-					title: 'NFT Analytics',
+					title: 'NFT Insights',
 					href: '/analytics/nft'
 				},
 				{
-					title: 'Defi Analytics',
+					title: 'Defi Insights',
 					href: '/analytics/defi'
 				}
 			]

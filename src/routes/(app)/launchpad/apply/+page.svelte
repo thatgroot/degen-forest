@@ -123,7 +123,6 @@
 			interested in moving forward with your project.Please Fillout the following form.
 		</p>
 	</div>
-
 	<div class="flex flex-col  gap-6">
 		<p class="text-gradient text-2xl">Which blockchain is your collection on? *</p>
 		<div class="flex flex-wrap tablet:flex-nowrap gap-6">

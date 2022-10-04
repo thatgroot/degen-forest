@@ -349,7 +349,7 @@
 </svelte:head>
 <div class="flex flex-col gap-6">
 	<div class="flex flex-col justify-start gap-3">
-		<h1 class="text-primary text-2xl">Solana DeFi</h1>
+		<h1 class="text-primary text-2xl">DeFi</h1>
 
 		<div class="grid grid-cols-1 tablet:grid-cols-2  laptop:grid-cols-3 desktop:grid-cols-4 gap-3">
 			{#each ['Smart Money Inflow', 'Top Social Buying', 'Top Movers', 'Smart Money Outflow'] as nft}

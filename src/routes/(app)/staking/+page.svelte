@@ -52,26 +52,34 @@
 	<!--  -->
 
 	{#each nfts as { title, time, nft, staked }, i (i)}
-		<div class="bg-secondary p-6 flex flex-col gap-6 rounded-lg">
-			<div class="flex flex-col gap-2">
-				<span class="text-lg">{title}</span>
-				<span class="text-xs">{time}</span>
-			</div>
-
-			<div class="flex justify-center items-center">
+		<div class="flex flex-col rounded-lg">
+			<div class="flex justify-center items-center relative">
 				<img src={nft} alt={title} />
+				<div class="flex flex-col absolute">
+					<span>39.54% APY</span>
+					<span>Isaak Presley</span>
+				</div>
 			</div>
-
-			<button
-				class="bg-accent text-primary rounded-lg p-2 uppercase font-bold text-xs"
-				on:click={togglePopup}
-			>
-				{staked ? 'Un Stake' : 'Stake'}
-			</button>
 		</div>
 	{/each}
 </div>
+<!-- <div class="bg-secondary p-6 flex flex-col gap-6 rounded-lg">
+	<div class="flex flex-col gap-2">
+		<span class="text-lg">{title}</span>
+		<span class="text-xs">{time}</span>
+	</div>
 
+	<div class="flex justify-center items-center">
+		<img src={nft} alt={title} />
+	</div>
+
+	<button
+		class="bg-accent text-primary rounded-lg p-2 uppercase font-bold text-xs"
+		on:click={togglePopup}
+	>
+		{staked ? 'Un Stake' : 'Stake'}
+	</button>
+</div> -->
 <Popup
 	bg="primary"
 	rounded="lg"

@@ -1,7 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import 'https://fonts.googleapis.com/icon?family=Material+Icons';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 
 :root {
 	font-family: 'Inter', sans-serif;
@@ -15,7 +17,7 @@
 	--color-gradient-from: #b217ff;
 	--color-gradient-via: #5b81ff;
 	--color-gradient-to: #469aff;
-
+	
 	--gradient-primary: linear-gradient(240.15deg, #58d5db 4.24%, #58d5db 39.62%, #ff61d3 75.74%);
 
 	--gradient-secondary: linear-gradient(
@@ -52,6 +54,9 @@
 		background-clip: text;
 	}
 
+.gray-txt{
+	color: rgb(161 161 170) !impoortant;
+}
 	.gradient-primary {
 		background: linear-gradient(
 			90deg,
@@ -79,7 +84,11 @@
 		);
 		backdrop-filter: blur(18px);
 	}
-
+	#news-head h1{
+		background: linear-gradient(270.15deg, #58d5db 4.24%, #58d5db 39.62%, #ff61d3 75.74%) !important;
+		-webkit-background-clip: text !important;
+		-webkit-text-fill-color: transparent !important;
+	}
 	.btn-primary {
 		@apply px-8 py-2 rounded-md text-primary text-xl;
 	}
