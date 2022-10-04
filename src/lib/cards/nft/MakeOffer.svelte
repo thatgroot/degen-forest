@@ -9,7 +9,6 @@
 	import DropdownSlot from '$lib/dropdown/DropdownSlot.svelte';
 	import ConnectWallet from '$lib/button/ConnectWallet.svelte';
 
-	export let currency: string = solana;
 	let toggle: boolean = false;
 	let connect_wallet: boolean = false;
 	const open_offer_popup = () => {
