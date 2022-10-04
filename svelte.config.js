@@ -16,7 +16,7 @@ const config = {
 			pages: 'build',
 			assets: 'build',
 			precompress: false,
-			fallback: 'app.html',
+			fallback: 'index.html',
 		}),
 
 		// Override http methods in the Todo forms
