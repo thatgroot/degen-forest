@@ -6,8 +6,13 @@
 
 	// export let icon: string = more;
 	export let toggle: boolean = false;
-	export let bg: 'primary' | 'secondary' | 'accent' | 'transparent' = 'secondary';
+	export let bg: 'primary' | 'secondary' | 'accent' | 'glass' | 'glass-dark' | 'transparent' =
+		'secondary';
 	export let rounded: 'full' | 'sm' | 'md' | 'lg' | 'none' = 'none';
+	export let padding: 'p-0' | 'px-6 py-12' | 'px-12 py-12' | 'px-12 py-24' | 'px-24 py-24' =
+		'px-6 py-12';
+	export let close_bg: 'primary' | 'secondary' | 'accent' | 'glass' | 'glass-dark' | 'transparent' =
+		'primary';
 	export let onClosed: () => void = () => {};
 	const toggleModal = () => {
 		toggle = !toggle;
@@ -31,14 +36,14 @@
 	role="dialog"
 >
 	<div
-		class="flex flex-col bg-{bg}  rounded-{rounded} px-6 py-12 gap-6 h-fit min-w-[420px] relative"
+		class="flex flex-col bg-{bg}  rounded-{rounded} {padding} gap-6 h-fit min-w-[420px] relative"
 	>
 		<div class="flex justify-end w-full absolute -top-2 -right-2 ">
 			<button
 				on:click|preventDefault={toggleModal}
-				class="w-12 h-12 rounded-full text- bg-accent flex justify-center items-center"
+				class="w-12 h-12 rounded-full text- bg-{close_bg} z-50 flex justify-center items-center"
 			>
-				<img class="fill-blue stroke-black" src={close} alt="close now" />
+				<img class="stroke-black" src={close} alt="close now" />
 			</button>
 		</div>
 		<slot />

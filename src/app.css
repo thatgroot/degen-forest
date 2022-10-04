@@ -4,7 +4,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 :root {
 	font-family: 'Inter', sans-serif;
 	--color-primary: #120c18;
@@ -17,7 +16,7 @@
 	--color-gradient-from: #b217ff;
 	--color-gradient-via: #5b81ff;
 	--color-gradient-to: #469aff;
-	
+
 	--gradient-primary: linear-gradient(240.15deg, #58d5db 4.24%, #58d5db 39.62%, #ff61d3 75.74%);
 
 	--gradient-secondary: linear-gradient(
@@ -54,9 +53,6 @@
 		background-clip: text;
 	}
 
-.gray-txt{
-	color: rgb(161 161 170) !impoortant;
-}
 	.gradient-primary {
 		background: linear-gradient(
 			90deg,
@@ -84,8 +80,19 @@
 		);
 		backdrop-filter: blur(18px);
 	}
-	#news-head h1{
-		background: linear-gradient(270.15deg, #58d5db 4.24%, #58d5db 39.62%, #ff61d3 75.74%) !important;
+
+	.bg-glass-dark {
+		background: linear-gradient(116.82deg, rgba(103, 103, 103, 0.2) 0%, rgba(75, 75, 75, 0) 100%);
+		backdrop-filter: blur(10px);
+	}
+
+	#news-head h1 {
+		background: linear-gradient(
+			270.15deg,
+			#58d5db 4.24%,
+			#58d5db 39.62%,
+			#ff61d3 75.74%
+		) !important;
 		-webkit-background-clip: text !important;
 		-webkit-text-fill-color: transparent !important;
 	}
