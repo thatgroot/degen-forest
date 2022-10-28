@@ -52,7 +52,7 @@
 				</div>
 				<a
 					class="flex justify-center items-center rounded-md border-2 border-secondary px-4 text-primary"
-					href="/popular-collections"
+					href="/marketplace/popular-collections"
 				>
 					See All
 				</a>
@@ -106,7 +106,7 @@
 				</div>
 				<a
 					class="flex justify-center items-center rounded-md border-2 border-secondary px-6 py-2  text-primary"
-					href="/popular-collections"
+					href="/marketplace/popular-collections"
 				>
 					See All
 				</a>
@@ -136,7 +136,7 @@
 				<Heading3 text="Top upvoted drops" />
 				<a
 					class="flex justify-center items-center rounded-md border-2 border-secondary px-4 text-primary"
-					href="/popular-collections"
+					href="/marketplace/popular-collections"
 				>
 					See All
 				</a>
@@ -169,7 +169,7 @@
 
 				<a
 					class="flex justify-center items-center rounded-md border-2 border-secondary px-4 text-primary"
-					href="/popular-collections"
+					href="/marketplace/popular-collections"
 				>
 					See All
 				</a>

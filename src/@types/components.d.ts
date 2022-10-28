@@ -1,5 +1,5 @@
-type Size = "xlg" | "lg" | "md" | "sm" | "xs"
-type InputSize = "lg" | "md" | "sm"
+type Size = "xlg" | "lg" | "md" | "sm" | "xs" | "fit"
+type InputSize = "lg" | "md" | "sm" | "fit"
 type RoundSize = "full" | "lg" | "md" | "sm"
 type AccordionSize = "full" | "lg" | "md" | "sm" | "xs"
 type Direction = "left" | "right" | "up" | "down"

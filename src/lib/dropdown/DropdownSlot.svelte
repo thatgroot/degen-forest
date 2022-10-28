@@ -22,7 +22,7 @@
 	<!-- Dropdown menu -->
 	<div
 		{id}
-		class="z-[99999] w-full bg-primary border-2 border-secondary  rounded-md divide-y divide-gray-100 shadow  absolute top-[110%] right-0 hidden"
+		class="z-[99999] w-full h-[50vh] overflow-y-scroll overflow-x-hidden bg-primary border-2 border-secondary  rounded-md divide-y divide-gray-100 shadow  absolute top-[110%] right-0 hidden"
 	>
 		<div class="p-3 space-y-1 text-sm text-primary">
 			<slot name="items" />

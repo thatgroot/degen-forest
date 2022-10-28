@@ -6,7 +6,27 @@
 
 	import arrow_down from '$lib/assets/svg/icons/arrow-down.svg';
 	import arrow_down_active from '$lib/assets/svg/icons/arrow-down-active.svg';
+	import DropdownSlot from '$lib/dropdown/DropdownSlot.svelte';
+	import { onMount } from 'svelte';
+	import { each } from 'svelte/internal';
+	import Dropdown from '$lib/dropdown/Dropdown.svelte';
+	import Input from '$lib/form/Input.svelte';
+
+	export let data: DEX;
+	export let tokens: any = [];
+
+	onMount(() => {
+		data.tokens().then((_tokens: any) => {
+			// object of objects to array
+			tokens = Object.keys(_tokens).map((key) => _tokens[key]);
+			console.log(JSON.stringify(tokens), 'tokens....');
+		});
+	});
 </script>
+
+<svelte:head>
+	<title>{data.title}</title>
+</svelte:head>
 
 <div class="flex flex-col mx-auto px-6 py-12 bg-secondary rounded-2xl w-full tablet:w-2/4 my-12">
 	<!--  -->
@@ -26,28 +46,27 @@
 				<span>Balance: 0.0</span>
 			</div>
 
-			<div class="flex justify-between items-center text-primary">
-				<!--  -->
-				<div class="flex gap-1 bg-primary p-2 rounded-lg">
-					<img src={eth} alt="" class="w-4 rounded-full" />
-					<span>ETH</span>
-					<img src={arrow_down} alt="" class="w-4 rounded-full" />
-				</div>
-
-				<span> 0.99782534 </span>
-			</div>
-
-			<div class="flex justify-between text-secondary-light">
-				<span> Ethereum </span>
-				<span>~$1623.77</span>
-			</div>
-
-			<div
-				class="absolute left-0 right-0 flex items-end justify-center text-primary -bottom-6 z-10"
-			>
-				<div class="w-8 h-8 rounded-full flex justify-center items-center bg-secondary">
-					<img src={arrow_down_active} alt="switch exchange currency" />
-				</div>
+			<div class="flex w-48">
+				<DropdownSlot bg="primary" id="from_token" border="primary" rounded="md">
+					<div slot="active" class="w-full">
+						<div class="flex gap-2 justify-between rounded-lg">
+							<img src={tokens[0]?.logoURI ?? eth} alt="" class="w-4 h-4 rounded-full" />
+							<span>{tokens[0]?.symbol ?? 'ETH'} </span>
+							<img src={arrow_down} alt="" class="w-4 rounded-full" />
+						</div>
+					</div>
+					<div slot="items" class="w-full  bg-primary p-2 rounded-lg gap-y-4 flex flex-col">
+						<div class="flex gap-2">
+							<Input type="text" placeholder="Search" round="lg" border="secondary" />
+						</div>
+						{#each tokens as token}
+							<div class="flex gap-2">
+								<img src={token.logoURI} alt="" class="w-4 h-4 rounded-full" />
+								<span>{token.symbol}</span>
+							</div>
+						{/each}
+					</div>
+				</DropdownSlot>
 			</div>
 		</div>
 
@@ -58,10 +77,24 @@
 				<span>You Buy</span>
 			</div>
 
-			<div class="flex gap-1 p-2 rounded-lg">
-				<img src={dai} alt="" class="w-4 rounded-full" />
-				<span>DAI</span>
-				<img src={arrow_down} alt="" class="w-4 rounded-full" />
+			<div class="flex w-48">
+				<DropdownSlot bg="primary" id="to_token" border="primary" rounded="md">
+					<div slot="active" class="w-full">
+						<div class="flex gap-2 justify-between rounded-lg">
+							<img src={tokens[0]?.logoURI ?? eth} alt="" class="w-4 h-4 rounded-full" />
+							<span>{tokens[0]?.symbol ?? 'ETH'} </span>
+							<img src={arrow_down} alt="" class="w-4 rounded-full" />
+						</div>
+					</div>
+					<div slot="items" class="w-full bg-primary p-2 rounded-lg gap-y-4 flex flex-col">
+						{#each tokens as token}
+							<div class="flex gap-2">
+								<img src={token.logoURI} alt="" class="w-4 h-4 rounded-full" />
+								<span>{token.symbol}</span>
+							</div>
+						{/each}
+					</div>
+				</DropdownSlot>
 			</div>
 
 			<div
@@ -75,6 +108,8 @@
 			</div>
 		</div>
 
-		<button class="w-full rounded-lg bg-accent text-primary font-semibold py-3">Swap</button>
+		<button class="w-full rounded-lg bg-accent text-primary font-semibold py-3" on:click={data.swap}
+			>Swap</button
+		>
 	</div>
 </div>
