@@ -26,24 +26,13 @@
 			<div class="flex items-center">
 				<Search bg="secondary" />
 			</div>
-			<button
-				on:click|preventDefault={() => {
-					toggle = !toggle;
+			<ConnectWallet
+				{toggle}
+				onClosed={() => {
+					toggle = false;
 				}}
-				class="flex btn-primary desktop:btn-accent p-0 px-2"
-			>
-				<img src={wallet} alt="connect wallet" class=" block px-2" />
-				<div class="h-full w-2 desktop:border-r-2 desktop:border-r-accent" />
-				<span class="text-sm px-6 sm:px-2 hidden desktop:block">Connect Wallet</span>
-			</button>
+			/>
 		</div>
-
-		<ConnectWallet
-			{toggle}
-			onClosed={() => {
-				toggle = false;
-			}}
-		/>
 
 		<!-- body -->
 		<div class="flex flex-col tablet:flex-row relative">

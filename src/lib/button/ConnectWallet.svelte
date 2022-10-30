@@ -8,6 +8,8 @@
 	import walletconnect from '$lib/assets/svg/icons/walletconnect.svg';
 	import coinbase from '$lib/assets/svg/icons/coinbase.svg';
 	import trustwallet from '$lib/assets/svg/icons/trustwallet.svg';
+	import wallet from '$lib/assets/svg/icons/wallet.svg';
+
 	import arrow_down from '$lib/assets/svg/icons/arrow-down.svg';
 	import bell from '$lib/assets/svg/icons/bell.svg';
 	import copy from '$lib/assets/svg/icons/copy.svg';
@@ -22,6 +24,9 @@
 	import ListItemCol from '$lib/list/ListItemCol.svelte';
 	import ListItem from '$lib/list/ListItem.svelte';
 	import Popup from '$lib/popups/Popup.svelte';
+	import web3Wallet from '$lib/web3/web3-wallet';
+	import { onMount } from 'svelte';
+	import Web3 from 'web3';
 
 	//  list of all solana supported wallets with their icons in svg format
 	const wallets = [
@@ -77,13 +82,30 @@
 			logo: trustwallet
 		}
 	];
-
+	// svelteKit onMoun add web3 wallet events
 	let filtered_wallets = wallets.filter((wallet) => wallet.chain === 'solana');
 	let active_chain = 'solana';
 
 	export let toggle = false;
 	export let connected = false;
 	export let onClosed = () => {};
+	let web3: Web3;
+	onMount(() => {
+		const { connect, disconnect, accountsChanged, chainChanged } = web3Wallet.on;
+		// if wallet is connected set connected to true
+		web3 = new Web3(Web3.givenProvider);
+		// web3.eth.net
+		// 	.isListening()
+		// 	.then(() => {
+		// 		console.log('is connected');
+		// 		connected = true;
+		// 	})
+		// 	.catch((e) => console.log('Wow. Something went wrong: ' + e));
+		window.ethereum.on('connect', connect);
+		window.ethereum.on('disconnect', disconnect);
+		window.ethereum.on('accountsChanged', accountsChanged);
+		window.ethereum.on('chainChanged', chainChanged);
+	});
 </script>
 
 <Popup {toggle} {onClosed}>
@@ -111,12 +133,18 @@
 		</TabBar>
 		<div class="flex flex-col">
 			{#each filtered_wallets as wallet}
-				<ListItemCol
-					title={wallet.name}
-					subtitle={'Detected'}
-					prefix={wallet.logo}
-					badge={wallet.badge ?? ''}
-				/>
+				<div
+					on:click|preventDefault={() => {
+						web3Wallet.connect();
+					}}
+				>
+					<ListItemCol
+						title={wallet.name}
+						subtitle={'Detected'}
+						prefix={wallet.logo}
+						badge={wallet.badge ?? ''}
+					/>
+				</div>
 			{/each}
 		</div>
 	</div>
@@ -139,12 +167,12 @@
 			</div>
 		</div>
 		<div
-			class="group-hover:block hidden absolute top-[100%] bg-primary right-0 left-0 px-2 py-2 border-2 border-secondary  rounded-lg shadow-lg"
+			class="group-hover:block hidden absolute z-50 top-[100%] bg-primary right-0 left-0 px-2 py-2 border-2 border-secondary  rounded-lg shadow-lg"
 		>
 			<div class="flex flex-col justify-start gap-2 w-full">
 				<ListItemCol
 					title="Main Wallet"
-					subtitle="1.04"
+					subtitle={'0.04'}
 					prefix={solana}
 					postfix={copy}
 					insets="sm"
@@ -167,4 +195,16 @@
 			</div>
 		</div>
 	</div>
+{:else}
+	<button
+		on:click|preventDefault={() => {
+			web3Wallet.connect();
+			connected = true;
+		}}
+		class="flex btn-primary desktop:btn-accent p-0 px-2"
+	>
+		<img src={wallet} alt="connect wallet" class=" block px-2" />
+		<div class="h-full w-2 desktop:border-r-2 desktop:border-r-accent" />
+		<span class="text-sm px-6 sm:px-2 hidden desktop:block">Connect Wallet</span>
+	</button>
 {/if}
