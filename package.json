@@ -38,6 +38,7 @@
 		"@fontsource/fira-mono": "^4.5.0",
 		"@sveltejs/adapter-static": "^1.0.0-next.44",
 		"cookie": "^0.4.1",
+		"ethers": "^5.7.2",
 		"svelte": "^3.46.3",
 		"svelte-swiper": "^1.0.1",
 		"web3": "^1.8.0",

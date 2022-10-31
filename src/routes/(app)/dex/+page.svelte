@@ -12,9 +12,11 @@
 	import Dropdown from '$lib/dropdown/Dropdown.svelte';
 	import Input from '$lib/form/Input.svelte';
 	import web3Wallet, { dex } from '$lib/web3/web3-wallet';
-	import { toggle, web3 } from '$lib/global/utils';
+	import { fromWei, toggle, web3 } from '$lib/global/utils';
+	import { dex_store, wallet_store } from '../../../store';
+	import web3_wallet from '$lib/web3/web3-wallet';
 
-	const { swap, getQuote, getTokens, selectedToken, selectedTokenBalance } = dex;
+	const { swap, getQuote, getTokens, setSelectedToken, selectedTokenBalance } = dex;
 	let tokens: Token[] = [];
 	let filtered_tokens: Token[] = [];
 	let selected_token: Token;
@@ -22,19 +24,15 @@
 
 	let quote: Quote;
 
-	let selected_token_amount: number | string = 0;
+	$: wallet_details = $wallet_store;
 
 	onMount(() => {
 		getTokens().then((_tokens: any) => {
-			console.log(_tokens);
 			tokens = Object.keys(_tokens)
 				.map((key) => _tokens[key])
 				.sort((a: any, b: any) => (a.symbol < b.symbol ? -1 : 1));
 			filtered_tokens = tokens;
-			selected_token = selectedToken(tokens, 'ETH');
-			selectedTokenBalance(selected_token.address, (balance) => {
-				selected_token_amount = balance;
-			});
+			selected_token = setSelectedToken(tokens, 'ETH');
 		});
 	});
 
@@ -65,7 +63,7 @@
 		<div class="flex flex-col bg-secondary-light text-primary py-4 px-6 gap-3 rounded-4xl relative">
 			<div class="flex justify-between">
 				<span>You sell</span>
-				<span>Balance: {web3.utils.fromWei(selected_token_amount?.toString(), 'ether')}</span>
+				<span>Balance: {fromWei(wallet_details.balance, 'ether')} </span>
 			</div>
 
 			<div class="flex w-48">
@@ -90,12 +88,9 @@
 							<div
 								class="flex gap-2 cursor-pointer"
 								on:click={() => {
-									selected_token = token;
-									dex.selectedTokenBalance(token.address, (balance) => {
-										console.log('balance', balance);
-									});
-									web3Wallet.balance(token.address).then((balance) => {
-										selected_token_amount = balance;
+									dex_store.update((currentValue) => {
+										currentValue.selectedToken = token;
+										return currentValue;
 									});
 									toggle('from_token', 'hidden');
 								}}
@@ -131,15 +126,9 @@
 								class="flex gap-2 cursor-pointer"
 								on:click={() => {
 									desired_token = token;
-									getQuote(
-										selected_token.address,
-										desired_token.address,
-										selected_token_amount,
-										(_quote) => {
-											console.log(_quote);
-											quote = _quote;
-										}
-									);
+									getQuote(selected_token.address, desired_token.address, 1, (_quote) => {
+										quote = _quote;
+									});
 								}}
 							>
 								<img src={token.logoURI} alt="" class="w-4 h-4 rounded-full" />

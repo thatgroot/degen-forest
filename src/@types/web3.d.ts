@@ -6,8 +6,8 @@ type WalletEvents = {
 };
 
 type Wallet = {
- balance: (token_address: string) => Promise<number | string>;
- connect: () => void;
+ balance: (token_address: string) => Promise<string>;
+ connect: () => void | Promise<void>;
  defaultAccount: () => string;
  disconnect: () => void;
  on: WalletEvents;

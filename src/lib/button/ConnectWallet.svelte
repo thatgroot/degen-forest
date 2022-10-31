@@ -94,13 +94,6 @@
 		const { connect, disconnect, accountsChanged, chainChanged } = web3Wallet.on;
 		// if wallet is connected set connected to true
 		web3 = new Web3(Web3.givenProvider);
-		// web3.eth.net
-		// 	.isListening()
-		// 	.then(() => {
-		// 		console.log('is connected');
-		// 		connected = true;
-		// 	})
-		// 	.catch((e) => console.log('Wow. Something went wrong: ' + e));
 		window.ethereum.on('connect', connect);
 		window.ethereum.on('disconnect', disconnect);
 		window.ethereum.on('accountsChanged', accountsChanged);
@@ -197,9 +190,9 @@
 	</div>
 {:else}
 	<button
-		on:click|preventDefault={() => {
-			web3Wallet.connect();
-			connected = true;
+		on:click|preventDefault={async () => {
+			await web3Wallet.connect();
+			// connected = true;
 		}}
 		class="flex btn-primary desktop:btn-accent p-0 px-2"
 	>
