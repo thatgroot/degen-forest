@@ -1,15 +1,33 @@
 import { dex_store, wallet_store } from "../../store";
 import Web3 from "web3";
+import { ethers } from "ethers";
 
 const web3 = new Web3(Web3.givenProvider)
 
 const web3_wallet: Wallet = {
   defaultAccount: () => web3.eth.defaultAccount ?? "",
   connect: async () => {
+
     if (window.ethereum) {
-      await window.ethereum.request({ method: 'eth_requestAccounts' })
+      try {
+        await window.ethereum.request({ method: 'eth_requestAccounts' })
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const signer = provider.getSigner();
+        const address = await signer.getAddress();
+        const balance = await web3.eth.getBalance(address);
+        const chainId = await signer.getChainId();
+        web3.eth.defaultAccount = address;
+        console.log({ defaultAccount: address, chainId, balance })
+        wallet_store.set({ connected: true, defaultAccount: address, chainId, balance });
+      } catch (error) {
+        wallet_store.set({ defaultAccount: '', balance: '0' });
+        console.log(error)
+      }
+
     } else {
-      window.alert('Non-Ethereum browser detected. You should consider trying MetaMask!')
+      const confirm = window.confirm('Non-Ethereum browser detected. You should consider trying MetaMask!')
+      if (confirm)
+        window.open('https://metamask.io/download/', '_blank');
     }
 
   },
@@ -42,7 +60,6 @@ const web3_wallet: Wallet = {
         defaultAccount: accounts[0],
         balance: balance,
       })
-
       console.log('connecting')
 
       return true;
@@ -50,8 +67,17 @@ const web3_wallet: Wallet = {
     disconnect: (error) => {
       wallet_store.set({ defaultAccount: '', balance: '0' })
       dex_store.set({
-        selectedToken: <Token>{},
-        selectedTokenAmount: '0'
+        token: {
+          selected: <Token>{},
+          desired: <Token>{}
+        },
+        amount: {
+          selected: '0',
+          desired: '0'
+        },
+        rate: {
+          USDT: 0
+        }
       })
       console.error(error);
     },
@@ -63,95 +89,116 @@ const web3_wallet: Wallet = {
         return currentValue;
       })
     },
-    chainChanged: (chainId) => {
+    chainChanged: () => {
       // console.log(chainId);
     }
   }
 }
 
 export const dex: DEX = {
-  selectedToken: {
-    name: 'Ether',
-    symbol: 'ETH',
-    address: '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',
-    decimals: 18,
-    logoURI: 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/info/logo.png',
-    tags: []
-  },
-  setSelectedToken: (tokens: Token[], symbol: string) => {
-    const selected_token = tokens.find((token) => token.symbol === symbol) ?? tokens[0];
-    dex_store.update(currentValue => {
-      currentValue.selectedToken = selected_token;
-      return currentValue;
-    });
-    return selected_token;
-  },
-  selectedTokenBalance: (address, callback) => {
-    web3_wallet.balance(address).then((balance: string | number) => {
-      callback(balance);
-    });
-  },
-  // ETH -> DAI
-  getQuote(fromTokenAddress = '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee', toTokenAddress = "0x9d47894f8becb68b9cf3428d256311affe8b068b", fromAmount, callback) {
-    // calling 1inch quote api
-    const url = `https://api.1inch.exchange/v4.0/1/quote?fromTokenAddress=${fromTokenAddress}&toTokenAddress=${toTokenAddress}&amount=${fromAmount}`;
-
-    // calling the network request form the above url
-    fetch(url)
-      .then((response) => response.json())
-      .then((data) => {
-        const quote: Quote = {
-          fromToken: data.fromToken,
-          toToken: data.toToken,
-          toTokenAmount: data.toTokenAmount,
-          fromTokenAmount: data.fromTokenAmount,
-          estimatedGas: data.estimatedGas
-        };
-        callback(quote);
+  set: {
+    selectedToken: (tokens: Token[], symbol: string) => {
+      const token = tokens.find(token => token.symbol === symbol) ?? <Token>{};
+      dex_store.update(currentValue => {
+        currentValue.token.selected = token;
+        return currentValue;
       });
-
-    return {
-      fromToken: {
-        symbol: "",
-        name: "",
-        decimals: 0,
-        address: "",
-        logoURI: "",
-        tags: []
-      },
-      toToken: {
-        symbol: "",
-        name: "",
-        decimals: 0,
-        address: "",
-        logoURI: "",
-        tags: []
-      },
-      toTokenAmount: "",
-      fromTokenAmount: "",
-      estimatedGas: ""
-    };
-  },
-  swap: function (): void {
-    // calling 1inch swap api
-    const url = `https://api.1inch.io/v4.0/1/swap?fromTokenAddress=0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE&toTokenAddress=0x111111111117dc0aa78b770fa6a738034120c302&amount=0000000000003367762&fromAddress=0xF69c12BCAb3cc3Bef5a5BF7eD990B26dA2871D55&slippage=1`
-
-    fetch(url).then((response) => response.json())
-      .then((data) => {
-        // console.log(data)
+      return token;
+    },
+    desiredToken: (tokens: Token[], symbol: string) => {
+      const token = tokens.find(token => token.symbol === symbol) ?? <Token>{};
+      dex_store.update(currentValue => {
+        currentValue.token.desired = token;
+        return currentValue;
       });
+      return token;
+    },
 
-  },
-  getTokens: function (): Promise<Token[]> {
-    // get tokens list
-    const url = `https://api.1inch.exchange/v4.0/1/tokens`;
-    // calling the network request form the above url
-    return fetch(url)
-      .then((response) => response.json())
-      .then(({ tokens }) => {
-        return tokens;
+    selectedTokenAmount: (amount: string) => {
+      dex_store.update(currentValue => {
+        currentValue.amount.selected = amount;
+        return currentValue;
       });
+    },
+
+    desiredTokenAmount: (amount: string) => {
+      dex_store.update(currentValue => {
+        currentValue.amount.desired = amount;
+        return currentValue;
+      });
+    }
+  },
+  request: {
+    exhangeRate: async (from, to) => {
+      const url = `https://min-api.cryptocompare.com/data/price?fsym=${from}&tsyms=${to}`;
+      const data = fetch(url).then((response) => response.json()).then(data => {
+        return data;
+      });
+      return data;
+    },
+    quote: (fromTokenAddress, toTokenAddress, fromAmount, callback) => {
+      // calling 1inch quote api
+      const url = `https://api.1inch.exchange/v4.0/1/quote?fromTokenAddress=${fromTokenAddress}&toTokenAddress=${toTokenAddress}&amount=${fromAmount}`;
+
+      // calling the network request form the above url
+      fetch(url)
+        .then((response) => response.json())
+        .then((data) => {
+          const quote: Quote = {
+            fromToken: data.fromToken,
+            toToken: data.toToken,
+            toTokenAmount: data.toTokenAmount,
+            fromTokenAmount: data.fromTokenAmount,
+            estimatedGas: data.estimatedGas
+          };
+          callback(quote);
+        });
+
+      return {
+        fromToken: {
+          symbol: "",
+          name: "",
+          decimals: 0,
+          address: "",
+          logoURI: "",
+          tags: []
+        },
+        toToken: {
+          symbol: "",
+          name: "",
+          decimals: 0,
+          address: "",
+          logoURI: "",
+          tags: []
+        },
+        toTokenAmount: "",
+        fromTokenAmount: "",
+        estimatedGas: ""
+      };
+    },
+    swap: async (fromTokenAddress, toTokenAddress, fromAmount, callback): Promise<void> => {
+      // calling 1inch swap api
+      const url = `https://api.1inch.io/v4.0/1/swap?fromTokenAddress=${fromTokenAddress}&toTokenAddress=${toTokenAddress}&amount=${fromAmount}&fromAddress=0xE36E96A3842039d68794C15ace30ab7C9143ad1A&slippage=1`;
+      fetch(url).then((response) => response.json())
+        .then((data) => {
+          callback(data);
+        });
+    },
+    tokens: async (): Promise<Token[]> => {
+      // get tokens list
+      const url = `https://api.1inch.exchange/v4.0/1/tokens`;
+      // calling the network request form the above url
+      const response = await fetch(url);
+      const { tokens } = await response.json();
+      return tokens;
+    }
+  },
+  events: {
+    shift: function (): void {
+      throw new Error("Function not implemented.");
+    }
   }
+
 }
 
 

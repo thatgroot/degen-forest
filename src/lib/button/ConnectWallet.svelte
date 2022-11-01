@@ -27,6 +27,8 @@
 	import web3Wallet from '$lib/web3/web3-wallet';
 	import { onMount } from 'svelte';
 	import Web3 from 'web3';
+	import { wallet_store } from '../../store';
+	import web3_wallet from '$lib/web3/web3-wallet';
 
 	//  list of all solana supported wallets with their icons in svg format
 	const wallets = [
@@ -87,12 +89,14 @@
 	let active_chain = 'solana';
 
 	export let toggle = false;
-	export let connected = false;
+
+	$: wallet_store_state = $wallet_store;
+
 	export let onClosed = () => {};
 	let web3: Web3;
 	onMount(() => {
 		const { connect, disconnect, accountsChanged, chainChanged } = web3Wallet.on;
-		// if wallet is connected set connected to true
+		web3_wallet.connect();
 		web3 = new Web3(Web3.givenProvider);
 		window.ethereum.on('connect', connect);
 		window.ethereum.on('disconnect', disconnect);
@@ -144,7 +148,7 @@
 </Popup>
 
 <!--   wallet connect ui with wallet address, user avatar and a notification  -->
-{#if connected}
+{#if wallet_store_state.connected}
 	<div class="flex items-center gap-x-4 group relative">
 		<div class="flex items-center gap-x-2">
 			<img src={bell} alt="notification" class="w-8 h-8" />
@@ -192,7 +196,6 @@
 	<button
 		on:click|preventDefault={async () => {
 			await web3Wallet.connect();
-			// connected = true;
 		}}
 		class="flex btn-primary desktop:btn-accent p-0 px-2"
 	>

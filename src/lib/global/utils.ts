@@ -8,4 +8,9 @@ export const toggle = (id: string, css_class: string) => {
 export const fromWei = (amount: string, unit: Unit | undefined) => {
  return web3.utils.fromWei(amount, unit)
 }
+
+export const checkBrowser = (browser: 'Chrome' | 'MSIE' | 'Firefox' | 'Safari') => {
+ const userAgent = navigator.userAgent;
+ return userAgent.indexOf(browser) > -1;
+}
 export const web3: Web3 = new Web3(Web3.givenProvider);

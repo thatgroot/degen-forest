@@ -6,6 +6,7 @@ type WalletEvents = {
 };
 
 type Wallet = {
+
  balance: (token_address: string) => Promise<string>;
  connect: () => void | Promise<void>;
  defaultAccount: () => string;
@@ -27,5 +28,5 @@ type Quote = {
  toToken: Token;
  toTokenAmount: string;
  fromTokenAmount: string;
- estimatedGas: number | string;
+ estimatedGas: string;
 };
