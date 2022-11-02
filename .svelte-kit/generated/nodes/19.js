@@ -1,0 +1,1 @@
+export { default as component } from "..\\..\\..\\src\\routes\\(app)\\marketplace\\popular-collections\\+page.svelte";

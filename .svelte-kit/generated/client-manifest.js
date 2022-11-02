@@ -1,0 +1,50 @@
+export { matchers } from './client-matchers.js';
+
+export const nodes = [
+	() => import('./nodes/0'),
+	() => import('./nodes/1'),
+	() => import('./nodes/2'),
+	() => import('./nodes/3'),
+	() => import('./nodes/4'),
+	() => import('./nodes/5'),
+	() => import('./nodes/6'),
+	() => import('./nodes/7'),
+	() => import('./nodes/8'),
+	() => import('./nodes/9'),
+	() => import('./nodes/10'),
+	() => import('./nodes/11'),
+	() => import('./nodes/12'),
+	() => import('./nodes/13'),
+	() => import('./nodes/14'),
+	() => import('./nodes/15'),
+	() => import('./nodes/16'),
+	() => import('./nodes/17'),
+	() => import('./nodes/18'),
+	() => import('./nodes/19'),
+	() => import('./nodes/20'),
+	() => import('./nodes/21'),
+	() => import('./nodes/22'),
+	() => import('./nodes/23')
+];
+
+export const dictionary = {
+	"(app)": [5,[2]],
+	"playbook": [22,[3]],
+	"support": [23,[4]],
+	"(app)/airdrops": [6,[2]],
+	"(app)/compo": [9,[2]],
+	"(app)/dex": [10,[2]],
+	"(app)/launchpad": [11,[2]],
+	"(app)/marketplace": [14,[2]],
+	"(app)/news": [20,[2]],
+	"(app)/staking": [21,[2]],
+	"(app)/analytics/defi": [7,[2]],
+	"(app)/analytics/nft": [8,[2]],
+	"(app)/launchpad/apply": [12,[2]],
+	"(app)/launchpad/launches": [13,[2]],
+	"(app)/marketplace/auctions": [15,[2]],
+	"(app)/marketplace/collection": [16,[2]],
+	"(app)/marketplace/drop-calendar": [17,[2]],
+	"(app)/marketplace/item-details": [18,[2]],
+	"(app)/marketplace/popular-collections": [19,[2]]
+};
