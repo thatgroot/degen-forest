@@ -6,7 +6,7 @@
 	import arrow_down from '$lib/assets/svg/icons/arrow-down.svg';
 	import DropdownSlot from '$lib/dropdown/DropdownSlot.svelte';
 	import { onMount } from 'svelte';
-	import { dex } from '$lib/web3/web3-wallet';
+	import web3_wallet, { dex } from '$lib/web3/web3-wallet';
 	import { fromWei, toggle } from '$lib/global/utils';
 	import { dex_store, wallet_store } from '../../../store';
 
@@ -21,20 +21,21 @@
 		toTokenAmount: '0',
 		estimatedGas: '0',
 		fromToken: {
-			symbol: 'ETH',
-			name: '',
-			decimals: 0,
-			address: '',
-			logoURI: '',
-			tags: []
+			symbol: '1INCH',
+			name: '1INCH Token',
+			decimals: 18,
+			address: '0x111111111117dc0aa78b770fa6a738034120c302',
+			logoURI: 'https://tokens.1inch.io/0x111111111117dc0aa78b770fa6a738034120c302.png',
+
+			tags: ['tokens']
 		},
 		toToken: {
 			symbol: 'DAI',
-			name: '',
-			decimals: 0,
-			address: '',
-			logoURI: '',
-			tags: []
+			name: 'Dai Stablecoin',
+			decimals: 18,
+			address: '0x6b175474e89094c44da98b954eedeac495271d0f',
+			logoURI: 'https://tokens.1inch.io/0x6b175474e89094c44da98b954eedeac495271d0f.png',
+			tags: ['tokens', 'PEG:USD']
 		}
 	};
 
@@ -42,15 +43,18 @@
 	$: dex_store_state = $dex_store;
 
 	onMount(() => {
-		request.tokens().then((_tokens: any) => {
-			tokens = Object.keys(_tokens)
-				.map((key) => _tokens[key])
-				.sort((a: any, b: any) => (a.symbol < b.symbol ? -1 : 1));
-			filtered_from_tokens = tokens;
-			filtered_to_tokens = tokens;
-			selectedToken(tokens, 'ETH');
-			desiredToken(tokens, 'DAI');
-		});
+		request
+			.tokens()
+			.then((_tokens: any) => {
+				tokens = Object.keys(_tokens)
+					.map((key) => _tokens[key])
+					.sort((a: any, b: any) => (a.symbol < b.symbol ? -1 : 1));
+				filtered_from_tokens = tokens;
+				filtered_to_tokens = tokens;
+			})
+			.then(() => {
+				getQuote(dex_store_state.token.desired);
+			});
 		// requesting exchange rate
 		request.exhangeRate('ETH', 'USDT').then((data: { USDT: number }) => {
 			dex_store.update((currentValue) => {
@@ -62,11 +66,30 @@
 		});
 	});
 
+	const getQuote = (token: Token) => {
+		desiredToken(tokens, token.symbol);
+		request.quote(
+			dex_store_state.token.selected.address,
+			dex_store_state.token.desired.address,
+			dex_store_state.amount.selected,
+			(_quote) => {
+				quote = _quote;
+			}
+		);
+	};
+
 	const handleTokenAmount = (event: any) => {
 		dex_store.update((currentValue) => {
-			currentValue.amount.selected = (event.target.value * +'1000000000000000000').toString();
+			if (dex_store_state.token.selected.symbol === 'ETH') {
+				currentValue.amount.selected = (event.target.value * +'1000000000000000000').toString();
+			} else {
+				currentValue.amount.selected = event.target.value.toString();
+			}
 			return currentValue;
 		});
+		setTimeout(() => {
+			getQuote(dex_store_state.token.desired);
+		}, 1000);
 	};
 
 	const filterFromTokens = (event: any) => {
@@ -87,34 +110,49 @@
 	<title>{'DEX'}</title>
 </svelte:head>
 
-<div class="flex flex-col mx-auto px-6 py-12 bg-secondary rounded-2xl w-full tablet:w-2/4 my-12">
+<div class="flex flex-col mx-auto px-6 py-12 bg-secondary rounded-2xl w-full tablet:w-1/4 my-12">
 	<!--  -->
 	<div class="flex p-2 justify-between my-2">
-		<span class="text-accent">Token</span>
+		<span class="text-accent" />
 		<div class="flex gap-2">
-			<img src={refresh} alt="" class="w-4  rounded-full" />
+			<img
+				src={refresh}
+				alt=""
+				class="w-4 cursor-pointer border-2 rounded-full border-secondary"
+				on:click={() => {
+					dex_store.update((currentValue) => {
+						const temp_token = currentValue.token.selected;
+
+						currentValue.token.selected = currentValue.token.desired;
+						currentValue.token.desired = temp_token;
+
+						return currentValue;
+					});
+					getQuote(dex_store_state.token.desired);
+				}}
+			/>
 			<img src={settings} alt="" class="w-4 rounded-full" />
 		</div>
 	</div>
 	<!--  -->
 
 	<div class="flex flex-col gap-3 ">
-		<div class="flex flex-col bg-secondary-light text-primary py-4 px-6 gap-3 rounded-4xl relative">
+		<div class="flex flex-col bg-secondary-light text-primary py-4 px-6 gap-3 rounded-xl relative">
 			<div class="flex justify-between">
-				<span>You sell</span>
+				<span />
 				<span>Balance: {fromWei(wallet_store_state.balance, 'ether')} </span>
 			</div>
 
-			<div class="flex flex-col gap-2 w-48">
+			<div class="flex flex-col gap-2 w-full">
 				<DropdownSlot bg="primary" id="from_token" border="primary" rounded="md">
 					<div slot="active" class="w-full">
 						<div class="flex gap-2 justify-between rounded-lg">
 							<img
-								src={dex_store_state.token.selected?.logoURI ?? eth}
+								src={dex_store_state.token.selected?.logoURI}
 								alt=""
 								class="w-4 h-4 rounded-full"
 							/>
-							<span>{dex_store_state.token.selected?.symbol ?? 'ETH'} </span>
+							<span>{dex_store_state.token.selected?.symbol} </span>
 							<img src={arrow_down} alt="" class="w-4 rounded-full" />
 						</div>
 					</div>
@@ -145,23 +183,21 @@
 						{/each}
 					</div>
 				</DropdownSlot>
-
 				<input
 					type="number"
 					class="px-4 py-2 rounded-lg border-2 border-secondary text-secondary"
 					on:input={handleTokenAmount}
+					value={dex_store_state.amount.selected}
 				/>
 			</div>
 		</div>
 
-		<div
-			class="flex flex-col text-primary border-2 border-secondary-light py-4 px-6 gap-3 rounded-4xl relative"
-		>
+		<div class="flex flex-col text-primary py-4 px-6 gap-3 rounded-xl relative">
 			<div class="flex justify-between">
 				<span>You Buy</span>
 			</div>
 
-			<div class="flex flex-col gap-2 w-48">
+			<div class="flex flex-col gap-2 ">
 				<DropdownSlot bg="primary" id="to_token" border="primary" rounded="md">
 					<div slot="active" class="w-full">
 						<div class="flex gap-2 justify-between rounded-lg">
@@ -187,15 +223,7 @@
 							<div
 								class="flex gap-2 cursor-pointer"
 								on:click={() => {
-									desiredToken(tokens, token.symbol);
-									request.quote(
-										dex_store_state.token.selected.address,
-										dex_store_state.token.desired.address,
-										dex_store_state.amount.selected,
-										(_quote) => {
-											quote = _quote;
-										}
-									);
+									getQuote(token);
 									toggle('to_token', 'hidden');
 								}}
 							>
@@ -213,20 +241,27 @@
 				/>
 			</div>
 
-			<div
-				class="flex justify-between items-center p-4 rounded-2xl border-2 border-secondary-light"
-			>
+			<div class="flex justify-between items-center p-4 rounded-xl border-2 border-secondary-light">
 				<div class="flex flex-col gap-3 text-secondary-light text-lg">
 					<span class="font-semibold"> LP Aggregator </span>
 					<span class="font-light">
-						Tx cost 0 Ξ (~ ${+fromWei((+quote?.estimatedGas * 1000000000).toString(), 'ether') *
-							dex_store_state.rate.USDT} Ξ)
+						Tx cost 0 Ξ (~ ${parseFloat(
+							(
+								+fromWei((+quote?.estimatedGas * 1000000000).toString(), 'ether') *
+								dex_store_state.rate.USDT
+							).toString()
+						).toFixed(3)} Ξ)
 					</span>
 				</div>
-				<span class="text-xl font-light">{quote.toTokenAmount}</span>
 			</div>
 		</div>
 
+		<div class="flex items-center justify-center  text-danger text-xs" style="word-break: all">
+			{dex_store_state.error?.description?.indexOf('balance')
+				? 'Not enough balance'
+				: dex_store_state.error?.description ?? ''}
+			{dex_store_state.tx_error?.reason ?? ''}
+		</div>
 		<button
 			class="w-full rounded-lg bg-accent text-primary font-semibold py-3"
 			on:click={() => {

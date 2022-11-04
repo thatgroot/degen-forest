@@ -38,7 +38,6 @@ declare module '$env/static/private' {
 	export const JAVA_HOME: string;
 	export const LANG: string;
 	export const LOCALAPPDATA: string;
-	export const LOCAL_GIT_DIRECTORY: string;
 	export const LOGONSERVER: string;
 	export const MANPATH: string;
 	export const MINGW_CHOST: string;
