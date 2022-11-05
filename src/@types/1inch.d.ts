@@ -5,6 +5,7 @@ type TX_ERROR = {
 	transactionType?: number;
 };
 type DEX_STORE = {
+	slippage: number | 'auto';
 	error?: {
 		statusCode: number;
 		error: string;
@@ -34,6 +35,7 @@ type DEX = {
 		desiredToken: (tokens: Token[], symbol: string) => Token;
 		selectedTokenAmount: (address: string, amount: string) => void;
 		desiredTokenAmount: (address: string, amount: string) => void;
+		slippage: (percentage: 'auto' | 0.1 | 0.5 | 1) => void;
 	};
 	events: {
 		shift: () => void;

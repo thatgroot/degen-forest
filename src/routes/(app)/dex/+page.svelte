@@ -110,7 +110,7 @@
 	<title>{'DEX'}</title>
 </svelte:head>
 
-<div class="flex flex-col mx-auto px-6 py-12 bg-secondary rounded-2xl w-full tablet:w-1/4 my-12">
+<div class="flex flex-col mx-auto px-6 py-12 bg-secondary rounded-2xl w-full tablet:w-2/4 my-12">
 	<!--  -->
 	<div class="flex p-2 justify-between my-2">
 		<span class="text-accent" />
@@ -187,7 +187,7 @@
 					type="number"
 					class="px-4 py-2 rounded-lg border-2 border-secondary text-secondary"
 					on:input={handleTokenAmount}
-					value={dex_store_state.amount.selected}
+					placeholder={dex_store_state.amount.selected}
 				/>
 			</div>
 		</div>
@@ -241,7 +241,7 @@
 				/>
 			</div>
 
-			<div class="flex justify-between items-center p-4 rounded-xl border-2 border-secondary-light">
+			<div class="flex flex-col justify-between items-start gap-4">
 				<div class="flex flex-col gap-3 text-secondary-light text-lg">
 					<span class="font-semibold"> LP Aggregator </span>
 					<span class="font-light">
@@ -253,13 +253,51 @@
 						).toFixed(3)} Ξ)
 					</span>
 				</div>
+				<div>
+					<div class="flex gap-2 items-start justify-start">
+						<button
+							on:click={() => {
+								dex.set.slippage(0.1);
+								getQuote(dex_store_state.token.desired);
+							}}
+							class="border-2 border-primary px-4 py-1 rounded-lg text-primary {dex_store_state.slippage ===
+							0.1
+								? 'bg-accent'
+								: 'bg-transparent'}"
+						>
+							0.1%
+						</button>
+						<button
+							on:click={() => {
+								dex.set.slippage(0.5);
+								getQuote(dex_store_state.token.desired);
+							}}
+							class="border-2 border-primary px-4 py-1 rounded-lg text-primary {dex_store_state.slippage ===
+							0.5
+								? 'bg-accent'
+								: 'bg-transparent'}"
+						>
+							0.5%
+						</button>
+						<button
+							class="border-2 border-primary px-4 py-1 rounded-lg text-primary {dex_store_state.slippage ===
+							1
+								? 'bg-accent'
+								: 'bg-transparent'}"
+							on:click={() => {
+								dex.set.slippage(1);
+								getQuote(dex_store_state.token.desired);
+							}}
+						>
+							1%
+						</button>
+					</div>
+				</div>
 			</div>
 		</div>
 
 		<div class="flex items-center justify-center  text-danger text-xs" style="word-break: all">
-			{dex_store_state.error?.description?.indexOf('balance')
-				? 'Not enough balance'
-				: dex_store_state.error?.description ?? ''}
+			{dex_store_state.error?.description ?? ''}
 			{dex_store_state.tx_error?.reason ?? ''}
 		</div>
 		<button

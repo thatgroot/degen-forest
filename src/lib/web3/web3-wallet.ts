@@ -39,7 +39,10 @@ const web3_wallet: Wallet = {
 	},
 
 	disconnect: () => {
+		//  disconnect walet using web3js
 		if (window.ethereum) {
+			web3.eth.defaultAccount = '';
+
 			return true;
 		} else {
 			window.alert('Non-Ethereum browser detected. You should consider trying MetaMask!');
@@ -82,6 +85,12 @@ const web3_wallet: Wallet = {
 
 export const dex: DEX = {
 	set: {
+		slippage: (percentage) => {
+			dex_store.update((currentValue) => {
+				currentValue.slippage = percentage;
+				return currentValue;
+			});
+		},
 		selectedToken: (tokens: Token[], symbol: string) => {
 			const token = tokens.find((token) => token.symbol === symbol) ?? <Token>{};
 			dex_store.update((currentValue) => {
@@ -123,52 +132,80 @@ export const dex: DEX = {
 				});
 			return data;
 		},
-		quote: (fromTokenAddress, toTokenAddress, fromAmount, callback) => {
-			// calling 1inch quote api
-			const url = `https://api.1inch.exchange/v4.0/1/quote?fromTokenAddress=${fromTokenAddress}&toTokenAddress=${toTokenAddress}&amount=${fromAmount}`;
-			fetch(url)
-				.then((response) => response.json())
-				.then((data) => {
-					console.log(data);
-					const quote: Quote = {
-						fromToken: data.fromToken,
-						fromTokenAmount: data.fromTokenAmount,
-						toToken: data.toToken,
-						toTokenAmount: data.toTokenAmount,
-						estimatedGas: data.estimatedGas
-					};
-					callback(quote);
-				});
+		quote: async (fromTokenAddress, toTokenAddress, fromAmount, callback) => {
+			// calling 1inch swap api
+			let slippage: number | string = 'auto';
+			// svelte subscribe
+			const unsubscribe = dex_store.subscribe((store) => {
+				slippage = store.slippage;
+			});
 
-			return {
-				fromToken: {
-					symbol: '',
-					name: '',
-					decimals: 0,
-					address: '',
-					logoURI: '',
-					tags: []
-				},
-				toToken: {
-					symbol: '',
-					name: '',
-					decimals: 0,
-					address: '',
-					logoURI: '',
-					tags: []
-				},
-				toTokenAmount: '',
-				fromTokenAmount: '',
-				estimatedGas: ''
-			};
+			// calling 1inch quote api
+			const url = `https://api.1inch.exchange/v4.0/1/quote?fromTokenAddress=${fromTokenAddress}&toTokenAddress=${toTokenAddress}&amount=${fromAmount}&slippage=${slippage}`;
+			let response = undefined;
+			try {
+				response = await fetch(url);
+			} catch (error) {
+				console.log('error', error);
+				dex_store.update((currentValue) => {
+					currentValue.tx_error = JSON.parse(JSON.stringify(error));
+					currentValue.error = undefined;
+					return currentValue;
+				});
+			}
+			const data = await response?.json();
+
+			if (data !== undefined) {
+				// eslint-disable-next-line no-prototype-builtins
+				if (data.hasOwnProperty('error')) {
+					dex_store.update((currentValue) => {
+						currentValue.error = data;
+						currentValue.tx_error = {};
+						return currentValue;
+					});
+				} else {
+					dex_store.update((currentValue) => {
+						currentValue.error = undefined;
+						currentValue.tx_error = {};
+						return currentValue;
+					});
+					if (data.toToken.symbol === 'ETH') {
+						const quote: Quote = {
+							fromToken: data.fromToken,
+							fromTokenAmount: data.fromTokenAmount,
+							toToken: data.toToken,
+							toTokenAmount: data.toTokenAmount,
+							estimatedGas: data.estimatedGas
+						};
+						callback(quote);
+					} else {
+						const quote: Quote = {
+							fromToken: data.fromToken,
+							fromTokenAmount: data.fromTokenAmount,
+							toToken: data.toToken,
+							toTokenAmount: data.toTokenAmount,
+							estimatedGas: data.estimatedGas
+						};
+						callback(quote);
+					}
+				}
+			} else {
+				alert('something went wrong!');
+			}
+			unsubscribe();
 		},
 		swap: async (fromTokenAddress, toTokenAddress, fromAmount, callback): Promise<void> => {
 			// calling 1inch swap api
+			let slippage: number | string = 'auto';
+			// svelte subscribe
+			const unsubscribe = dex_store.subscribe((store) => {
+				slippage = store.slippage;
+			});
 
-			// 0x06125e1457f833E29D5aebAaCdF8eED8A6Febaee
 			// 0xF69c12BCAb3cc3Bef5a5BF7eD990B26dA2871D55
-			const url = `https://api.1inch.io/v4.0/56/swap?fromTokenAddress=0x55d398326f99059ff775485246999027b3197955&toTokenAddress=0xaf3889ba617ac973b358513d9031778d2bc783df&amount=1000000000000000000&fromAddress=0xF69c12BCAb3cc3Bef5a5BF7eD990B26dA2871D55&slippage=1`;
+			const url = `https://api.1inch.io/v4.0/56/swap?fromTokenAddress=0x55d398326f99059ff775485246999027b3197955&toTokenAddress=0xaf3889ba617ac973b358513d9031778d2bc783df&amount=1000000000000000000&fromAddress=0xF69c12BCAb3cc3Bef5a5BF7eD990B26dA2871D55&slippage=8`;
 
+			console.log(url);
 			// const url = `https://api.1inch.io/v4.0/1/swap?fromTokenAddress=${fromTokenAddress}&toTokenAddress=${toTokenAddress}&amount=${fromAmount}&fromAddress=0xE36E96A3842039d68794C15ace30ab7C9143ad1A&slippage=1`;
 			fetch(url)
 				.then((response) => response.json())
@@ -183,9 +220,8 @@ export const dex: DEX = {
 					} else {
 						const tx: Transaction = data.tx;
 						const provider = ethers.getDefaultProvider();
-						let trx = null;
 						try {
-							trx = await provider.sendTransaction(tx.data);
+							await provider.sendTransaction(tx.data);
 						} catch (error) {
 							dex_store.update((currentValue) => {
 								currentValue.tx_error = JSON.parse(JSON.stringify(error));
@@ -195,6 +231,8 @@ export const dex: DEX = {
 						}
 					}
 				});
+
+			unsubscribe();
 		},
 		tokens: async (): Promise<Token[]> => {
 			// get tokens list

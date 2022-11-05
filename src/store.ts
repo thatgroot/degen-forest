@@ -16,6 +16,7 @@ export const wallet_store = writable<WalletStore>({
 });
 
 export const dex_store = writable<DEX_STORE>({
+	slippage: 1,
 	token: {
 		selected: <Token>{
 			symbol: '1INCH',
