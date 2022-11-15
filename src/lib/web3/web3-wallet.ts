@@ -4,14 +4,32 @@ import { ethers } from 'ethers';
 
 const web3 = new Web3(Web3.givenProvider);
 
+class DApp {
+	provider: ethers.providers.Web3Provider;
+	signer: ethers.providers.JsonRpcSigner;
+
+	constructor() {
+		this.provider = new ethers.providers.Web3Provider(window.ethereum);
+		this.signer = this.provider.getSigner();
+		// ethers js get balance from wallet of selected token
+
+		this.provider.listAccounts().then((accounts) => {
+			accounts.forEach((account) => {
+				this.provider.getBalance(account).then((balance) => {
+					console.log('balance', balance);
+				});
+			});
+		});
+	}
+}
 const web3_wallet: Wallet = {
 	defaultAccount: () => web3.eth.defaultAccount ?? '',
 	connect: async () => {
 		if (window.ethereum) {
 			try {
 				await window.ethereum.request({ method: 'eth_requestAccounts' });
-				const provider = new ethers.providers.Web3Provider(window.ethereum);
-				const signer = provider.getSigner();
+				const dapp = new DApp();
+				const signer = dapp.signer;
 				const address = await signer.getAddress();
 				const balance = await web3.eth.getBalance(address);
 				const chainId = await signer.getChainId();
@@ -195,6 +213,10 @@ export const dex: DEX = {
 			unsubscribe();
 		},
 		swap: async (fromTokenAddress, toTokenAddress, fromAmount, callback): Promise<void> => {
+			console.log(fromTokenAddress, toTokenAddress, fromAmount);
+			// return;
+			// get connected wallet address
+			const account = web3_wallet.defaultAccount();
 			// calling 1inch swap api
 			let slippage: number | string = 'auto';
 			// svelte subscribe
@@ -203,34 +225,48 @@ export const dex: DEX = {
 			});
 
 			// 0xF69c12BCAb3cc3Bef5a5BF7eD990B26dA2871D55
-			const url = `https://api.1inch.io/v4.0/56/swap?fromTokenAddress=0x55d398326f99059ff775485246999027b3197955&toTokenAddress=0xaf3889ba617ac973b358513d9031778d2bc783df&amount=1000000000000000000&fromAddress=0xF69c12BCAb3cc3Bef5a5BF7eD990B26dA2871D55&slippage=8`;
+			const url = `https://api.1inch.io/v4.0/1/swap?fromTokenAddress=${fromTokenAddress}&toTokenAddress=${toTokenAddress}&amount=${fromAmount}&fromAddress=${account}&slippage=${slippage}`;
 
 			console.log(url);
 			// const url = `https://api.1inch.io/v4.0/1/swap?fromTokenAddress=${fromTokenAddress}&toTokenAddress=${toTokenAddress}&amount=${fromAmount}&fromAddress=0xE36E96A3842039d68794C15ace30ab7C9143ad1A&slippage=1`;
-			fetch(url)
-				.then((response) => response.json())
-				.then(async (data) => {
-					// eslint-disable-next-line no-prototype-builtins
-					if (data.hasOwnProperty('error')) {
-						dex_store.update((currentValue) => {
-							currentValue.error = data;
-							currentValue.tx_error = {};
-							return currentValue;
-						});
-					} else {
-						const tx: Transaction = data.tx;
-						const provider = ethers.getDefaultProvider();
-						try {
-							await provider.sendTransaction(tx.data);
-						} catch (error) {
+			try {
+				fetch(url)
+					.then((response) => {
+						console.log('response', response);
+						return response.json();
+					})
+					.then(async (data) => {
+						console.log('data', data);
+
+						// eslint-disable-next-line no-prototype-builtins
+						if (data.hasOwnProperty('error')) {
 							dex_store.update((currentValue) => {
-								currentValue.tx_error = JSON.parse(JSON.stringify(error));
-								currentValue.error = undefined;
+								currentValue.error = data;
+								currentValue.tx_error = {};
 								return currentValue;
 							});
+						} else {
+							const tx: Transaction = data.tx;
+							const provider = ethers.getDefaultProvider();
+							try {
+								await provider.sendTransaction(tx.data);
+							} catch (error) {
+								dex_store.update((currentValue) => {
+									currentValue.tx_error = JSON.parse(JSON.stringify(error));
+									currentValue.error = undefined;
+									return currentValue;
+								});
+							}
 						}
-					}
+					});
+			} catch (error) {
+				console.log('error', error);
+				dex_store.update((currentValue) => {
+					currentValue.tx_error = JSON.parse(JSON.stringify(error));
+					currentValue.error = undefined;
+					return currentValue;
 				});
+			}
 
 			unsubscribe();
 		},

@@ -72,11 +72,16 @@ declare module '$env/static/private' {
 	export const npm_node_execpath: string;
 	export const npm_package_dependencies_cookie: string;
 	export const npm_package_dependencies_ethers: string;
+	export const npm_package_dependencies_ipfs_http_client: string;
 	export const npm_package_dependencies_svelte: string;
 	export const npm_package_dependencies_svelte_swiper: string;
 	export const npm_package_dependencies_web3: string;
+	export const npm_package_dependencies_web3modal: string;
 	export const npm_package_dependencies_web3_eth: string;
 	export const npm_package_dependencies__fontsource_fira_mono: string;
+	export const npm_package_dependencies__nomiclabs_hardhat_ethers: string;
+	export const npm_package_dependencies__nomiclabs_hardhat_waffle: string;
+	export const npm_package_dependencies__openzeppelin_contracts: string;
 	export const npm_package_dependencies__sveltejs_adapter_static: string;
 	export const npm_package_description: string;
 	export const npm_package_devDependencies_autoprefixer: string;

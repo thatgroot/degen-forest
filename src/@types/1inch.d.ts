@@ -37,6 +37,7 @@ type DEX = {
 		desiredTokenAmount: (address: string, amount: string) => void;
 		slippage: (percentage: 'auto' | 0.1 | 0.5 | 1) => void;
 	};
+
 	events: {
 		shift: () => void;
 	};

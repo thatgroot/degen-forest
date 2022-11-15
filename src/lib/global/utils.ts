@@ -27,6 +27,23 @@ class Ethers {
 		console.log('constructor');
 	}
 }
+export const putTokenName = (str: string, tokens: Token[]) => {
+	// extract	token name from token address using regex
+	const token_address = str.match(/0x[a-fA-F0-9]{40}/g);
+	// replace token address with token name in the str using regex
+	if (token_address) {
+		const token = tokens.find((token) => token.address === token_address[0]);
+		if (token) {
+			// replace token address in str with token name
+			str = str.replace(token_address[0], token.name);
+			return str;
+		} else {
+			return str;
+		}
+	} else {
+		return str;
+	}
+};
 export const provider = {
 	get: () => {
 		const provider = ethers.providers.getDefaultProvider();

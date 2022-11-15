@@ -6,12 +6,12 @@
 	import arrow_down from '$lib/assets/svg/icons/arrow-down.svg';
 	import DropdownSlot from '$lib/dropdown/DropdownSlot.svelte';
 	import { onMount } from 'svelte';
-	import web3_wallet, { dex } from '$lib/web3/web3-wallet';
-	import { fromWei, toggle } from '$lib/global/utils';
+	import { dex } from '$lib/web3/web3-wallet';
+	import { fromWei, putTokenName, toggle } from '$lib/global/utils';
 	import { dex_store, wallet_store } from '../../../store';
 
-	const { request, set, events } = dex;
-	const { selectedToken, selectedTokenAmount, desiredToken, desiredTokenAmount } = set;
+	const { request, set } = dex;
+	const { selectedToken, desiredToken } = set;
 	let tokens: Token[] = [];
 	let filtered_from_tokens: Token[] = [];
 	let filtered_to_tokens: Token[] = [];
@@ -26,7 +26,6 @@
 			decimals: 18,
 			address: '0x111111111117dc0aa78b770fa6a738034120c302',
 			logoURI: 'https://tokens.1inch.io/0x111111111117dc0aa78b770fa6a738034120c302.png',
-
 			tags: ['tokens']
 		},
 		toToken: {
@@ -49,8 +48,7 @@
 				tokens = Object.keys(_tokens)
 					.map((key) => _tokens[key])
 					.sort((a: any, b: any) => (a.symbol < b.symbol ? -1 : 1));
-				filtered_from_tokens = tokens;
-				filtered_to_tokens = tokens;
+				filtered_to_tokens = filtered_from_tokens = tokens;
 			})
 			.then(() => {
 				getQuote(dex_store_state.token.desired);
@@ -68,20 +66,21 @@
 
 	const getQuote = (token: Token) => {
 		desiredToken(tokens, token.symbol);
-		request.quote(
-			dex_store_state.token.selected.address,
-			dex_store_state.token.desired.address,
-			dex_store_state.amount.selected,
-			(_quote) => {
-				quote = _quote;
-			}
-		);
+		const { selected, desired } = dex_store_state.token;
+		const amount = dex_store_state.amount.selected;
+
+		request.quote(selected.address, desired.address, amount, (_quote) => {
+			console.log('_quote', _quote);
+			quote = _quote;
+		});
 	};
 
 	const handleTokenAmount = (event: any) => {
 		dex_store.update((currentValue) => {
 			if (dex_store_state.token.selected.symbol === 'ETH') {
-				currentValue.amount.selected = (event.target.value * +'1000000000000000000').toString();
+				currentValue.amount.selected = (event.target.value * +'1000000000000000000')
+					.toLocaleString()
+					.replaceAll(',', '');
 			} else {
 				currentValue.amount.selected = event.target.value.toString();
 			}
@@ -152,7 +151,7 @@
 								alt=""
 								class="w-4 h-4 rounded-full"
 							/>
-							<span>{dex_store_state.token.selected?.symbol} </span>
+							<span>{dex_store_state.token.selected?.name} </span>
 							<img src={arrow_down} alt="" class="w-4 rounded-full" />
 						</div>
 					</div>
@@ -206,7 +205,7 @@
 								alt=""
 								class="w-4 h-4 rounded-full"
 							/>
-							<span>{dex_store_state.token.desired?.symbol ?? 'ETH'} </span>
+							<span>{dex_store_state.token.desired?.name ?? 'ETH'} </span>
 							<img src={arrow_down} alt="" class="w-4 rounded-full" />
 						</div>
 					</div>
@@ -297,21 +296,26 @@
 		</div>
 
 		<div class="flex items-center justify-center  text-danger text-xs" style="word-break: all">
-			{dex_store_state.error?.description ?? ''}
-			{dex_store_state.tx_error?.reason ?? ''}
+			<!--
+			extract token address from the description or reason using regex
+		 -->
+
+			{putTokenName(
+				dex_store_state.error?.description ?? dex_store_state.tx_error?.reason ?? '',
+				tokens
+			)}
 		</div>
 		<button
 			class="w-full rounded-lg bg-accent text-primary font-semibold py-3"
 			on:click={() => {
-				request.swap(
-					dex_store_state.token.selected.address,
-					dex_store_state.token.desired.address,
-					dex_store_state.amount.selected,
-					(data) => {
-						console.log(data);
-					}
-				);
-			}}>Swap</button
+				const { selected, desired } = dex_store_state.token;
+				const amount = dex_store_state.amount.selected;
+				request.swap(selected.address, desired.address, amount, (data) => {
+					console.log(data);
+				});
+			}}
 		>
+			Swap
+		</button>
 	</div>
 </div>
