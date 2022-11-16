@@ -159,7 +159,7 @@ export const dex: DEX = {
 			});
 
 			// calling 1inch quote api
-			const url = `https://api.1inch.exchange/v4.0/1/quote?fromTokenAddress=${fromTokenAddress}&toTokenAddress=${toTokenAddress}&amount=${fromAmount}&slippage=${slippage}`;
+			const url = `https://api.1inch.exchange/v4.0/1/quote?fromTokenAddress=${fromTokenAddress}&toTokenAddress=${toTokenAddress}&amount=3000000000000&slippage=${slippage}`;
 			let response = undefined;
 			try {
 				response = await fetch(url);
@@ -235,22 +235,43 @@ export const dex: DEX = {
 						console.log('response', response);
 						return response.json();
 					})
-					.then(async (data) => {
-						console.log('data', data);
+					.then(async (res_data) => {
+						console.log('data', res_data);
 
 						// eslint-disable-next-line no-prototype-builtins
-						if (data.hasOwnProperty('error')) {
+						if (res_data.hasOwnProperty('error')) {
 							dex_store.update((currentValue) => {
-								currentValue.error = data;
+								currentValue.error = res_data;
 								currentValue.tx_error = {};
 								return currentValue;
 							});
 						} else {
-							const tx: Transaction = data.tx;
-							const provider = ethers.getDefaultProvider();
 							try {
-								await provider.sendTransaction(tx.data);
+								const { from, to, data, value }: Transaction = res_data.tx;
+								console.log('tx', data);
+								const provider = new ethers.providers.Web3Provider(window.ethereum);
+								const signer = provider.getSigner();
+								// const signed_tx = signer.signTransaction(tx);
+								// console.log('signed_tx', data.tx);
+								// web3.eth.sign(tx.data, tx.from, function (err, result) {
+								// 	if (err) return console.error(err);
+								// 	console.log('SIGNED:' + result);
+								// });
+								// const signedTx = await signer.signTransaction(tx);
+								const tx_response = await signer.sendTransaction({
+									from,
+									to,
+									data,
+									value: ethers.BigNumber.from(value)
+								});
+								console.log('tx_response', tx_response);
+								const receipt = await provider.getTransactionReceipt(tx_response.hash);
+
+								// provider.sendTransaction(tx.data).then((res) => {
+								// 	console.log('res', res);
+								// });
 							} catch (error) {
+								console.log('error', error);
 								dex_store.update((currentValue) => {
 									currentValue.tx_error = JSON.parse(JSON.stringify(error));
 									currentValue.error = undefined;

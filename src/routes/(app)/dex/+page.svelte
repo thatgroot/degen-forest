@@ -310,7 +310,7 @@
 			on:click={() => {
 				const { selected, desired } = dex_store_state.token;
 				const amount = dex_store_state.amount.selected;
-				request.swap(selected.address, desired.address, amount, (data) => {
+				request.swap(selected.address, desired.address, amount,(data) => {
 					console.log(data);
 				});
 			}}
