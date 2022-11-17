@@ -6,8 +6,8 @@
 	import arrow_down from '$lib/assets/svg/icons/arrow-down.svg';
 	import DropdownSlot from '$lib/dropdown/DropdownSlot.svelte';
 	import { onMount } from 'svelte';
-	import { dex } from '$lib/web3/web3-wallet';
-	import { fromWei, putTokenName, toggle } from '$lib/global/utils';
+	import web3_wallet, { dex } from '$lib/web3/web3-wallet';
+	import { ethereum, fromWei, putTokenName, toggle, web3 } from '$lib/global/utils';
 	import { dex_store, wallet_store } from '../../../store';
 
 	const { request, set } = dex;
@@ -67,8 +67,23 @@
 	const getQuote = (token: Token) => {
 		desiredToken(tokens, token.symbol);
 		const { selected, desired } = dex_store_state.token;
-		const amount = dex_store_state.amount.selected;
+		let amount = '0';
+		// if ETH
+		if (selected.symbol === 'ETH') {
+			// data.toTokenAmount, data.toToken.decimals
+			amount = web3.utils
+				.toBN(dex_store_state.amount.selected)
+				.mul(web3.utils.toBN(10).pow(web3.utils.toBN(18)))
+				.toString();
+		} else {
+			amount = dex_store_state.amount.selected;
+		}
 
+		console.log(
+			`${(selected.address, desired.address, amount)} amount ${JSON.stringify(
+				dex_store_state.amount
+			)}`
+		);
 		request.quote(selected.address, desired.address, amount, (_quote) => {
 			console.log('_quote', _quote);
 			quote = _quote;
@@ -77,13 +92,7 @@
 
 	const handleTokenAmount = (event: any) => {
 		dex_store.update((currentValue) => {
-			if (dex_store_state.token.selected.symbol === 'ETH') {
-				currentValue.amount.selected = (event.target.value * +'1000000000000000000')
-					.toLocaleString()
-					.replaceAll(',', '');
-			} else {
-				currentValue.amount.selected = event.target.value.toString();
-			}
+			currentValue.amount.selected = event.target.value.toString();
 			return currentValue;
 		});
 		setTimeout(() => {
@@ -110,6 +119,7 @@
 </svelte:head>
 
 <div class="flex flex-col mx-auto px-6 py-12 bg-secondary rounded-2xl w-full tablet:w-2/4 my-12">
+	<div />
 	<!--  -->
 	<div class="flex p-2 justify-between my-2">
 		<span class="text-accent" />
@@ -139,7 +149,7 @@
 		<div class="flex flex-col bg-secondary-light text-primary py-4 px-6 gap-3 rounded-xl relative">
 			<div class="flex justify-between">
 				<span />
-				<span>Balance: {fromWei(wallet_store_state.balance, 'ether')} </span>
+				<span>Balance: {wallet_store_state.balance} </span>
 			</div>
 
 			<div class="flex flex-col gap-2 w-full">
@@ -168,6 +178,28 @@
 							<div
 								class="flex gap-2 cursor-pointer"
 								on:click={() => {
+									if (dex_store_state.token.selected.symbol !== 'ETH') {
+										web3_wallet.balance(dex_store_state.token.selected.address).then((balance) => {
+											wallet_store.update((currentValue) => {
+												return {
+													...currentValue,
+													balance: balance
+												};
+											});
+										});
+									} else {
+										web3.eth.getAccounts().then((accounts) => {
+											web3.eth.getBalance(accounts[0]).then((balance) => {
+												wallet_store.update((currentValue) => {
+													return {
+														...currentValue,
+														balance: fromWei(balance, 'ether')
+													};
+												});
+											});
+										});
+									}
+
 									selectedToken(tokens, token.symbol);
 									dex_store.update((currentValue) => {
 										currentValue.token.selected = token;
@@ -310,12 +342,26 @@
 			on:click={() => {
 				const { selected, desired } = dex_store_state.token;
 				const amount = dex_store_state.amount.selected;
-				request.swap(selected.address, desired.address, amount,(data) => {
+				request.swap(selected.address, desired.address, amount, (data) => {
 					console.log(data);
 				});
 			}}
 		>
 			Swap
+		</button>
+		<button
+			on:click={() => {
+				ethereum.addToken().then((data) => {
+					console.log('tokens', data);
+				});
+			}}>add</button
+		>
+		<button
+			on:click={() => {
+				ethereum.dai();
+			}}
+		>
+			DAI
 		</button>
 	</div>
 </div>

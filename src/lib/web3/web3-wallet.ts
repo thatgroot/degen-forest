@@ -1,35 +1,65 @@
 import { dex_store, wallet_store } from '../../store';
 import Web3 from 'web3';
 import { ethers } from 'ethers';
+import { check, ethereum } from '$lib/global/utils';
 
-const web3 = new Web3(Web3.givenProvider);
-
-class DApp {
-	provider: ethers.providers.Web3Provider;
-	signer: ethers.providers.JsonRpcSigner;
-
-	constructor() {
-		this.provider = new ethers.providers.Web3Provider(window.ethereum);
-		this.signer = this.provider.getSigner();
-		// ethers js get balance from wallet of selected token
-
-		this.provider.listAccounts().then((accounts) => {
-			accounts.forEach((account) => {
-				this.provider.getBalance(account).then((balance) => {
-					console.log('balance', balance);
-				});
-			});
-		});
+class DApp implements Wallet {
+	async connect() {
+		if (check.ethereum()) {
+			try {
+				const accounts = ethereum.requestAccounts();
+				const signer = ethereum.signer();
+				const address = await signer.getAddress();
+				const balance = await web3.eth.getBalance(address);
+				const chainId = await signer.getChainId();
+				web3.eth.defaultAccount = address;
+				console.log({ defaultAccount: address, chainId, balance });
+				wallet_store.set({ connected: true, defaultAccount: address, chainId, balance });
+			} catch (error) {
+				wallet_store.set({ defaultAccount: '', balance: '0' });
+				console.log(error);
+			}
+		} else {
+			const confirm = window.confirm(
+				'Non-Ethereum browser detected. You should consider trying MetaMask!'
+			);
+			if (confirm) window.open('https://metamask.io/download/', '_blank');
+		}
+	}
+	defaultAccount() {
+		return '';
+	}
+	disconnect() {
+		//
+	}
+	on: WalletEvents = {
+		connect: function (address: string): void {
+			throw new Error('Function not implemented.');
+		},
+		disconnect: function (error: { code: number; message: string }): void {
+			throw new Error('Function not implemented.');
+		},
+		accountsChanged: function (accounts: string[]): void {
+			throw new Error('Function not implemented.');
+		},
+		chainChanged: function (chainId: string): void {
+			throw new Error('Function not implemented.');
+		}
+	};
+	balance(token_address: string) {
+		return Promise.resolve('');
 	}
 }
+const web3 = new Web3(Web3.givenProvider);
+
 const web3_wallet: Wallet = {
 	defaultAccount: () => web3.eth.defaultAccount ?? '',
 	connect: async () => {
 		if (window.ethereum) {
 			try {
 				await window.ethereum.request({ method: 'eth_requestAccounts' });
-				const dapp = new DApp();
-				const signer = dapp.signer;
+				const provider = new ethers.providers.Web3Provider(window.ethereum);
+				const signer = provider.getSigner();
 				const address = await signer.getAddress();
 				const balance = await web3.eth.getBalance(address);
 				const chainId = await signer.getChainId();
@@ -48,12 +78,19 @@ const web3_wallet: Wallet = {
 		}
 	},
 	balance: async (token_address: string) => {
-		if (window.ethereum || window.web3) {
-			const balance = await web3.eth.getBalance(token_address);
-			return balance;
-		} else {
-			return '0';
-		}
+		const minABI = [
+			{
+				constant: true,
+				inputs: [{ name: '_owner', type: 'address' }],
+				name: 'balanceOf',
+				outputs: [{ name: 'balance', type: 'uint256' }],
+				type: 'function'
+			}
+		];
+		const contract = new web3.eth.Contract(minABI, token_address);
+		const res = await contract.methods.balanceOf(web3_wallet.defaultAccount()).call();
+		const format = web3.utils.fromWei(res);
+		return format;
 	},
 
 	disconnect: () => {
@@ -159,7 +196,7 @@ export const dex: DEX = {
 			});
 
 			// calling 1inch quote api
-			const url = `https://api.1inch.exchange/v4.0/1/quote?fromTokenAddress=${fromTokenAddress}&toTokenAddress=${toTokenAddress}&amount=3000000000000&slippage=${slippage}`;
+			const url = `https://api.1inch.exchange/v4.0/1/quote?fromTokenAddress=${fromTokenAddress}&toTokenAddress=${toTokenAddress}&amount=${fromAmount}&slippage=${slippage}`;
 			let response = undefined;
 			try {
 				response = await fetch(url);
@@ -187,7 +224,17 @@ export const dex: DEX = {
 						currentValue.tx_error = {};
 						return currentValue;
 					});
-					if (data.toToken.symbol === 'ETH') {
+					// if symbols is eth
+					if (data.fromToken.symbol === 'ETH') {
+						const quote: Quote = {
+							fromToken: data.fromToken,
+							fromTokenAmount: data.fromTokenAmount,
+							toToken: data.toToken,
+							toTokenAmount: web3.utils.fromWei(data.toTokenAmount, 'ether'),
+							estimatedGas: data.estimatedGas
+						};
+						callback(quote);
+					} else if (data.toToken.symbol === 'ETH') {
 						const quote: Quote = {
 							fromToken: data.fromToken,
 							fromTokenAmount: data.fromTokenAmount,
@@ -247,31 +294,8 @@ export const dex: DEX = {
 							});
 						} else {
 							try {
-								const { from, to, data, value }: Transaction = res_data.tx;
-								console.log('tx', data);
-								const provider = new ethers.providers.Web3Provider(window.ethereum);
-								const signer = provider.getSigner();
-								// const signed_tx = signer.signTransaction(tx);
-								// console.log('signed_tx', data.tx);
-								// web3.eth.sign(tx.data, tx.from, function (err, result) {
-								// 	if (err) return console.error(err);
-								// 	console.log('SIGNED:' + result);
-								// });
-								// const signedTx = await signer.signTransaction(tx);
-								const tx_response = await signer.sendTransaction({
-									from,
-									to,
-									data,
-									value: ethers.BigNumber.from(value)
-								});
-								console.log('tx_response', tx_response);
-								const receipt = await provider.getTransactionReceipt(tx_response.hash);
-
-								// provider.sendTransaction(tx.data).then((res) => {
-								// 	console.log('res', res);
-								// });
+								dex.events.transaction.send(res_data.tx);
 							} catch (error) {
-								console.log('error', error);
 								dex_store.update((currentValue) => {
 									currentValue.tx_error = JSON.parse(JSON.stringify(error));
 									currentValue.error = undefined;
@@ -303,6 +327,28 @@ export const dex: DEX = {
 	events: {
 		shift: function (): void {
 			throw new Error('Function not implemented.');
+		},
+		transaction: {
+			send: async ({ from, to, data, value }: Transaction) => {
+				const { sendTransaction } = ethereum.signer();
+				const tx_response = await sendTransaction({
+					from,
+					to,
+					data,
+					value: ethers.BigNumber.from(value)
+				});
+				if (tx_response.hash !== undefined) {
+					alert(
+						`Please wait for the confirmation of the transaction. Transaction hash: ${tx_response.hash}`
+					);
+					const receipt = await tx_response.wait();
+					if (receipt.status === 1) {
+						alert(`Transaction is successfully executed. Transaction hash: ${tx_response.hash}`);
+					} else {
+						alert(`Transaction is failed. Transaction hash: ${tx_response.hash}`);
+					}
+				}
+			}
 		}
 	}
 };

@@ -37,9 +37,11 @@ type DEX = {
 		desiredTokenAmount: (address: string, amount: string) => void;
 		slippage: (percentage: 'auto' | 0.1 | 0.5 | 1) => void;
 	};
-
 	events: {
 		shift: () => void;
+		transaction: {
+			send: (tx: Transaction) => Prommise<void>;
+		};
 	};
 	request: {
 		exhangeRate: (from: string, to: string) => Promise<{ USDT: number }>;
@@ -55,6 +57,7 @@ type DEX = {
 			fromAmount: string,
 			callback: (data: unknown) => void
 		) => void;
+
 		tokens: () => Promise<Token[]>;
 	};
 };

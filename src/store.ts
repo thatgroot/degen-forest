@@ -37,7 +37,7 @@ export const dex_store = writable<DEX_STORE>({
 		}
 	},
 	amount: {
-		selected: '10',
+		selected: '0',
 		desired: '0'
 	},
 	rate: {
