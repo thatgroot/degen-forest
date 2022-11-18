@@ -28,9 +28,6 @@ class Ethers {
 	}
 }
 
-// get token balance from wallet_store
-export const getTokenBalance = async (token_address: string) => {};
-
 export const putTokenName = (str: string, tokens: Token[]) => {
 	// extract	token name from token address using regex
 	const token_address = str.match(/0x[a-fA-F0-9]{40}/g);
