@@ -49,10 +49,20 @@ type DEX = {
 			fromAmount: string,
 			callback: (quote: Quote) => void
 		) => void;
+		approve: (
+			amount: BigNumber,
+			token: Token,
+			provider: ethers.providers.Web3Provider
+		) => Promise<ethers.ContractTransaction> | Promise<string> | Promise<unknown>;
+		allowance: (
+			amount: BigNumber,
+			token: Token,
+			provider: ethers.providers.Web3Provider
+		) => Promise<boolean>;
 		swap: (
-			fromTokenAddress: string,
-			toTokenAddress: string,
-			fromAmount: string,
+			fromToken: Token,
+			toToken: Token,
+			amount: string,
 			callback: (data: unknown) => void
 		) => void;
 		tokens: () => Promise<Token[]>;

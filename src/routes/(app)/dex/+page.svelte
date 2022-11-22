@@ -6,15 +6,18 @@
 	import arrow_down from '$lib/assets/svg/icons/arrow-down.svg';
 	import DropdownSlot from '$lib/dropdown/DropdownSlot.svelte';
 	import { onMount } from 'svelte';
-	import { dex } from '$lib/web3/web3-wallet';
-	import { fromWei, putTokenName, toggle } from '$lib/global/utils';
+	import { dex, do_swap } from '$lib/web3/web3-wallet';
+	import { fromWei, provider, putTokenName, toggle } from '$lib/global/utils';
 	import { dex_store, wallet_store } from '../../../store';
+	import { ethers } from 'ethers';
+	import { is_promise } from 'svelte/internal';
 
 	const { request, set } = dex;
 	const { selectedToken, desiredToken } = set;
 	let tokens: Token[] = [];
 	let filtered_from_tokens: Token[] = [];
 	let filtered_to_tokens: Token[] = [];
+	let allowance: boolean = true;
 
 	let quote: Quote = {
 		fromTokenAmount: '0',
@@ -168,6 +171,20 @@
 							<div
 								class="flex gap-2 cursor-pointer"
 								on:click={() => {
+									const _provider = new ethers.providers.Web3Provider(window.ethereum);
+									// 600000 to BigNumber
+
+									request
+										.allowance(
+											ethers.BigNumber.from(dex_store_state.amount.selected),
+											token,
+											_provider
+										)
+										.then((allowed) => {
+											console.log('allowed', allowed);
+											allowance = allowed;
+										});
+
 									selectedToken(tokens, token.symbol);
 									dex_store.update((currentValue) => {
 										currentValue.token.selected = token;
@@ -305,12 +322,31 @@
 				tokens
 			)}
 		</div>
+
+		<!-- approve 1inch to spend token -->
+		{#if dex_store_state.token.desired?.symbol !== 'ETH' && !allowance}
+			<button
+				class="w-full bg-accent text-white rounded-lg p-2 mt-4"
+				on:click={() => {
+					const selected = dex_store_state.token.selected;
+
+					const _provider = new ethers.providers.Web3Provider(window.ethereum);
+					request.approve(dex_store_state.amount.selected, selected, _provider);
+				}}
+				disabled={dex_store_state.token.desired?.symbol === 'ETH'}
+			>
+				{'Approve ' + dex_store_state.token.selected?.symbol}
+			</button>
+		{/if}
+
 		<button
 			class="w-full rounded-lg bg-accent text-primary font-semibold py-3"
 			on:click={() => {
 				const { selected, desired } = dex_store_state.token;
 				const amount = dex_store_state.amount.selected;
-				request.swap(selected.address, desired.address, amount, (data) => {
+				// const swap = do_swap(amount, selected, desired);
+				// swap.execute();
+				request.swap(selected, desired, amount, (data) => {
 					console.log(data);
 				});
 			}}

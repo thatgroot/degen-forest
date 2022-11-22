@@ -24,8 +24,6 @@ declare module '$env/static/private' {
 	export const DISPLAY: string;
 	export const DriverData: string;
 	export const EXEPATH: string;
-	export const FPS_BROWSER_APP_PROFILE_STRING: string;
-	export const FPS_BROWSER_USER_PROFILE_STRING: string;
 	export const GIT_ASKPASS: string;
 	export const GoLand: string;
 	export const GOROOT: string;
@@ -159,6 +157,7 @@ declare module '$env/static/private' {
 	export const USERDOMAIN_ROAMINGPROFILE: string;
 	export const USERNAME: string;
 	export const USERPROFILE: string;
+	export const VITE_USER_NODE_ENV: string;
 	export const VSCODE_GIT_ASKPASS_EXTRA_ARGS: string;
 	export const VSCODE_GIT_ASKPASS_MAIN: string;
 	export const VSCODE_GIT_ASKPASS_NODE: string;
@@ -166,4 +165,5 @@ declare module '$env/static/private' {
 	export const WINDIR: string;
 	export const YARN_WRAP_OUTPUT: string;
 	export const ZES_ENABLE_SYSMAN: string;
+	export const NODE_ENV: string;
 }

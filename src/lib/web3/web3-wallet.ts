@@ -1,9 +1,361 @@
 import { dex_store, wallet_store } from '../../store';
 import Web3 from 'web3';
-import { ethers } from 'ethers';
+import { BigNumber, ethers } from 'ethers';
+import { formatUnits } from 'ethers/lib/utils';
+import type { AsyncReturnType } from 'type-fest';
 
 const web3 = new Web3(Web3.givenProvider);
 
+const _abi = [
+	{
+		inputs: [
+			{
+				internalType: 'uint256',
+				name: '_totalSupply',
+				type: 'uint256'
+			}
+		],
+		payable: false,
+		stateMutability: 'nonpayable',
+		type: 'constructor'
+	},
+	{
+		anonymous: false,
+		inputs: [
+			{
+				indexed: true,
+				internalType: 'address',
+				name: 'owner',
+				type: 'address'
+			},
+			{
+				indexed: true,
+				internalType: 'address',
+				name: 'spender',
+				type: 'address'
+			},
+			{
+				indexed: false,
+				internalType: 'uint256',
+				name: 'value',
+				type: 'uint256'
+			}
+		],
+		name: 'Approval',
+		type: 'event'
+	},
+	{
+		anonymous: false,
+		inputs: [
+			{
+				indexed: true,
+				internalType: 'address',
+				name: 'from',
+				type: 'address'
+			},
+			{
+				indexed: true,
+				internalType: 'address',
+				name: 'to',
+				type: 'address'
+			},
+			{
+				indexed: false,
+				internalType: 'uint256',
+				name: 'value',
+				type: 'uint256'
+			}
+		],
+		name: 'Transfer',
+		type: 'event'
+	},
+	{
+		constant: true,
+		inputs: [],
+		name: 'DOMAIN_SEPARATOR',
+		outputs: [
+			{
+				internalType: 'bytes32',
+				name: '',
+				type: 'bytes32'
+			}
+		],
+		payable: false,
+		stateMutability: 'view',
+		type: 'function'
+	},
+	{
+		constant: true,
+		inputs: [],
+		name: 'PERMIT_TYPEHASH',
+		outputs: [
+			{
+				internalType: 'bytes32',
+				name: '',
+				type: 'bytes32'
+			}
+		],
+		payable: false,
+		stateMutability: 'view',
+		type: 'function'
+	},
+	{
+		constant: true,
+		inputs: [
+			{
+				internalType: 'address',
+				name: '',
+				type: 'address'
+			},
+			{
+				internalType: 'address',
+				name: '',
+				type: 'address'
+			}
+		],
+		name: 'allowance',
+		outputs: [
+			{
+				internalType: 'uint256',
+				name: '',
+				type: 'uint256'
+			}
+		],
+		payable: false,
+		stateMutability: 'view',
+		type: 'function'
+	},
+	{
+		constant: false,
+		inputs: [
+			{
+				internalType: 'address',
+				name: 'spender',
+				type: 'address'
+			},
+			{
+				internalType: 'uint256',
+				name: 'value',
+				type: 'uint256'
+			}
+		],
+		name: 'approve',
+		outputs: [
+			{
+				internalType: 'bool',
+				name: '',
+				type: 'bool'
+			}
+		],
+		payable: false,
+		stateMutability: 'nonpayable',
+		type: 'function'
+	},
+	{
+		constant: true,
+		inputs: [
+			{
+				internalType: 'address',
+				name: '',
+				type: 'address'
+			}
+		],
+		name: 'balanceOf',
+		outputs: [
+			{
+				internalType: 'uint256',
+				name: '',
+				type: 'uint256'
+			}
+		],
+		payable: false,
+		stateMutability: 'view',
+		type: 'function'
+	},
+	{
+		constant: true,
+		inputs: [],
+		name: 'decimals',
+		outputs: [
+			{
+				internalType: 'uint8',
+				name: '',
+				type: 'uint8'
+			}
+		],
+		payable: false,
+		stateMutability: 'view',
+		type: 'function'
+	},
+	{
+		constant: true,
+		inputs: [],
+		name: 'name',
+		outputs: [
+			{
+				internalType: 'string',
+				name: '',
+				type: 'string'
+			}
+		],
+		payable: false,
+		stateMutability: 'view',
+		type: 'function'
+	},
+	{
+		constant: true,
+		inputs: [
+			{
+				internalType: 'address',
+				name: '',
+				type: 'address'
+			}
+		],
+		name: 'nonces',
+		outputs: [
+			{
+				internalType: 'uint256',
+				name: '',
+				type: 'uint256'
+			}
+		],
+		payable: false,
+		stateMutability: 'view',
+		type: 'function'
+	},
+	{
+		constant: false,
+		inputs: [
+			{
+				internalType: 'address',
+				name: 'owner',
+				type: 'address'
+			},
+			{
+				internalType: 'address',
+				name: 'spender',
+				type: 'address'
+			},
+			{
+				internalType: 'uint256',
+				name: 'value',
+				type: 'uint256'
+			},
+			{
+				internalType: 'uint256',
+				name: 'deadline',
+				type: 'uint256'
+			},
+			{
+				internalType: 'uint8',
+				name: 'v',
+				type: 'uint8'
+			},
+			{
+				internalType: 'bytes32',
+				name: 'r',
+				type: 'bytes32'
+			},
+			{
+				internalType: 'bytes32',
+				name: 's',
+				type: 'bytes32'
+			}
+		],
+		name: 'permit',
+		outputs: [],
+		payable: false,
+		stateMutability: 'nonpayable',
+		type: 'function'
+	},
+	{
+		constant: true,
+		inputs: [],
+		name: 'symbol',
+		outputs: [
+			{
+				internalType: 'string',
+				name: '',
+				type: 'string'
+			}
+		],
+		payable: false,
+		stateMutability: 'view',
+		type: 'function'
+	},
+	{
+		constant: true,
+		inputs: [],
+		name: 'totalSupply',
+		outputs: [
+			{
+				internalType: 'uint256',
+				name: '',
+				type: 'uint256'
+			}
+		],
+		payable: false,
+		stateMutability: 'view',
+		type: 'function'
+	},
+	{
+		constant: false,
+		inputs: [
+			{
+				internalType: 'address',
+				name: 'to',
+				type: 'address'
+			},
+			{
+				internalType: 'uint256',
+				name: 'value',
+				type: 'uint256'
+			}
+		],
+		name: 'transfer',
+		outputs: [
+			{
+				internalType: 'bool',
+				name: '',
+				type: 'bool'
+			}
+		],
+		payable: false,
+		stateMutability: 'nonpayable',
+		type: 'function'
+	},
+	{
+		constant: false,
+		inputs: [
+			{
+				internalType: 'address',
+				name: 'from',
+				type: 'address'
+			},
+			{
+				internalType: 'address',
+				name: 'to',
+				type: 'address'
+			},
+			{
+				internalType: 'uint256',
+				name: 'value',
+				type: 'uint256'
+			}
+		],
+		name: 'transferFrom',
+		outputs: [
+			{
+				internalType: 'bool',
+				name: '',
+				type: 'bool'
+			}
+		],
+		payable: false,
+		stateMutability: 'nonpayable',
+		type: 'function'
+	}
+];
 class DApp {
 	provider: ethers.providers.Web3Provider;
 	signer: ethers.providers.JsonRpcSigner;
@@ -159,7 +511,7 @@ export const dex: DEX = {
 			});
 
 			// calling 1inch quote api
-			const url = `https://api.1inch.exchange/v4.0/1/quote?fromTokenAddress=${fromTokenAddress}&toTokenAddress=${toTokenAddress}&amount=3000000000000&slippage=${slippage}`;
+			const url = `https://api.1inch.exchange/v4.0/1/quote?fromTokenAddress=${fromTokenAddress}&toTokenAddress=${toTokenAddress}&amount=${fromAmount}&slippage=${slippage}`;
 			let response = undefined;
 			try {
 				response = await fetch(url);
@@ -212,11 +564,75 @@ export const dex: DEX = {
 			}
 			unsubscribe();
 		},
-		swap: async (fromTokenAddress, toTokenAddress, fromAmount, callback): Promise<void> => {
-			console.log(fromTokenAddress, toTokenAddress, fromAmount);
+		allowance: async (amount, token, provider) => {
+			if (token.symbol != 'ETH') {
+				try {
+					const signer = provider.getSigner();
+					const contract = new ethers.Contract(token.address, _abi, signer);
+					const erc20Contract = contract.connect(signer);
+					const spender_response = await fetch(`https://api.1inch.io/v4.0/1/approve/spender`);
+					const json_response = await spender_response.json();
+					const { address: spenderAddress } = json_response; //
+					const allowance = await erc20Contract.allowance(
+						await signer.getAddress(),
+						spenderAddress
+					);
+					return allowance.gte(amount);
+				} catch (e) {
+					alert('Approval denied. Swap cancelled.');
+					console.error(e);
+					throw e;
+				}
+			}
+			return true;
+			//
+		},
+		approve: async (amount, token, provider) => {
+			// check if 1inch has allowace for the token
+
+			if (token.symbol != 'ETH') {
+				try {
+					window.confirm(`Please approve us to spend your ${token.symbol}`);
+					// window.open(
+					// 	'https://help.1inch.exchange/en/articles/4585113-why-do-i-need-to-approve-my-tokens-before-a-trade',
+					// 	'_blank'
+					// );
+
+					const signer = provider.getSigner();
+
+					const contract = new ethers.Contract(token.address, _abi, signer);
+					const erc20Contract = contract.connect(signer);
+
+					const spender_response = await fetch(`https://api.1inch.io/v4.0/1/approve/spender`);
+
+					const json_response = await spender_response.json();
+					const { address: spenderAddress } = json_response; //
+					console.log('json_response', json_response);
+					const allowance = await erc20Contract.allowance(
+						await signer.getAddress(),
+						spenderAddress
+					);
+					console.log('allowance', allowance);
+
+					if (allowance.gte(amount)) {
+						return;
+					}
+					const tx = await erc20Contract.approve(spenderAddress, amount);
+					console.log('tx', tx);
+					if (tx) await waitForTx(tx.hash, provider);
+					alert('Approved!');
+				} catch (e) {
+					alert('Approval denied. Swap cancelled.');
+					console.error(e);
+					throw e;
+				}
+			}
+			//
+		},
+		swap: async (fromToken, toToken, amount, callback): Promise<void> => {
+			console.log(fromToken, toToken, amount);
 			// return;
 			// get connected wallet address
-			const account = web3_wallet.defaultAccount();
 			// calling 1inch swap api
 			let slippage: number | string = 'auto';
 			// svelte subscribe
@@ -224,12 +640,19 @@ export const dex: DEX = {
 				slippage = store.slippage;
 			});
 
-			// 0xF69c12BCAb3cc3Bef5a5BF7eD990B26dA2871D55
-			const url = `https://api.1inch.io/v4.0/1/swap?fromTokenAddress=${fromTokenAddress}&toTokenAddress=${toTokenAddress}&amount=${fromAmount}&fromAddress=${account}&slippage=${slippage}`;
+			const provider = new ethers.providers.Web3Provider(window.ethereum);
 
-			console.log(url);
-			// const url = `https://api.1inch.io/v4.0/1/swap?fromTokenAddress=${fromTokenAddress}&toTokenAddress=${toTokenAddress}&amount=${fromAmount}&fromAddress=0xE36E96A3842039d68794C15ace30ab7C9143ad1A&slippage=1`;
+			const signer = provider.getSigner();
+
+			const wallet_address = await signer.getAddress();
 			try {
+				const parsedAmountFromToken = ethers.utils.parseUnits(amount, 0);
+
+				// 0xF69c12BCAb3cc3Bef5a5BF7eD990B26dA2871D55
+				const url = `https://api.1inch.io/v4.0/1/swap?fromTokenAddress=${fromToken.address}&toTokenAddress=${toToken.address}&amount=${parsedAmountFromToken}&fromAddress=${wallet_address}&slippage=${slippage}`;
+
+				console.log(url);
+				// const url = `https://api.1inch.io/v4.0/1/swap?fromTokenAddress=${fromTokenAddress}&toTokenAddress=${toTokenAddress}&amount=${fromAmount}&fromAddress=0xE36E96A3842039d68794C15ace30ab7C9143ad1A&slippage=1`;
 				fetch(url)
 					.then((response) => {
 						console.log('response', response);
@@ -251,13 +674,7 @@ export const dex: DEX = {
 								console.log('tx', data);
 								const provider = new ethers.providers.Web3Provider(window.ethereum);
 								const signer = provider.getSigner();
-								// const signed_tx = signer.signTransaction(tx);
-								// console.log('signed_tx', data.tx);
-								// web3.eth.sign(tx.data, tx.from, function (err, result) {
-								// 	if (err) return console.error(err);
-								// 	console.log('SIGNED:' + result);
-								// });
-								// const signedTx = await signer.signTransaction(tx);
+
 								const tx_response = await signer.sendTransaction({
 									from,
 									to,
@@ -266,10 +683,6 @@ export const dex: DEX = {
 								});
 								console.log('tx_response', tx_response);
 								const receipt = await provider.getTransactionReceipt(tx_response.hash);
-
-								// provider.sendTransaction(tx.data).then((res) => {
-								// 	console.log('res', res);
-								// });
 							} catch (error) {
 								console.log('error', error);
 								dex_store.update((currentValue) => {
@@ -306,5 +719,205 @@ export const dex: DEX = {
 		}
 	}
 };
+
+export const do_swap = (amountToSend: string, fromToken: Token, toToken: Token) => {
+	type SwapStatus =
+		| 'DORMANT'
+		| 'PREPARING_TX'
+		| 'AWAITING_CONFIRMATION'
+		| 'AWAITING_APPROVAL'
+		| 'AWAITING_APPROVE_TX'
+		| 'SENDING_TX'
+		| 'COMPLETE'
+		| 'ERROR';
+	const reset = () => {
+		// reset state
+		// reset tx
+		// reset error
+	};
+
+	const execute = async () => {
+		const testMode = false && process.env.NODE_ENV == 'development';
+
+		const provider = new ethers.providers.Web3Provider(window.ethereum);
+
+		const signer = provider.getSigner();
+		try {
+			// Activate
+			const parsedAmountFromToken = safeParseUnits(amountToSend, fromToken);
+
+			// Approve
+			if (fromToken.symbol != 'ETH') {
+				try {
+					window.confirm(`Please approve us to spend your ${fromToken.symbol}`);
+					// window.open(
+					// 	'https://help.1inch.exchange/en/articles/4585113-why-do-i-need-to-approve-my-tokens-before-a-trade',
+					// 	'_blank'
+					// );
+
+					// if (!testMode) {
+					const tx = await approve(parsedAmountFromToken, fromToken, provider);
+					// AWAITING APPROVE TX
+					if (tx) await waitForTx(tx.hash, provider);
+					alert('Approved!');
+					// } else {
+					//  AWAITING_APPROVE_TX
+					// }
+				} catch (e) {
+					alert('Approval denied. Swap cancelled.');
+					console.error(e);
+					throw e;
+				}
+			}
+			// PREPARING_TX
+			// const swap = await repeatOnFail(
+			// 	async () =>
+			// 		// call dex swap function here
+			// 		  ,
+			// 	{
+			// 		iterations: 10,
+			// 		waitFor: 1000,
+			// 		waitForMultiplier: 1.5
+			// 	}
+			// );
+			// 1inch swap api call using fetch
+			const from_address = await signer.getAddress();
+			const response = await fetch(
+				`https://api.1inch.exchange/v4.0/1/swap?fromTokenAddress=${
+					fromToken.address
+				}&toTokenAddress=${
+					toToken.address
+				}&amount=${parsedAmountFromToken.toString()}&fromAddress=${from_address}&slippage=1`
+			);
+
+			const swap = await response.json();
+			console.log('swap', swap);
+
+			// Add error toast here
+			// setData(swap);
+
+			alert('Swap confirmed!');
+
+			setTimeout(() => alert('Please wait while Bruce swaps your tokens'), 1000);
+			// SENDING_TX
+			// Swap
+			console.log('swap.tx', swap.tx);
+			const {
+				from,
+				to,
+				data,
+				value
+				// gasPrice,
+				// gas
+			} = await swap.tx;
+
+			// if (!testMode) {
+			const tx = await signer.sendTransaction({
+				from,
+				to,
+				data,
+				value: ethers.BigNumber.from(value)
+			});
+			await waitForTx(tx.hash, provider);
+			// } else {
+			// await new Promise((r) => setTimeout(r, 5000));
+			// }
+			// waiting
+			alert('....');
+			setTimeout(
+				() =>
+					alert(
+						`Converted ${formatUnits(swap.fromTokenAmount, swap.fromToken.decimals)} ${
+							swap.fromToken.symbol
+						} to ${formatUnits(swap.toTokenAmount, swap.toToken.decimals)} ${swap.toToken.symbol}`
+					),
+				1000
+			);
+			// COMPLETE
+		} catch (e) {
+			// ERROR
+			console.error(e);
+		}
+	};
+	return {
+		execute,
+		status: 'DORMANT' as SwapStatus,
+		reset
+	};
+};
+
+const waitForTx = async (txHash: string, provider: ethers.providers.Web3Provider) => {
+	const condition = true;
+	while (condition) {
+		const receipt = await provider.getTransactionReceipt(txHash);
+		if (receipt) {
+			break;
+		} else console.log({ receipt });
+		await new Promise((r) => setTimeout(r, 5000));
+	}
+};
+
+const approve = async (
+	parsedAmountFromToken: BigNumber,
+	fromToken: Token,
+	provider: ethers.providers.Web3Provider
+) => {
+	const signer = provider.getSigner();
+
+	const contract = new ethers.Contract(fromToken.address, _abi, signer);
+	const erc20Contract = contract.connect(signer);
+	// https://api.1inch.io/v5.0/1/approve/spender
+	// 1inch api check if 1inch is approved to spend the token
+
+	const spender_response = await fetch(`https://api.1inch.io/v4.0/1/approve/spender`);
+
+	const json_response = await spender_response.json();
+	const { address: spenderAddress } = json_response; //
+	const allowance = await erc20Contract.allowance(await signer.getAddress(), spenderAddress);
+
+	if (allowance.gte(parsedAmountFromToken)) {
+		return;
+	}
+
+	const tx = await erc20Contract.approve(spenderAddress, parsedAmountFromToken);
+	return tx;
+};
+
+export const safeParseUnits = (tokenQuantity: string, fromToken: Token) => {
+	if (!tokenQuantity) return ethers.BigNumber.from('0');
+	// eslint-disable-next-line prefer-const
+	let [intToSend, decimalsToSend] = tokenQuantity.split('.');
+	if (decimalsToSend && decimalsToSend.length > fromToken.decimals) {
+		decimalsToSend = decimalsToSend.slice(0, fromToken.decimals);
+		if (decimalsToSend.length) tokenQuantity = [intToSend, decimalsToSend].join('.');
+		else tokenQuantity = intToSend;
+	}
+	return ethers.utils.parseUnits(tokenQuantity, ethers.BigNumber.from(fromToken.decimals));
+};
+export async function repeatOnFail<T extends () => Promise<any>>(
+	fn: T,
+	{ waitFor = 500, iterations = 1, waitForMultiplier = 1 } = {}
+): Promise<AsyncReturnType<T>> {
+	if (!iterations) throw new Error('iterations param required for tryRun');
+	let count = 0;
+	let resolved = false;
+	let rtn;
+	const shouldRun = () => count < iterations && !resolved;
+	while (shouldRun()) {
+		count++;
+		try {
+			rtn = await fn();
+			resolved = true;
+			break;
+		} catch (e) {
+			if (!shouldRun()) {
+				throw e;
+			}
+			await new Promise((resolve) => setTimeout(resolve, waitFor));
+			waitFor = waitFor * waitForMultiplier;
+		}
+	}
+	return rtn;
+}
 
 export default web3_wallet;
