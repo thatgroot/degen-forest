@@ -3,6 +3,7 @@ import Web3 from 'web3';
 import { BigNumber, ethers } from 'ethers';
 import { formatUnits } from 'ethers/lib/utils';
 import type { AsyncReturnType } from 'type-fest';
+import { fromWei } from '$lib/global/utils';
 
 const web3 = new Web3(Web3.givenProvider);
 
@@ -383,7 +384,8 @@ const web3_wallet: Wallet = {
 				const dapp = new DApp();
 				const signer = dapp.signer;
 				const address = await signer.getAddress();
-				const balance = await web3.eth.getBalance(address);
+
+				const balance = fromWei(await web3.eth.getBalance(address), 'ether');
 				const chainId = await signer.getChainId();
 				web3.eth.defaultAccount = address;
 				console.log({ defaultAccount: address, chainId, balance });
@@ -399,12 +401,26 @@ const web3_wallet: Wallet = {
 			if (confirm) window.open('https://metamask.io/download/', '_blank');
 		}
 	},
-	balance: async (token_address: string) => {
-		if (window.ethereum || window.web3) {
-			const balance = await web3.eth.getBalance(token_address);
+	balanceof: async (token: Token) => {
+		if (token.symbol === 'ETH') {
+			const balance = fromWei(await web3.eth.getBalance(token.address), 'ether');
 			return balance;
 		} else {
-			return '0';
+			const _abi = [
+				{
+					constant: true,
+					inputs: [{ name: '_owner', type: 'address' }],
+					name: 'balanceOf',
+					outputs: [{ name: 'balance', type: 'uint256' }],
+					type: 'function'
+				}
+			];
+			// @ts-ignore
+			const contract = new web3.eth.Contract(_abi, token.address);
+
+			const res = await contract.methods.balanceOf(web3_wallet.defaultAccount()).call();
+			const format = web3.utils.fromWei(res);
+			return format;
 		}
 	},
 

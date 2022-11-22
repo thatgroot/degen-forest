@@ -28,7 +28,7 @@ class Ethers {
 	}
 }
 
-export const putTokenName = (str: string, tokens: Token[]) => {
+export const replaceAddresswithTokenName = (str: string, tokens: Token[]) => {
 	// extract	token name from token address using regex
 	const token_address = str.match(/0x[a-fA-F0-9]{40}/g);
 	// replace token address with token name in the str using regex

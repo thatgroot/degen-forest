@@ -6,8 +6,8 @@
 	import arrow_down from '$lib/assets/svg/icons/arrow-down.svg';
 	import DropdownSlot from '$lib/dropdown/DropdownSlot.svelte';
 	import { onMount } from 'svelte';
-	import { dex, do_swap } from '$lib/web3/web3-wallet';
-	import { fromWei, provider, putTokenName, toggle } from '$lib/global/utils';
+	import web3_wallet, { dex, do_swap } from '$lib/web3/web3-wallet';
+	import { fromWei, toggle, replaceAddresswithTokenName } from '$lib/global/utils';
 	import { dex_store, wallet_store } from '../../../store';
 	import { ethers } from 'ethers';
 	import { is_promise } from 'svelte/internal';
@@ -142,7 +142,7 @@
 		<div class="flex flex-col bg-secondary-light text-primary py-4 px-6 gap-3 rounded-xl relative">
 			<div class="flex justify-between">
 				<span />
-				<span>Balance: {fromWei(wallet_store_state.balance, 'ether')} </span>
+				<span>Balance: {wallet_store_state.balance} </span>
 			</div>
 
 			<div class="flex flex-col gap-2 w-full">
@@ -172,8 +172,6 @@
 								class="flex gap-2 cursor-pointer"
 								on:click={() => {
 									const _provider = new ethers.providers.Web3Provider(window.ethereum);
-									// 600000 to BigNumber
-
 									request
 										.allowance(
 											ethers.BigNumber.from(dex_store_state.amount.selected),
@@ -184,6 +182,13 @@
 											console.log('allowed', allowed);
 											allowance = allowed;
 										});
+
+									web3_wallet.balanceof(token).then((_balance) => {
+										wallet_store.update((currentValue) => {
+											currentValue.balance = _balance;
+											return currentValue;
+										});
+									});
 
 									selectedToken(tokens, token.symbol);
 									dex_store.update((currentValue) => {
@@ -226,6 +231,7 @@
 							<img src={arrow_down} alt="" class="w-4 rounded-full" />
 						</div>
 					</div>
+
 					<div slot="items" class="w-full bg-primary p-2 rounded-lg gap-y-4 flex flex-col">
 						<div class="flex gap-2">
 							<input
@@ -317,7 +323,7 @@
 			extract token address from the description or reason using regex
 		 -->
 
-			{putTokenName(
+			{replaceAddresswithTokenName(
 				dex_store_state.error?.description ?? dex_store_state.tx_error?.reason ?? '',
 				tokens
 			)}
@@ -335,7 +341,7 @@
 				}}
 				disabled={dex_store_state.token.desired?.symbol === 'ETH'}
 			>
-				{'Approve ' + dex_store_state.token.selected?.symbol}
+				{'Allow degen forest to swap ' + dex_store_state.token.selected?.symbol}
 			</button>
 		{/if}
 
