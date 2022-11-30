@@ -1,5 +1,7 @@
 import { c as create_ssr_component, e as escape, v as validate_component, f as each, d as add_attribute } from "../../../../chunks/index.js";
 import { T as TabBar, a as Tab } from "../../../../chunks/Tab.js";
+import "../../../../chunks/web3-wallet.js";
+import "web3";
 const rugged = "/_app/immutable/assets/rugged-60023869.png";
 const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let active = "live";

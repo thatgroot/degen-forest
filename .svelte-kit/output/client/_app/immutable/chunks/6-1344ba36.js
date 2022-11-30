@@ -1,1 +1,0 @@
-import{default as f}from"../components/pages/(app)/airdrops/_page.svelte-b72fc6ff.js";import"./index-b4efb8f8.js";import"./Tab-d306698a.js";import"./dai-0f95b52f.js";import"./Textarea-ddbf71d9.js";import"./blind-04d53121.js";import"./ape-39ec1964.js";export{f as component};

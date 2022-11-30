@@ -1,4 +1,4 @@
-import { c as create_ssr_component, d as add_attribute, e as escape, v as validate_component, f as each } from "./index.js";
+import { c as create_ssr_component, d as add_attribute, e as escape, b as subscribe, v as validate_component, f as each } from "./index.js";
 import { T as TabBar, a as Tab } from "./Tab.js";
 import { s as solana } from "./solana.js";
 import { a as arrow_down } from "./arrow-down.js";
@@ -8,6 +8,10 @@ import { e as eth } from "./eth.js";
 import { i as info } from "./info.js";
 import { L as ListItem } from "./ListItem.js";
 import { P as Popup } from "./Popup.js";
+import "./web3-wallet.js";
+import "web3";
+import { w as wallet_store } from "./store.js";
+const wallet = "/_app/immutable/assets/wallet-f16dc00f.svg";
 const brave = "/_app/immutable/assets/brave-8998d646.svg";
 const metamask = "/_app/immutable/assets/metamask-26b8617d.svg";
 const walletconnect = "/_app/immutable/assets/walletconnect-1d8996a9.svg";
@@ -48,6 +52,9 @@ const ListItemCol = create_ssr_component(($$result, $$props, $$bindings, slots) 
 	${badge ? `<div class="${"absolute right-6 -top-6 rounded-full border-2 border-transparent group-hover:border-2 group-hover:border-accent bg-secondary px-6 py-3 text-xs text-accent"}">${escape(badge)}</div>` : ``}</div>`;
 });
 const ConnectWallet = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+  let wallet_store_state;
+  let $wallet_store, $$unsubscribe_wallet_store;
+  $$unsubscribe_wallet_store = subscribe(wallet_store, (value) => $wallet_store = value);
   const wallets = [
     {
       name: "Phantom",
@@ -100,18 +107,17 @@ const ConnectWallet = create_ssr_component(($$result, $$props, $$bindings, slots
       logo: trustwallet
     }
   ];
-  let filtered_wallets = wallets.filter((wallet) => wallet.chain === "solana");
+  let filtered_wallets = wallets.filter((wallet2) => wallet2.chain === "solana");
   let active_chain = "solana";
   let { toggle = false } = $$props;
-  let { connected = false } = $$props;
   let { onClosed = () => {
   } } = $$props;
   if ($$props.toggle === void 0 && $$bindings.toggle && toggle !== void 0)
     $$bindings.toggle(toggle);
-  if ($$props.connected === void 0 && $$bindings.connected && connected !== void 0)
-    $$bindings.connected(connected);
   if ($$props.onClosed === void 0 && $$bindings.onClosed && onClosed !== void 0)
     $$bindings.onClosed(onClosed);
+  wallet_store_state = $wallet_store;
+  $$unsubscribe_wallet_store();
   return `${validate_component(Popup, "Popup").$$render($$result, { toggle, onClosed }, {}, {
     default: () => {
       return `<div class="${"flex flex-col bg-secondary px-6 py-12 gap-6 h-fit min-w-[420px] relative"}"><p class="${"text-gradient text-center"}">Connect a wallet to continue</p>
@@ -125,7 +131,7 @@ const ConnectWallet = create_ssr_component(($$result, $$props, $$bindings, slots
               active: active_chain === "solana",
               onclick: () => {
                 active_chain = "solana";
-                filtered_wallets = wallets.filter((wallet) => wallet.chain === "solana");
+                filtered_wallets = wallets.filter((wallet2) => wallet2.chain === "solana");
               }
             },
             {},
@@ -139,7 +145,7 @@ const ConnectWallet = create_ssr_component(($$result, $$props, $$bindings, slots
               icon: eth,
               onclick: () => {
                 active_chain = "ethereum";
-                filtered_wallets = wallets.filter((wallet) => wallet.chain === "ethereum");
+                filtered_wallets = wallets.filter((wallet2) => wallet2.chain === "ethereum");
               }
             },
             {},
@@ -147,33 +153,34 @@ const ConnectWallet = create_ssr_component(($$result, $$props, $$bindings, slots
           )}`;
         }
       })}
-		<div class="${"flex flex-col"}">${each(filtered_wallets, (wallet) => {
-        return `${validate_component(ListItemCol, "ListItemCol").$$render(
+		<div class="${"flex flex-col"}">${each(filtered_wallets, (wallet2) => {
+        return `<div>${validate_component(ListItemCol, "ListItemCol").$$render(
           $$result,
           {
-            title: wallet.name,
+            title: wallet2.name,
             subtitle: "Detected",
-            prefix: wallet.logo,
-            badge: wallet.badge ?? ""
+            prefix: wallet2.logo,
+            badge: wallet2.badge ?? ""
           },
           {},
           {}
-        )}`;
+        )}
+				</div>`;
       })}</div></div>`;
     }
   })}
 
 
-${connected ? `<div class="${"flex items-center gap-x-4 group relative"}"><div class="${"flex items-center gap-x-2"}"><img${add_attribute("src", bell, 0)} alt="${"notification"}" class="${"w-8 h-8"}"></div>
+${wallet_store_state.connected ? `<div class="${"flex items-center gap-x-4 group relative"}"><div class="${"flex items-center gap-x-2"}"><img${add_attribute("src", bell, 0)} alt="${"notification"}" class="${"w-8 h-8"}"></div>
 		<div class="${"flex gap-3 items-center px-3 py-1.5 hover:rounded-lg hover:bg-secondary cursor-pointer"}"><img${add_attribute("src", avatar, 0)} alt="${"user"}" class="${"rounded-full w-8 h-8"}">
 
 			<div class="${"flex items-center gap-6"}"><p class="${"text-sm text-primary"}">0x1234567890</p>
 				<img${add_attribute("src", arrow_down, 0)} alt="${"change wallet"}"></div></div>
-		<div class="${"group-hover:block hidden absolute top-[100%] bg-primary right-0 left-0 px-2 py-2 border-2 border-secondary rounded-lg shadow-lg"}"><div class="${"flex flex-col justify-start gap-2 w-full"}">${validate_component(ListItemCol, "ListItemCol").$$render(
+		<div class="${"group-hover:block hidden absolute z-50 top-[100%] bg-primary right-0 left-0 px-2 py-2 border-2 border-secondary rounded-lg shadow-lg"}"><div class="${"flex flex-col justify-start gap-2 w-full"}">${validate_component(ListItemCol, "ListItemCol").$$render(
     $$result,
     {
       title: "Main Wallet",
-      subtitle: "1.04",
+      subtitle: "0.04",
       prefix: solana,
       postfix: copy,
       insets: "sm"
@@ -216,7 +223,9 @@ ${connected ? `<div class="${"flex items-center gap-x-4 group relative"}"><div c
     },
     {},
     {}
-  )}</div></div></div>` : ``}`;
+  )}</div></div></div>` : `<button class="${"flex btn-primary desktop:btn-accent p-0 px-2"}"><img${add_attribute("src", wallet, 0)} alt="${"connect wallet"}" class="${"block px-2"}">
+		<div class="${"h-full w-2 desktop:border-r-2 desktop:border-r-accent"}"></div>
+		<span class="${"text-sm px-6 sm:px-2 hidden desktop:block"}">Connect Wallet</span></button>`}`;
 });
 export {
   ConnectWallet as C,

@@ -3,7 +3,7 @@ export const manifest = {
 	assets: new Set(["favicon.png","images/art/degods.png","robots.txt","svelte-welcome.png","svelte-welcome.webp"]),
 	mimeTypes: {".png":"image/png",".txt":"text/plain",".webp":"image/webp"},
 	_: {
-		entry: {"file":"_app/immutable/start-60e4262c.js","imports":["_app/immutable/start-60e4262c.js","_app/immutable/chunks/index-b4efb8f8.js","_app/immutable/chunks/singletons-58f91635.js"],"stylesheets":[]},
+		entry: {"file":"_app/immutable/start-7dcd0935.js","imports":["_app/immutable/start-7dcd0935.js","_app/immutable/chunks/index-3819e20c.js","_app/immutable/chunks/singletons-9a94afa0.js","_app/immutable/chunks/index-441f76bf.js"],"stylesheets":[]},
 		nodes: [
 			() => import('./nodes/0.js'),
 			() => import('./nodes/1.js'),

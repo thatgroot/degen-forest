@@ -158,7 +158,7 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
     {},
     {}
   )}</div></div>
-				<a class="${"flex justify-center items-center rounded-md border-2 border-secondary px-4 text-primary svelte-54thjw"}" href="${"/popular-collections"}">See All
+				<a class="${"flex justify-center items-center rounded-md border-2 border-secondary px-4 text-primary svelte-54thjw"}" href="${"/marketplace/popular-collections"}">See All
 				</a></div>
 			<div class="${"grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-4 large:grid-cols-6 x-large:grid-cols-4 gap-4 svelte-54thjw"}">${each(
     [
@@ -230,7 +230,7 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
     {},
     {}
   )}</div></div>
-				<a class="${"flex justify-center items-center rounded-md border-2 border-secondary px-6 py-2 text-primary svelte-54thjw"}" href="${"/popular-collections"}">See All
+				<a class="${"flex justify-center items-center rounded-md border-2 border-secondary px-6 py-2 text-primary svelte-54thjw"}" href="${"/marketplace/popular-collections"}">See All
 				</a></div>
 			<div class="${"grid grid-cols-1 tablet:grid-cols-3 desktop:grid-cols-4 large:grid-cols-6 x-large:grid-cols-8 gap-4 svelte-54thjw"}">${each(["Blocksmit Labs", "Part of Me", "Save Bear"], (title, i) => {
     return `${validate_component(NFTCardMinimal, "NftCardMinimal").$$render(
@@ -252,7 +252,7 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
 
 		
 		<div class="${"flex flex-col gap-6 svelte-54thjw"}"><div class="${"flex justify-between svelte-54thjw"}">${validate_component(Heading3, "Heading3").$$render($$result, { text: "Top upvoted drops" }, {}, {})}
-				<a class="${"flex justify-center items-center rounded-md border-2 border-secondary px-4 text-primary svelte-54thjw"}" href="${"/popular-collections"}">See All
+				<a class="${"flex justify-center items-center rounded-md border-2 border-secondary px-4 text-primary svelte-54thjw"}" href="${"/marketplace/popular-collections"}">See All
 				</a></div>
 
 			<div class="${"grid grid-cols-1 tablet:grid-cols-3 desktop:grid-cols-4 large:grid-cols-6 x-large:grid-cols-8 gap-4 svelte-54thjw"}">${each(
@@ -286,7 +286,7 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
 		<div class="${"flex flex-col gap-6 svelte-54thjw"}"><div class="${"flex justify-between svelte-54thjw"}"><div class="${"flex items-center gap-3 svelte-54thjw"}"><h3 class="${"mb-0 font-bold text-[28px] leading-9 text-gradient svelte-54thjw"}">Frens are watching</h3>
 					<img${add_attribute("src", info_active, 0)} alt="${"info"}" class="${"w-6 h-6 svelte-54thjw"}"></div>
 
-				<a class="${"flex justify-center items-center rounded-md border-2 border-secondary px-4 text-primary svelte-54thjw"}" href="${"/popular-collections"}">See All
+				<a class="${"flex justify-center items-center rounded-md border-2 border-secondary px-4 text-primary svelte-54thjw"}" href="${"/marketplace/popular-collections"}">See All
 				</a></div>
 			<div class="${"grid grid-cols-1 tablet:grid-cols-3 desktop:grid-cols-4 large:grid-cols-6 x-large:grid-cols-8 gap-4 svelte-54thjw"}">${each(
     [

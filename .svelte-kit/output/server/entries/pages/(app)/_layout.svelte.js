@@ -18,7 +18,10 @@ import "../../../chunks/eth.js";
 import "../../../chunks/info.js";
 import "../../../chunks/ListItem.js";
 import "../../../chunks/Popup.js";
-const wallet = "/_app/immutable/assets/wallet-f16dc00f.svg";
+import "../../../chunks/web3-wallet.js";
+import "web3";
+import "../../../chunks/store.js";
+import "../../../chunks/index2.js";
 const dex = "/_app/immutable/assets/dex-db1e6bc0.svg";
 const marketplace = "/_app/immutable/assets/marketplace-eb29da77.svg";
 const analytics = "/_app/immutable/assets/analytics-40d6869f.svg";
@@ -231,11 +234,7 @@ const Layout = create_ssr_component(($$result, $$props, $$bindings, slots) => {
 		<div class="${"flex flex-col gap-6 desktop:flex-row justify-between px-3 py-3"}"><a href="${"/"}"><img${add_attribute("src", logo, 0)} alt="${"degen forest"}" class="${"max-w-[15rem]"}"></a>
 
 			<div class="${"flex items-center"}">${validate_component(Search, "Search").$$render($$result, { bg: "secondary" }, {}, {})}</div>
-			<button class="${"flex btn-primary desktop:btn-accent p-0 px-2"}"><img${add_attribute("src", wallet, 0)} alt="${"connect wallet"}" class="${"block px-2"}">
-				<div class="${"h-full w-2 desktop:border-r-2 desktop:border-r-accent"}"></div>
-				<span class="${"text-sm px-6 sm:px-2 hidden desktop:block"}">Connect Wallet</span></button></div>
-
-		${validate_component(ConnectWallet, "ConnectWallet").$$render(
+			${validate_component(ConnectWallet, "ConnectWallet").$$render(
     $$result,
     {
       toggle,
@@ -245,7 +244,7 @@ const Layout = create_ssr_component(($$result, $$props, $$bindings, slots) => {
     },
     {},
     {}
-  )}
+  )}</div>
 
 		
 		<div class="${"flex flex-col tablet:flex-row relative"}">

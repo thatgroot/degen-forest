@@ -1,9 +1,9 @@
 import { c as create_ssr_component, v as validate_component, e as escape, f as each, d as add_attribute } from "../../../../chunks/index.js";
 import { T as TabBar, a as Tab } from "../../../../chunks/Tab.js";
-import { d as dai } from "../../../../chunks/dai.js";
 import { T as Textarea } from "../../../../chunks/Textarea.js";
 import { f as fat, b as blind } from "../../../../chunks/blind.js";
 import { a as ape } from "../../../../chunks/ape.js";
+const dai = "/_app/immutable/assets/dai-8c5018f7.svg";
 const usdc = "/_app/immutable/assets/usdc.icon-c029acb9.svg";
 const weth = "/_app/immutable/assets/weth-7983df0b.png";
 const check = "/_app/immutable/assets/check-1609f72b.svg";
