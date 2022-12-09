@@ -50,7 +50,7 @@
 				</div>
 
 				<a
-					href="/marketplace/item-details"
+					href="/marketplace/contract/token_id"
 					class="btn-accent border-2 border-secondary rounded-sm px-2 py-1 text-xs text-accent"
 				>
 					Details

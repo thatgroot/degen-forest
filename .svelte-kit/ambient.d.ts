@@ -24,6 +24,8 @@ declare module '$env/static/private' {
 	export const DISPLAY: string;
 	export const DriverData: string;
 	export const EXEPATH: string;
+	export const FPS_BROWSER_APP_PROFILE_STRING: string;
+	export const FPS_BROWSER_USER_PROFILE_STRING: string;
 	export const GIT_ASKPASS: string;
 	export const GoLand: string;
 	export const GOROOT: string;
@@ -67,9 +69,11 @@ declare module '$env/static/private' {
 	export const npm_lifecycle_event: string;
 	export const npm_lifecycle_script: string;
 	export const npm_node_execpath: string;
+	export const npm_package_dependencies_axios: string;
 	export const npm_package_dependencies_cookie: string;
 	export const npm_package_dependencies_ethers: string;
 	export const npm_package_dependencies_ipfs_http_client: string;
+	export const npm_package_dependencies_node_fetch: string;
 	export const npm_package_dependencies_svelte: string;
 	export const npm_package_dependencies_svelte_swiper: string;
 	export const npm_package_dependencies_web3: string;
@@ -80,6 +84,7 @@ declare module '$env/static/private' {
 	export const npm_package_dependencies__nomiclabs_hardhat_waffle: string;
 	export const npm_package_dependencies__openzeppelin_contracts: string;
 	export const npm_package_dependencies__sveltejs_adapter_static: string;
+	export const npm_package_dependencies__types_node_fetch: string;
 	export const npm_package_description: string;
 	export const npm_package_devDependencies_autoprefixer: string;
 	export const npm_package_devDependencies_eslint: string;

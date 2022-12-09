@@ -4,7 +4,7 @@
 	export let round: RoundSize = 'md';
 	export let prefix: string = '';
 	export let border: 'primary' | 'secondary' | 'transparent' = 'transparent';
-	const input_sizes = { lg: 'w-full', md: 'w-[196px]', sm: 'w-[64px]' };
+	const input_sizes = { lg: 'w-full', md: 'w-[196px]', sm: 'w-[64px]', fit: 'fit' };
 </script>
 
 <div

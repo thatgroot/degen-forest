@@ -1,6 +1,6 @@
 import type * as Kit from '@sveltejs/kit';
 
-interface RouteParams extends Partial<Record<string, string>> { slug: string }
+interface RouteParams extends Partial<Record<string, string>> { contract: string }
 
 export type Errors = undefined;
 export type PageData = Omit<Omit<import('../../../../$types.js').LayoutData, keyof import('../../../$types.js').LayoutData> & import('../../../$types.js').LayoutData, keyof Kit.AwaitedProperties<Awaited<ReturnType<typeof import('./proxy+page.js').load>>>> & Kit.AwaitedProperties<Awaited<ReturnType<typeof import('./proxy+page.js').load>>>;

@@ -1,5 +1,4 @@
 <script lang="ts">
-	import solana from '$lib/assets/svg/icons/solana.svg';
 	import eth from '$lib/assets/svg/icons/eth.svg';
 	import tag from '$lib/assets/svg/icons/tag.svg';
 	import Dropdown from '$lib/dropdown/Dropdown.svelte';
@@ -9,6 +8,7 @@
 	import DropdownSlot from '$lib/dropdown/DropdownSlot.svelte';
 	import ConnectWallet from '$lib/button/ConnectWallet.svelte';
 
+	export let price: string | number = 0;
 	let toggle: boolean = false;
 	let connect_wallet: boolean = false;
 	const open_offer_popup = () => {
@@ -26,7 +26,7 @@
 		<div class="flex gap-2">
 			<img src={tag} alt="tag" />
 			<div class="cursor-help">
-				<span class="text-primary price">15 SOL</span><span style="color: rgb(0, 209, 129);">
+				<span class="text-primary price">15 ETH</span><span style="color: rgb(0, 209, 129);">
 					▲
 				</span>
 			</div>
@@ -38,7 +38,7 @@
 			<DropdownSlot bg="primary" id="currency_selection" border="primary" rounded="md">
 				<div slot="active" class="w-full ">
 					<div class="grid grid-cols-[20px,1fr,22px] text-sm items-center gap-x-2.5 px-3 py-2">
-						<img class="w-4 h-4" src={solana} alt="..." />
+						<img class="w-4 h-4" src={eth} alt="..." />
 						<div class="flex flex-col items-start">
 							<span class="text-primary-2 text-sm">Pay in solana</span>
 							<span class="flex items-center text-xxs gap-x-1">

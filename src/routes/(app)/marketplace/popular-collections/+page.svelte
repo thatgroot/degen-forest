@@ -3,6 +3,7 @@
 	import solana from '$lib/assets/svg/icons/solana.svg';
 	import up_triangle from '$lib/assets/svg/icons/up-triangle.svg';
 	import down_triangle from '$lib/assets/svg/icons/down-triangle.svg';
+	import type { PageData } from './$types';
 
 	const collections = [
 		{
@@ -172,12 +173,12 @@
 			total_supply: '10K'
 		}
 	];
+	export let data: any;
 </script>
 
 <svelte:head>
 	<title>Popular Collections</title>
 </svelte:head>
-<!-- compo -->
 
 <div class="flex flex-col items-start border-2 border-secondary">
 	<div class="border-b-2 border-secondary w-full">
@@ -191,60 +192,35 @@
 			<table class="w-full text-primary">
 				<thead class="text-xs border-b-2 border-secondary">
 					<tr class="text-primary">
-						<th class="py-3 px-6 text-start">Collection </th>
-						<th class="py-3 px-6 text-start">Volume Total</th>
+						<th class="py-3 px-6 text-start">Collection</th>
 						<th class="py-3 px-6 text-start">24h Volume</th>
-						<th class="py-3 px-6 text-start">24h % Volume </th>
-						<th class="py-3 px-6 text-start">Sales</th>
+						<th class="py-3 px-6 text-start">24h</th>
 						<th class="py-3 px-6 text-start">Floor Price</th>
+						<th class="py-3 px-6 text-start">Owners</th>
+						<th class="py-3 px-6 text-start">Supply</th>
 					</tr>
 				</thead>
 
 				<tbody>
-					{#each collections as { image, name, volume_total, volume_24h, volume_24h_percent, sales, floor_price }, i (i)}
-						<tr class="text-start  borderorder-secondary">
-							<td class="py-4 px-6  text-start">
-								<a class="flex gap-2 items-center" href="/marketplace/collection">
-									<span>
-										{i + 1}
-									</span>
-									<img
-										class="h-12 rounded-full inline-block"
-										src={image ??
-											'https://img-cdn.magiceden.dev/rs:fill:32:32:0:0/plain/https://dl.airtable.com/.attachmentThumbnails/7bf792aeb747bc42679d845ed24fe6fe/fce75af7'}
-										alt="..."
-									/>
+					{#each data.collections as collection}
+						<tr>
+							<td class="flex justify-between items-center gap-4 max-w-fit m-4">
+								<img
+									src={collection.image_url ??
+										'https://www.hellomoon.io/_next/image?url=https%3A%2F%2Fimages.hellomoon.io%2Fnfts%2F60%2Fsodead.webp&w=128&q=75'}
+									alt="solana"
+									class="h-16 inline-block rounded-sm"
+								/>
 
-									{name}
+								<a href="/marketplace/collection/{collection.primary_asset_contracts[0]?.address}">
+									{collection.name}
 								</a>
 							</td>
-							<td class="py-4 px-6  text-start">
-								{volume_total}
-								<img src={solana} alt="solana" class="h-4 inline-block" />
-							</td>
-							<td class="py-4 px-6  text-start">
-								{volume_24h}
-								<img src={solana} alt="solana" class="h-4 inline-block" />
-							</td>
-							<td
-								class="py-4 px-6  text-start {volume_24h_percent > 0
-									? 'text-success'
-									: 'text-warning'}"
-							>
-								{#if volume_24h_percent > 0}
-									<img src={up_triangle} alt="up" class="h-4 inline-block" />
-								{:else}
-									<img src={down_triangle} alt="down" class="h-4 inline-block" />
-								{/if}
-								<span>
-									{volume_24h_percent} %
-								</span>
-							</td>
-							<td class="py-4 px-t">{sales}</td>
-							<td class="py-4 px-6  text-start">
-								{floor_price}
-								<img src={solana} alt="solana" class="h-4 inline-block" />
-							</td>
+							<td class="text-center">{collection.stats.one_day_volume}</td>
+							<td class="text-center">{collection.stats.one_day_change}</td>
+							<td class="text-center">{collection.stats.floor_price}</td>
+							<td class="text-center">{collection.stats.num_owners}</td>
+							<td class="text-center">{collection.stats.total_supply}</td>
 						</tr>
 					{/each}
 				</tbody>
