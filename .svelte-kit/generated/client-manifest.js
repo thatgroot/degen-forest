@@ -49,6 +49,6 @@ export const dictionary = {
 	"(app)/marketplace/collection": [17,[2]],
 	"(app)/marketplace/drop-calendar": [20,[2]],
 	"(app)/marketplace/popular-collections": [21,[2]],
-	"(app)/marketplace/collection/[contract]": [18,[2]],
-	"(app)/marketplace/collection/[contract]/[token_id]": [19,[2]]
+	"(app)/marketplace/collection/[slug]": [18,[2]],
+	"(app)/marketplace/collection/[slug]/[token_id]": [19,[2]]
 };

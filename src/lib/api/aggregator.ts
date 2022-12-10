@@ -21,8 +21,8 @@ const aggregator: Aggregator = {
 				const asset = await res.json();
 				return asset as Asset;
 			},
-			assets: async (asset_contract_address: string) => {
-				const url = `${Endpoints.server()}/api/v1/assets?asset_contract_address=${asset_contract_address}&order_direction=desc&offset=0&limit=200&include_orders=true`;
+			assets: async (collection: string) => {
+				const url = `${Endpoints.server()}/api/v1/assets?collection=${collection}&order_direction=desc&offset=0&limit=200&include_orders=true`;
 				const res = await fetch(url, {
 					method: 'GET'
 				});
@@ -45,7 +45,7 @@ const aggregator: Aggregator = {
 			},
 			collections: async (offset: number, limit: number) => {
 				const res = await fetch(
-					`${Endpoints.server()}/api/v1/collections?format=json&offset=0&limit=100`
+					`${Endpoints.server()}/api/v1/collections?format=json&offset=2&limit=100`
 				);
 				// axios get
 				const json = await res.json();

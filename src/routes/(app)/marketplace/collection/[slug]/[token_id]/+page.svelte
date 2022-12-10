@@ -26,6 +26,7 @@
 	import AccordionSlot from '$lib/accordion/AccordionSlot.svelte';
 	import NftCard from '$lib/cards/nft/NFTCard.svelte';
 	import Popup from '$lib/popups/Popup.svelte';
+	import { fromWei } from '$lib/global/utils';
 
 	export let data: any;
 
@@ -116,7 +117,11 @@
 					<img src={refresh} alt="..." />
 				</div>
 			</div>
-			<MakeOffer />
+			{#if asset.seaport_sell_orders?.length > 0}
+				<MakeOffer price={fromWei(asset.seaport_sell_orders[0]?.current_price, 'ether')} />
+			{:else}
+				<span />
+			{/if}
 
 			<div class="border border-secondary rounded-lg p-2">
 				<AccordionSlot border="transparent">

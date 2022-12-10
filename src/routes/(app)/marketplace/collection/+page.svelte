@@ -216,7 +216,7 @@
 							>
 								<div class="flex flex-row justify-start w-full">
 									<div class=" flex flex-col items-start">
-										<span class="text-primary">Buy Now</span> <small class="text-primary" />
+										<!-- <span class="text-primary">Buy Now</span> <small class="text-primary" /> -->
 									</div>
 								</div>
 								<div class="mx-2 transition-transform ease-linear delay-100 ">

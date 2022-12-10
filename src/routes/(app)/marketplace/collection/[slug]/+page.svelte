@@ -21,17 +21,19 @@
 	import CollectionSidenav from '$lib/navigation/CollectionSidenavItem.svelte';
 	import AccordionHeader from '$lib/accordion/AccordionHeader.svelte';
 	import Textarea from '$lib/form/Textarea.svelte';
-	import solana from '$lib/assets/svg/icons/solana.svg';
 	import eth from '$lib/assets/svg/icons/eth.svg';
 	import opensea from '$lib/assets/svg/icons/opensea.svg';
 
 	import quick from '$lib/assets/svg/icons/quick.svg';
 	import plus from '$lib/assets/svg/icons/plus.svg';
 	import { fromWei } from '$lib/global/utils';
+	import { assets } from '$app/paths';
 	let toggle: boolean = false;
 	let toggleModel: boolean = false;
 
 	export let data: any;
+
+	const collection = data.assets[0]?.collection ?? {};
 </script>
 
 <div class="w-full flex flex-col gap-6 py-0 pt-8">
@@ -264,7 +266,23 @@
 						</AccordionSlot>
 
 						{#each ['Version', 'Background', 'Clothes', 'Eyes', 'Head', 'Mouth', 'Neck', 'Skin'] as item}
-							<CollectionSidenav title={item} />
+							<CollectionSidenav title={item}>
+								<div class="w-full text-white">
+									<label
+										class="flex items-center my-2 w-full rounded-lg cursor-pointer select-none"
+									>
+										<div class="container mr-2 flex-shrink-0">
+											<input type="checkbox" value="false" />
+											<span class="checkmark rounded" />
+										</div>
+										<div
+											class="truncate flex-shrink font-medium text-gray-700 dark:text-gray-100 text-sm"
+										>
+											Clank tanks
+										</div>
+									</label>
+								</div>
+							</CollectionSidenav>
 						{/each}
 					</div>
 				</div>

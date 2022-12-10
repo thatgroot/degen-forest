@@ -17,12 +17,13 @@ type Collection = {
 	banner_image_url: string;
 	fees: string;
 	safelist_request_status: 'not_requested' | 'requested' | 'approved' | 'verified';
-	primary_asset_contracts: string[];
+	primary_asset_contracts: Array<{ [key: string]: unknown }>;
 	traits: unknown[];
 	payment_tokens: [];
 	editors: [];
 	states: [];
 	is_rarity_enabled: boolean;
+	[key: string]: { [key: string]: unknown };
 };
 type AssetContract = {
 	address: string;
@@ -67,16 +68,14 @@ type Asset = {
 
 type OpeanSeaApi = {
 	asset: (asset_contract_address: string, token_id: string) => Promise<Asset>;
-
 	assets: (
 		// owner?: string,
 		// token_ids?: string,
-		// collection?: string,
-		// collection_slug?: string,
+		collection: string
 		// collection_editor?: string,
 		// order_direction: 'asc' | 'desc',
-		asset_contract_address: string,
-		asset_contract_addresses?: string
+		// asset_contract_address?: string,
+		// asset_contract_addresses?: string
 		// limit: number,
 		// cursor: number,
 		// include_orders: boolean
