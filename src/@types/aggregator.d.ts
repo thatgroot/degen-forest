@@ -8,6 +8,18 @@ type Rarity = {
 	tokens_scored: number;
 	ranking_features: [];
 };
+type Contract = {
+	chain: string,
+	contract_address: string,
+	name: string
+	metadata: {
+		description: string,
+		thumbnail_url: string,
+		cached_thumbnail_url: string,
+		banner_url: string,
+		cached_banner_url: string,
+	}
+}
 type Collection = {
 	name: string;
 	slug: string;
@@ -83,7 +95,7 @@ type OpeanSeaApi = {
 	collections: (
 		offset: number,
 		limit: number
-	) => Promise<Array<Collection & { [key: string]: any }>>;
+	) => Promise<Array<Contract & { [key: string]: any }>>;
 };
 
 type Aggregator = {

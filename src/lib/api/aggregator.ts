@@ -24,7 +24,10 @@ const aggregator: Aggregator = {
 			assets: async (collection: string) => {
 				const url = `${Endpoints.server()}/api/v1/assets?collection=${collection}&order_direction=desc&offset=0&limit=200&include_orders=true`;
 				const res = await fetch(url, {
-					method: 'GET'
+					method: 'GET',
+					headers: {
+						'X-API-KEY': '40392d7387d34dea8751d0b639379f20'
+					}
 				});
 				const data = await res.json();
 				console.log('collection assets', data);
@@ -44,13 +47,23 @@ const aggregator: Aggregator = {
 				return sorted_assets as Promise<Asset[]>;
 			},
 			collections: async (offset: number, limit: number) => {
-				const res = await fetch(
-					`${Endpoints.server()}/api/v1/collections?format=json&offset=2&limit=100`
-				);
-				// axios get
-				const json = await res.json();
-				const collections = json.collections;
-				return collections as Promise<Collection[]>;
+
+				const options = {
+					method: 'GET',
+					headers: {
+						accept: 'application/json',
+						Authorization: '3bd2d1ae-705e-44cc-8154-9ffc1d7d8bff'
+					}
+				};
+
+				const _json = await fetch('https://api.nftport.xyz/v0/contracts/top?page_size=10&page_number=1&period=24h&order_by=volume&chain=ethereum&chain=polygon', options)
+					.then(response => response.json())
+
+
+
+
+				const contracts = _json.contracts;
+				return contracts as Promise<ContractType[]>;
 			}
 		},
 		looksrare: undefined,

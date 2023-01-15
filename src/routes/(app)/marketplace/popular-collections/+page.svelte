@@ -5,7 +5,7 @@
 	import down_triangle from '$lib/assets/svg/icons/down-triangle.svg';
 	import type { PageData } from './$types';
 
-	export let data: { collections: Collection[] };
+	export let data: { collections: ContractType[] };
 </script>
 
 <svelte:head>
@@ -38,21 +38,21 @@
 						<tr>
 							<td class="flex justify-between items-center gap-4 max-w-fit m-4">
 								<img
-									src={collection.image_url ??
+									src={collection.metadata.thumbnail_url ??
 										'https://www.hellomoon.io/_next/image?url=https%3A%2F%2Fimages.hellomoon.io%2Fnfts%2F60%2Fsodead.webp&w=128&q=75'}
 									alt="solana"
 									class="h-16 inline-block rounded-sm"
 								/>
 
-								<a href="/marketplace/collection/{collection.slug}">
+								<a href="/marketplace/collection/{collection.contract_address}">
 									{collection.name}
 								</a>
 							</td>
-							<td class="text-center">{collection.stats.one_day_volume}</td>
+							<!-- <td class="text-center">{collection.stats.one_day_volume}</td>
 							<td class="text-center">{collection.stats.one_day_change}</td>
 							<td class="text-center">{collection.stats.floor_price}</td>
 							<td class="text-center">{collection.stats.num_owners}</td>
-							<td class="text-center">{collection.stats.total_supply}</td>
+							<td class="text-center">{collection.stats.total_supply}</td> -->
 						</tr>
 					{/each}
 				</tbody>
