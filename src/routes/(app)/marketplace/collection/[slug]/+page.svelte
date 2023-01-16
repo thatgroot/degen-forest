@@ -1,39 +1,42 @@
 <script lang="ts">
-	import Popup from '$lib/popups/Popup.svelte';
-	import Dropdown from '$lib/dropdown/Dropdown.svelte';
-	import Search from '$lib/form/search.svelte';
-	import filter from '$lib/assets/svg/icons/filter.svg';
-	import arrow_left from '$lib/assets/svg/icons/arrow-left.svg';
-	import arrow_down from '$lib/assets/svg/icons/arrow-down.svg';
-	import stack from '$lib/assets/svg/icons/stack.svg';
-	import vertical_bars from '$lib/assets/svg/icons/vertical-bars.svg';
-	import heart_line from '$lib/assets/svg/icons/heart-line.svg';
-	import hammer from '$lib/assets/svg/icons/hammer.svg';
-	import refresh from '$lib/assets/svg/icons/refresh.svg';
-	import more from '$lib/assets/svg/icons/more.svg';
-	import discord from '$lib/assets/svg/icons/discord.svg';
-	import binoculars from '$lib/assets/svg/icons/binoculars.svg';
-	import info from '$lib/assets/svg/icons/info.svg';
-	import twitter from '$lib/assets/svg/icons/twitter.svg';
-	import Input from '$lib/form/Input.svelte';
-	import AccordionSlot from '$lib/accordion/AccordionSlot.svelte';
-	import NftCard from '$lib/cards/nft/NFTCard.svelte';
-	import CollectionSidenav from '$lib/navigation/CollectionSidenavItem.svelte';
 	import AccordionHeader from '$lib/accordion/AccordionHeader.svelte';
-	import Textarea from '$lib/form/Textarea.svelte';
+	import AccordionSlot from '$lib/accordion/AccordionSlot.svelte';
+	import arrow_down from '$lib/assets/svg/icons/arrow-down.svg';
+	import arrow_left from '$lib/assets/svg/icons/arrow-left.svg';
+	import binoculars from '$lib/assets/svg/icons/binoculars.svg';
+	import discord from '$lib/assets/svg/icons/discord.svg';
 	import eth from '$lib/assets/svg/icons/eth.svg';
+	import filter from '$lib/assets/svg/icons/filter.svg';
+	import hammer from '$lib/assets/svg/icons/hammer.svg';
+	import heart_line from '$lib/assets/svg/icons/heart-line.svg';
+	import info from '$lib/assets/svg/icons/info.svg';
+	import more from '$lib/assets/svg/icons/more.svg';
 	import opensea from '$lib/assets/svg/icons/opensea.svg';
+	import refresh from '$lib/assets/svg/icons/refresh.svg';
+	import stack from '$lib/assets/svg/icons/stack.svg';
+	import twitter from '$lib/assets/svg/icons/twitter.svg';
+	import vertical_bars from '$lib/assets/svg/icons/vertical-bars.svg';
+	import Dropdown from '$lib/dropdown/Dropdown.svelte';
+	import Input from '$lib/form/Input.svelte';
+	import Search from '$lib/form/search.svelte';
+	import Textarea from '$lib/form/Textarea.svelte';
+	import CollectionSidenav from '$lib/navigation/CollectionSidenavItem.svelte';
+	import Popup from '$lib/popups/Popup.svelte';
 
-	import quick from '$lib/assets/svg/icons/quick.svg';
 	import plus from '$lib/assets/svg/icons/plus.svg';
+	import quick from '$lib/assets/svg/icons/quick.svg';
 	import { fromWei } from '$lib/global/utils';
-	import { assets } from '$app/paths';
+	import { getAssets } from '$lib/api/opensea';
+	import { onMount } from 'svelte';
+
 	let toggle: boolean = false;
 	let toggleModel: boolean = false;
+	export let data: { slug: string };
+	export let assets: Array<Asset> = [];
 
-	export let data: any;
-
-	const collection = data.assets[0]?.collection ?? {};
+	onMount(async () => {
+		assets = await getAssets(data.slug);
+	});
 </script>
 
 <div class="w-full flex flex-col gap-6 py-0 pt-8">
@@ -394,7 +397,7 @@
 				<div
 					class="grid grid-cols-1 tablet:grid-cols-2 laptop-sm:grid-cols-3 desktop:grid-cols-5 large:grid-cols-6  gap-4 px-6"
 				>
-					{#each data.assets as asset}
+					{#each assets as asset}
 						<!-- <NftCard bg="primary" /> -->
 						<div
 							class="flex flex-col justify-between rounded-lg border-2 border-secondary bg-primary  overflow-hidden  w-full laptop-sm:w-[10.75rem]"
@@ -442,13 +445,15 @@
 									</div>
 
 									<div class="flex justify-between">
-										{#if asset.seaport_sell_orders?.length > 0}
-											<div class="flex items-center gap-3">
-												<img src={eth} alt="..." class="h-3.5" />
-												<span class="text-primary">
-													{fromWei(asset.seaport_sell_orders[0]?.current_price, 'ether')}
-												</span>
-											</div>
+										{#if Array.isArray(asset.seaport_sell_orders) && asset.seaport_sell_orders.length > 0}
+											{#if asset.seaport_sell_orders[0].current_price}
+												<div class="flex items-center gap-3">
+													<img src={eth} alt="..." class="h-3.5" />
+													<span class="text-primary">
+														{fromWei(asset.seaport_sell_orders[0].current_price, 'ether')}
+													</span>
+												</div>
+											{/if}
 										{:else}
 											<span />
 										{/if}

@@ -8,7 +8,7 @@ type Rarity = {
 	tokens_scored: number;
 	ranking_features: [];
 };
-type Contract = {
+type ContractType = {
 	chain: string,
 	contract_address: string,
 	name: string
@@ -18,6 +18,32 @@ type Contract = {
 		cached_thumbnail_url: string,
 		banner_url: string,
 		cached_banner_url: string,
+	}
+	stats?: {
+		one_day_volume: number,
+		one_day_change: number,
+		one_day_sales: number,
+		one_day_average_price: number,
+		seven_day_volume: number,
+		seven_day_change: number,
+		seven_day_sales: number,
+		seven_day_average_price: number,
+		thirty_day_volume: number,
+		thirty_day_change: number,
+		thirty_day_sales: number,
+		thirty_day_average_price: number,
+		total_volume: number,
+		total_sales: number,
+		total_supply: number,
+		total_minted: number,
+		num_owners: number,
+		average_price: number,
+		market_cap: number,
+		floor_price: number,
+		floor_price_historic_one_day: number,
+		floor_price_historic_seven_day: number,
+		floor_price_historic_thirty_day: number,
+		updated_date: string
 	}
 }
 type Collection = {
@@ -69,8 +95,8 @@ type Asset = {
 	background_color: string;
 	name: string;
 	external_link: string;
-	traits: unknown[];
-	last_sale: unknown;
+	traits: any[];
+	last_sale: any;
 	collection: Collection;
 	asset_contract: AssetContract;
 	top_ownerships: Account;
@@ -79,11 +105,12 @@ type Asset = {
 };
 
 type OpeanSeaApi = {
+
 	asset: (asset_contract_address: string, token_id: string) => Promise<Asset>;
 	assets: (
 		// owner?: string,
 		// token_ids?: string,
-		collection: string
+		contract_address: string
 		// collection_editor?: string,
 		// order_direction: 'asc' | 'desc',
 		// asset_contract_address?: string,
@@ -92,10 +119,14 @@ type OpeanSeaApi = {
 		// cursor: number,
 		// include_orders: boolean
 	) => Promise<Asset[]>;
-	collections: (
-		offset: number,
-		limit: number
-	) => Promise<Array<Contract & { [key: string]: any }>>;
+	collections: {
+		top: () => Promise<{ [key: string]: unknown }>
+
+	};
+	collection: (contract_address: string) => Promise<Collection>;
+	collection_stats: (
+		slug: string
+	) => Promise<{ [key: string]: unknown }>
 };
 
 type Aggregator = {

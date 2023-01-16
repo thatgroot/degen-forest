@@ -1,1 +1,1 @@
-export { default as component } from "..\\..\\..\\src\\routes\\(app)\\analytics\\nft\\+page.svelte";
+export { default as component } from "../../../src/routes/(app)/analytics/nft/+page.svelte";

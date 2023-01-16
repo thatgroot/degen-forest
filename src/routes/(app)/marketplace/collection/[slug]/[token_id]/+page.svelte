@@ -41,7 +41,7 @@
 				loading="lazy"
 				class="rounded-lg"
 				alt="..."
-				src={asset.image_preview_url ?? 'https://picsum.photos/200/300'}
+				src={asset.image_preview_url}
 			/>
 
 			<div class="flex flex-col border-2 border-secondary roundelg">

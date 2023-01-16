@@ -1,10 +1,21 @@
-import aggregator from '$lib/api/aggregator';
+import { getTopNFTContracts } from '$lib/api/nftports';
 import type { PageLoad } from './$types';
 
 export async function load(params: PageLoad) {
-	const collections = await aggregator.get.openSea.collections(1, 100);
+
+	console.log(
+		`[load] src/routes/(app)/marketplace/popular-collections/+page.ts`,
+		params
+	)
+
+	// getTopNFTContracts
+	const topNFTContracts = await getTopNFTContracts();
+	console.log(
+		`[load] src/routes/(app)/marketplace/popular-collections/+page.ts`,
+		{ topNFTContracts }
+	)
 
 	return {
-		collections
+		collections: topNFTContracts
 	};
 }
