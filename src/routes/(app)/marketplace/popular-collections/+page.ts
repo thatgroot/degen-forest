@@ -1,4 +1,3 @@
-import { getTopNFTContracts } from '$lib/api/nftports';
 import type { PageLoad } from './$types';
 
 export async function load(params: PageLoad) {
@@ -9,13 +8,13 @@ export async function load(params: PageLoad) {
 	)
 
 	// getTopNFTContracts
-	const topNFTContracts = await getTopNFTContracts();
-	console.log(
-		`[load] src/routes/(app)/marketplace/popular-collections/+page.ts`,
-		{ topNFTContracts }
-	)
+	// const topNFTContracts = await getTopNFTContracts();
+	// console.log(
+	// 	`[load] src/routes/(app)/marketplace/popular-collections/+page.ts`,
+	// 	{ topNFTContracts }
+	// )
 
 	return {
-		collections: topNFTContracts
+		collections: []
 	};
 }

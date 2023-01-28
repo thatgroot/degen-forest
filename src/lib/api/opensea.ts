@@ -1,12 +1,7 @@
-import axios from 'axios';
 
-const opensea = axios.create({
- baseURL: 'https://api.opensea.io/api/v1/',
- headers: {
-  'Content-Type': 'application/json',
-  'x-api-key': 'YOUR_API_KEY',
- },
-});
+
+import  OpenSeaAPI from 'opensea-js' ;
+import Web3 from  'web3' ;
 
 
 export async function getAsset(asset_contract_address: string, token_id: string, include_orders = true) {
@@ -38,17 +33,19 @@ export async function getAssets(contract_address: string, limit = 20, include_or
  console.log('data', data)
  const assets: Array<Asset> = data.assets;
 
- const sortedAssets = assets.sort((a, b) => {
+ const sortedAssets = assets?.sort((a, b) => {
   if (!a.seaport_sell_orders || !b.seaport_sell_orders) {
    return 0;
   }
   const aCurrentPrice = a.seaport_sell_orders[0].current_price;
   const bCurrentPrice = b.seaport_sell_orders[0].current_price;
   return aCurrentPrice - bCurrentPrice;
- });
+ }) ?? [];
 
  return sortedAssets;
 }
+
+
 
 
 

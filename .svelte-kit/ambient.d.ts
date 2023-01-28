@@ -83,6 +83,7 @@ declare module '$env/static/private' {
 	export const npm_config_strict_ssl: string;
 	export const npm_package_dependencies_ipfs_http_client: string;
 	export const npm_config_version_git_message: string;
+	export const npm_package_dependencies_firebase: string;
 	export const LOGNAME: string;
 	export const YARN_WRAP_OUTPUT: string;
 	export const npm_package_dependencies__nomiclabs_hardhat_ethers: string;

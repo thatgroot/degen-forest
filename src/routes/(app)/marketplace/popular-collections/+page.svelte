@@ -4,10 +4,12 @@
 	import { onMount } from 'svelte';
 
 	// export let data: { collections: ContractType[] };
-	export let topContracts: Array<NftPortsContract>;
+	export let topContracts: Array<any> = [];
 
 	onMount(async () => {
-		topContracts = await getTopNFTContracts();
+		const contracts = (await getTopNFTContracts()) ?? [];
+		topContracts = contracts.data;
+		console.log('topContracts', topContracts);
 	});
 </script>
 
@@ -37,8 +39,10 @@
 				</thead>
 
 				<tbody>
-					{#each topContracts ?? [] as contract}
-						<tr>
+
+						{#each topContracts as contract}
+
+					<tr>
 							<td class="flex justify-between items-center gap-4 max-w-fit m-4">
 								<img
 									src={contract.metadata?.thumbnail_url ??
@@ -51,6 +55,22 @@
 									{contract.name}
 								</a>
 							</td>
+							<td>
+								{contract.stats.total_volume}
+							</td>
+							<td>
+								{contract.stats.one_day_change}
+							</td>
+							<td>
+								{contract.stats.floor_price}
+							</td>
+							<td>
+								{contract.stats.num_owners}
+							</td>
+							<td>
+								{contract.stats.total_supply}
+							</td>
+
 						</tr>
 					{/each}
 				</tbody>

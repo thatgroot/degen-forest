@@ -415,7 +415,6 @@ const web3_wallet: Wallet = {
 					type: 'function'
 				}
 			];
-			// @ts-ignore
 			const contract = new web3.eth.Contract(_abi, token.address);
 
 			const res = await contract.methods.balanceOf(web3_wallet.defaultAccount()).call();
@@ -799,10 +798,8 @@ export const do_swap = (amountToSend: string, fromToken: Token, toToken: Token) 
 			// 1inch swap api call using fetch
 			const from_address = await signer.getAddress();
 			const response = await fetch(
-				`https://api.1inch.exchange/v4.0/1/swap?fromTokenAddress=${
-					fromToken.address
-				}&toTokenAddress=${
-					toToken.address
+				`https://api.1inch.exchange/v4.0/1/swap?fromTokenAddress=${fromToken.address
+				}&toTokenAddress=${toToken.address
 				}&amount=${parsedAmountFromToken.toString()}&fromAddress=${from_address}&slippage=1`
 			);
 
@@ -843,8 +840,7 @@ export const do_swap = (amountToSend: string, fromToken: Token, toToken: Token) 
 			setTimeout(
 				() =>
 					alert(
-						`Converted ${formatUnits(swap.fromTokenAmount, swap.fromToken.decimals)} ${
-							swap.fromToken.symbol
+						`Converted ${formatUnits(swap.fromTokenAmount, swap.fromToken.decimals)} ${swap.fromToken.symbol
 						} to ${formatUnits(swap.toTokenAmount, swap.toToken.decimals)} ${swap.toToken.symbol}`
 					),
 				1000
